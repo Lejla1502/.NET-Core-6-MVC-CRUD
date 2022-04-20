@@ -38,7 +38,7 @@
           "lib/netstandard2.0/MessagePack.Annotations.dll": {}
         }
       },
-      "MessagePackAnalyzer/2.1.152": {
+      "MessagePackAnalyzer/2.3.85": {
         "type": "package"
       },
       "Microsoft.AspNetCore.Razor.Language/6.0.0": {
@@ -3158,17 +3158,17 @@
         "messagepack.annotations.nuspec"
       ]
     },
-    "MessagePackAnalyzer/2.1.152": {
-      "sha512": "uJhZlGMkXDaFYsH8V9S6o1EyvsUqB9mpU4DVBXNr0DXZVzZMhuLP1IkLj5xK3EKlaAcvkFkZv3eSvuz360wb3Q==",
+    "MessagePackAnalyzer/2.3.85": {
+      "sha512": "tsuQeEaAzUgvqCw1lU+LBlWQuHhL70SOAx9tDNfD8Ns5BIZdZyJ/nuLH1g8N3YPXsUtzX+CEbM+JpKvaaLszcw==",
       "type": "package",
-      "path": "messagepackanalyzer/2.1.152",
+      "path": "messagepackanalyzer/2.3.85",
       "hasTools": true,
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
         "LICENSE",
         "analyzers/dotnet/MessagePackAnalyzer.dll",
-        "messagepackanalyzer.2.1.152.nupkg.sha512",
+        "messagepackanalyzer.2.3.85.nupkg.sha512",
         "messagepackanalyzer.nuspec",
         "tools/install.ps1",
         "tools/uninstall.ps1"
@@ -9645,6 +9645,7 @@
   },
   "projectFileDependencyGroups": {
     "net6.0": [
+      "MessagePackAnalyzer >= 2.3.85",
       "Microsoft.EntityFrameworkCore >= 6.0.4",
       "Microsoft.EntityFrameworkCore.SqlServer >= 6.0.4",
       "Microsoft.EntityFrameworkCore.Tools >= 6.0.4",
@@ -9653,19 +9654,19 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\Administrator\\.nuget\\packages\\": {}
+    "C:\\Users\\User\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Administrator\\source\\repos\\BulkyBook\\BulkyBookWeb\\BulkyBookWeb.csproj",
+      "projectUniqueName": "C:\\Users\\User\\source\\repos\\BulkyBook\\BulkyBookWeb\\BulkyBookWeb.csproj",
       "projectName": "BulkyBookWeb",
-      "projectPath": "C:\\Users\\Administrator\\source\\repos\\BulkyBook\\BulkyBookWeb\\BulkyBookWeb.csproj",
-      "packagesPath": "C:\\Users\\Administrator\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Administrator\\source\\repos\\BulkyBook\\BulkyBookWeb\\obj\\",
+      "projectPath": "C:\\Users\\User\\source\\repos\\BulkyBook\\BulkyBookWeb\\BulkyBookWeb.csproj",
+      "packagesPath": "C:\\Users\\User\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\User\\source\\repos\\BulkyBook\\BulkyBookWeb\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\Administrator\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\User\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
@@ -9691,6 +9692,10 @@
       "net6.0": {
         "targetAlias": "net6.0",
         "dependencies": {
+          "MessagePackAnalyzer": {
+            "target": "Package",
+            "version": "[2.3.85, )"
+          },
           "Microsoft.EntityFrameworkCore": {
             "target": "Package",
             "version": "[6.0.4, )"
