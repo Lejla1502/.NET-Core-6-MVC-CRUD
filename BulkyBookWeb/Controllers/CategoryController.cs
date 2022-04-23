@@ -50,8 +50,8 @@ namespace BulkyBookWeb.Controllers
             {
                 return NotFound();   
             }
-            Category cat = _ctx.Categories.Find(id);
-            //category cat = _ctx.Categories.FirstOrDefault(u=>u.Id==id);
+            //Category cat = _ctx.Categories.Find(id);
+            Category cat = _ctx.Categories.FirstOrDefault(u=>u.Id==id);
             //Category cat = _ctx.Categories.SingleOrDefault(u => u.Id == id);
 
             if (cat == null)
