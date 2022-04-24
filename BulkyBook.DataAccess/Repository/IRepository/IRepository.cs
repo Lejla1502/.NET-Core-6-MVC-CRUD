@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -10,11 +11,13 @@ namespace BulkyBook.DataAccess.Repository.IRepository
     {
         //this interface should be generic and should be able to handle all of the classes
 
+        T GetFirstOrDefault(Expression<Func<T, bool>> filter);
         IEnumerable<T> GetAll();
 
         void Add(T entity);
 
-        T FindById(int id);
+        void Remove(T entity);
+        void RemoveRange(IEnumerable<T> entity);
 
     }
 }
