@@ -12,6 +12,7 @@ namespace BulkyBook.DataAccess.Repository.IRepository
         //plus global method Save
 
         ICategoryRepository Category { get; }
+        ICoverTypeRepository CoverType { get; }
         public void Save();
     }
 }
