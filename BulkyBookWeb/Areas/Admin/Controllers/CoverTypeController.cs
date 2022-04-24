@@ -2,7 +2,7 @@
 using BulkyBook.Models;
 using Microsoft.AspNetCore.Mvc;
 
-namespace BulkyBookWeb.Controllers
+namespace BulkyBookWeb.Admin.Controllers
 {
     public class CoverTypeController : Controller
     {
