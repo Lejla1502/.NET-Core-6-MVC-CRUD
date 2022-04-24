@@ -12,7 +12,7 @@ builder.Services.AddDbContext<ApplicationDbContext>(options=>options.UseSqlServe
     builder.Configuration.GetConnectionString("DefaultConnection")));
 
 builder.Services.AddRazorPages();
-builder.Services.AddScoped<ICategoryRepository, CategoryRepository>();
+builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 
 var app = builder.Build();
 
