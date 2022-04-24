@@ -1,4 +1,5 @@
 ﻿using BulkyBook.DataAccess;
+using BulkyBook.DataAccess.Repository.IRepository;
 using BulkyBook.Models;
 using Microsoft.AspNetCore.Mvc;
 
@@ -6,14 +7,14 @@ namespace BulkyBookWeb.Controllers
 {
     public class CategoryController : Controller
     {
-        private readonly ApplicationDbContext _ctx;
-        public CategoryController(ApplicationDbContext ctx)
+        private readonly ICategoryRepository _ctx;
+        public CategoryController(ICategoryRepository ctx)
         {
             _ctx = ctx;
         }
         public IActionResult Index()
         {
-            IEnumerable<Category> cat = _ctx.Categories;
+            IEnumerable<Category> cat = _ctx.GetAll();
 
             return View(cat);
         }
@@ -35,8 +36,8 @@ namespace BulkyBookWeb.Controllers
             }
             if (ModelState.IsValid)
             {
-                _ctx.Categories.Add(cat);
-                _ctx.SaveChanges();
+                _ctx.Add(cat);
+                _ctx.Save();
                 TempData["success"] = "Category created successfully";
                 return RedirectToAction("Index");
             }
@@ -51,7 +52,7 @@ namespace BulkyBookWeb.Controllers
                 return NotFound();   
             }
             //Category cat = _ctx.Categories.Find(id);
-            Category cat = _ctx.Categories.FirstOrDefault(u=>u.Id==id);
+            Category cat = _ctx.GetFirstOrDefault(u=>u.Id==id);
             //Category cat = _ctx.Categories.SingleOrDefault(u => u.Id == id);
 
             if (cat == null)
@@ -73,8 +74,8 @@ namespace BulkyBookWeb.Controllers
             }
             if (ModelState.IsValid)
             {
-                _ctx.Categories.Update(cat);
-                _ctx.SaveChanges();
+                _ctx.Update(cat);
+                _ctx.Save();
                 TempData["success"] = "Category edited successfully";
                 return RedirectToAction("Index");
             }
@@ -92,13 +93,13 @@ namespace BulkyBookWeb.Controllers
                 return NotFound();
             }
 
-            Category obj = _ctx.Categories.Find(id);
+            Category obj = _ctx.GetFirstOrDefault(u => u.Id == id);
 
             if (obj == null)
                 return NotFound();
 
-            _ctx.Categories.Remove(_ctx.Categories.Find(id));
-            _ctx.SaveChanges();
+            _ctx.Remove(_ctx.GetFirstOrDefault(u => u.Id == id));
+            _ctx.Save();
             TempData["success"] = "Category deleted successfully";
             return RedirectToAction("Index");
         }

@@ -538,3 +538,7 @@ C:\Users\Administrator\source\repos\BulkyBook\BulkyBookWeb\bin\Debug\net6.0\Bulk
 C:\Users\Administrator\source\repos\BulkyBook\BulkyBookWeb\bin\Debug\net6.0\BulkyBook.Models.dll
 C:\Users\Administrator\source\repos\BulkyBook\BulkyBookWeb\bin\Debug\net6.0\BulkyBook.DataAccess.pdb
 C:\Users\Administrator\source\repos\BulkyBook\BulkyBookWeb\bin\Debug\net6.0\BulkyBook.Models.pdb
+C:\Users\User\source\repos\BulkyBook\BulkyBookWeb\bin\Debug\net6.0\BulkyBook.DataAccess.dll
+C:\Users\User\source\repos\BulkyBook\BulkyBookWeb\bin\Debug\net6.0\BulkyBook.Models.dll
+C:\Users\User\source\repos\BulkyBook\BulkyBookWeb\bin\Debug\net6.0\BulkyBook.DataAccess.pdb
+C:\Users\User\source\repos\BulkyBook\BulkyBookWeb\bin\Debug\net6.0\BulkyBook.Models.pdb
