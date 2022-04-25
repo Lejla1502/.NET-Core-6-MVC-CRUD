@@ -18,8 +18,7 @@ namespace BulkyBookWeb.Areas.Admin.Controllers
         }
         public IActionResult Index()
         {
-            IEnumerable<Product> products = _unitOfWork.Product.GetAll();
-            return View(products);
+            return View();
         }
 
 
@@ -119,5 +118,14 @@ namespace BulkyBookWeb.Areas.Admin.Controllers
             return RedirectToAction("Index");
         }
 
+        //here we create API endpoints for datatable
+        #region API CALLS
+        [HttpGet]
+        public IActionResult GetAll()
+        {
+            var productList = _unitOfWork.Product.GetAll();
+            return Json(new { data = productList });
+        }
+        #endregion
     }
 }
