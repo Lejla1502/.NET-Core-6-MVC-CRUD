@@ -1,0 +1,76 @@
+﻿@model Product
+@{
+    
+    ViewData["Title"] = "Create";
+}
+
+
+<form method="post" asp-controller="Product" asp-action="Save">
+    <div class="mt-4">
+        <div class="row pb-2">
+            <h2 class="text-secondary">Create product</h2>
+        </div>
+    </div>
+  
+  <fieldset>
+    @*<div asp-validation-summary="All"></div>*@
+    <div class="form-group">
+      <label asp-for="Title" class="form-label mt-4">Product Title</label>
+      <input asp-for="Title" type="text" class="form-control" placeholder="Enter Title">
+      <span asp-validation-for="Title" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+      <label asp-for="Description" class="form-label mt-4">Product Description</label>
+      <textarea asp-for="Description" type="text" rows="3" class="form-control" placeholder="Enter Description"></textarea>
+      <span asp-validation-for="Description" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+      <label asp-for="ISBN" class="form-label mt-4">Product ISBN</label>
+      <input asp-for="ISBN" type="text" class="form-control" placeholder="Enter ISBN">
+      <span asp-validation-for="ISBN" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+      <label asp-for="Author" class="form-label mt-4">Author</label>
+      <input asp-for="Author" type="text" class="form-control" placeholder="Enter Author">
+      <span asp-validation-for="Title" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+      <label asp-for="ListPrice" class="form-label mt-4">ListPrice</label>
+      <input asp-for="ListPrice" type="text" class="form-control" placeholder="Enter ListPrice">
+      <span asp-validation-for="ListPrice" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+      <label asp-for="Price" class="form-label mt-4">Price</label>
+      <input asp-for="Price" type="text" class="form-control" placeholder="Enter Price">
+      <span asp-validation-for="Price" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+      <label asp-for="Price50" class="form-label mt-4">Price50</label>
+      <input asp-for="Price50" type="text" class="form-control" placeholder="Enter Price50">
+      <span asp-validation-for="Price50" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+      <label asp-for="Price100" class="form-label mt-4">Price100</label>
+      <input asp-for="Price100" type="text" class="form-control" placeholder="Enter Price100">
+      <span asp-validation-for="Price100" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+      <label asp-for="CategoryId" class="form-label mt-4">Category</label>
+      <select asp-for="CategoryId" asp-items="ViewBag.CategoryList" class="form-select">
+          <option disabled selected>--Select Category--</option>
+      </select>
+      <span asp-validation-for="CategoryId" class="text-danger"></span>
+    </div>
+       <br />
+    <button type="submit" class="btn btn-primary" style="width:150px">Submit</button>
+    <a asp-controller="Product" asp-action="Index" class="btn btn-secondary" style="width:150px">Back to List</a>
+  </fieldset>
+</form>
+
+@section Scripts
+{
+    @{
+        <partial name="_ValidationScriptsPartial"></partial>
+
+     }
+}

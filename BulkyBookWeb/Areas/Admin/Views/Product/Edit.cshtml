@@ -1,14 +1,14 @@
-﻿@model CoverType
+﻿@model Product
 @{
     ViewData["Title"] = "Edit";
 }
 
 
-<form method="post" asp-controller="CoverType" asp-action="SaveAfterEdit">
+<form method="post" asp-controller="Product" asp-action="SaveAfterEdit">
     
     <div class="mt-4">
         <div class="row pb-2">
-            <h2 class="text-secondary">Edit cover type</h2>
+            <h2 class="text-secondary">Edit Product</h2>
         </div>
     </div>
   <fieldset>
@@ -17,15 +17,15 @@
         <input type="hidden" asp-for="Id" />
     </div>
     <div class="form-group">
-      <label asp-for="Name" class="form-label mt-4">Cover type name</label>
-      <input asp-for="Name" type="text" class="form-control" placeholder="Enter cover type name">
-      <span asp-validation-for="Name" class="text-danger"></span>
+      <label asp-for="Title" class="form-label mt-4">Cover type name</label>
+      <input asp-for="Title" type="text" class="form-control" placeholder="Enter product title">
+      <span asp-validation-for="Title" class="text-danger"></span>
     </div>
     
    <br />
     
     <button type="submit" class="btn btn-warning" style="width:150px">Update</button>
-    <a asp-controller="CoverType" asp-action="Index" class="btn btn-secondary" style="width:150px">Back to List</a>
+    <a asp-controller="Product" asp-action="Index" class="btn btn-secondary" style="width:150px">Back to List</a>
   </fieldset>
 </form>
 

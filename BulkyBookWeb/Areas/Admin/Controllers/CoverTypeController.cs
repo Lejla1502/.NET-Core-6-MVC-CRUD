@@ -34,7 +34,7 @@ namespace BulkyBookWeb.Admin.Controllers
             {
                 _unitOfWork.CoverType.Add(obj);
                 _unitOfWork.Save();
-                TempData["success"] = "Category created successfully";
+                TempData["success"] = "Cover type created successfully";
                 return RedirectToAction("Index");
             }
             else
@@ -64,7 +64,7 @@ namespace BulkyBookWeb.Admin.Controllers
             {
                 _unitOfWork.CoverType.Update(obj);
                 _unitOfWork.Save();
-                TempData["success"] = "Category edited successfully";
+                TempData["success"] = "Cover type edited successfully";
                 return RedirectToAction("Index");
             }
             else
@@ -86,7 +86,7 @@ namespace BulkyBookWeb.Admin.Controllers
 
             _unitOfWork.CoverType.Remove(_unitOfWork.CoverType.GetFirstOrDefault(u => u.Id == id));
             _unitOfWork.Save();
-            TempData["success"] = "Category deleted successfully";
+            TempData["success"] = "Cover type deleted successfully";
             return RedirectToAction("Index");
         }
     }
