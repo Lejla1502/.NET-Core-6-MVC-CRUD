@@ -1,5 +1,6 @@
 ﻿using BulkyBook.DataAccess.Repository.IRepository;
 using BulkyBook.Models;
+using BulkyBook.Models.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 
@@ -22,35 +23,36 @@ namespace BulkyBookWeb.Areas.Admin.Controllers
 
         public IActionResult Upsert(int? id)
         {
+            ProductVM productVM = new ProductVM();
             if (id == 0 | id == null)
             {
-                IEnumerable<SelectListItem> CategoryList= _unitOfWork.Category.GetAll().Select(
-                    u=>new SelectListItem
+                productVM.Product = new();
+                productVM.CategoryList = _unitOfWork.Category.GetAll().Select(
+                    u => new SelectListItem
                     {
-                        Text=u.Name,
-                        Value=u.Id.ToString()
+                        Text = u.Name,
+                        Value = u.Id.ToString()
                     });
-
-                IEnumerable<SelectListItem> CoverTypeList = _unitOfWork.CoverType.GetAll().Select(
+                productVM.CoverTypeList = _unitOfWork.CoverType.GetAll().Select(
                    u => new SelectListItem
                    {
                        Text = u.Name,
                        Value = u.Id.ToString()
                    });
 
-                ViewBag.CategoryList = CategoryList;
-                //same thing as above, just different approach
-                ViewData["CoverTypeList"] = CoverTypeList;
+                //ViewBag.CategoryList = CategoryList;
+                ////same thing as above, just different approach
+                //ViewData["CoverTypeList"] = CoverTypeList;
 
-                return View();
+                return View(productVM);
             }
             else
             {
-                var objFromDb = _unitOfWork.Product.GetFirstOrDefault(x => x.Id == id);
-                if (objFromDb == null)
+                productVM.Product = _unitOfWork.Product.GetFirstOrDefault(x => x.Id == id);
+                if (productVM.Product == null)
                     return NotFound();
 
-                return View(objFromDb);
+                return View(productVM);
             }
         }
 
