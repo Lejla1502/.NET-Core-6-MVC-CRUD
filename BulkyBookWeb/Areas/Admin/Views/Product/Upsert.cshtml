@@ -6,62 +6,67 @@
 
 
 <form method="post" asp-controller="Product" asp-action="Save">
-    <div class="mt-4">
+    <div class="border p-3 mt-4 row">
         <div class="row pb-2">
-            <h2 class="text-secondary">Create product</h2>
+            <h2 class="text-secondary">@(Model.Product.Id!=0?"Update":"Create") Product</h2>
+            <hr />
         </div>
-    </div>
-  
-  <fieldset>
+    
+
     @*<div asp-validation-summary="All"></div>*@
-    <div class="form-group">
+    <div class="mb-3">
       <label asp-for="Product.Title" class="form-label mt-4">Product Title</label>
       <input asp-for="Product.Title" type="text" class="form-control" placeholder="Enter Title">
       <span asp-validation-for="Product.Title" class="text-danger"></span>
     </div>
-    <div class="form-group">
+    <div class="mb-3">
       <label asp-for="Product.Description" class="form-label mt-4">Product Description</label>
       <textarea asp-for="Product.Description" type="text" rows="3" class="form-control" placeholder="Enter Description"></textarea>
       <span asp-validation-for="Product.Description" class="text-danger"></span>
     </div>
-    <div class="form-group"> 
+    <div class="mb-3 col-6"> 
       <label asp-for="Product.ISBN" class="form-label mt-4">Product ISBN</label>
       <input asp-for="Product.ISBN" type="text" class="form-control" placeholder="Enter ISBN">
       <span asp-validation-for="Product.ISBN" class="text-danger"></span>
     </div>
-    <div class="form-group">
+    <div class="mb-3 col-6">
       <label asp-for="Product.Author" class="form-label mt-4">Author</label>
       <input asp-for="Product.Author" type="text" class="form-control" placeholder="Enter Author">
       <span asp-validation-for="Product.Author" class="text-danger"></span>
     </div>
-    <div class="form-group">
+    <div class="mb-3 col-6">
       <label asp-for="Product.ListPrice" class="form-label mt-4">ListPrice</label>
       <input asp-for="Product.ListPrice" type="text" class="form-control" placeholder="Enter ListPrice">
       <span asp-validation-for="Product.ListPrice" class="text-danger"></span>
     </div>
-    <div class="form-group">
+    <div class="mb-3 col-6">
       <label asp-for="Product.Price" class="form-label mt-4">Price</label>
       <input asp-for="Product.Price" type="text" class="form-control" placeholder="Enter Price">
       <span asp-validation-for="Product.Price" class="text-danger"></span>
     </div>
-    <div class="form-group">
+    <div class="mb-3 col-6">
       <label asp-for="Product.Price50" class="form-label mt-4">Price50</label>
       <input asp-for="Product.Price50" type="text" class="form-control" placeholder="Enter Price50">
       <span asp-validation-for="Product.Price50" class="text-danger"></span>
     </div>
-    <div class="form-group">
+    <div class="mb-3 col-6">
       <label asp-for="Product.Price100" class="form-label mt-4">Price100</label>
       <input asp-for="Product.Price100" type="text" class="form-control" placeholder="Enter Price100">
       <span asp-validation-for="Product.Price100" class="text-danger"></span>
     </div>
-    <div class="form-group">
+     <div class="mb-3">
+      <label asp-for="Product.ImageUrl" class="form-label mt-4">ImageUrl</label>
+      <input asp-for="Product.ImageUrl" id="uploadBox" type="file" class="form-control" />
+      <span asp-validation-for="Product.ImageUrl" class="text-danger"></span>
+    </div>
+    <div class="mb-3 col-6">
       <label asp-for="Product.CategoryId" class="form-label mt-4">Category</label>
       <select asp-for="Product.CategoryId" asp-items="@Model.CategoryList" class="form-select">
           <option disabled selected>--Select Category--</option>
       </select>
       <span asp-validation-for="Product.CategoryId" class="text-danger"></span>
     </div>
-    <div class="form-group">
+    <div class="mb-3 col-6">
       <label asp-for="Product.CoverTypeId" class="form-label mt-4">Category</label>
       <select asp-for="Product.CoverTypeId" asp-items="@Model.CoverTypeList"
       class="form-select">
@@ -70,9 +75,19 @@
       <span asp-validation-for="Product.CoverTypeId" class="text-danger"></span>
     </div>
        <br />
-    <button type="submit" class="btn btn-primary" style="width:150px">Submit</button>
-    <a asp-controller="Product" asp-action="Index" class="btn btn-secondary" style="width:150px">Back to List</a>
-  </fieldset>
+    <div class="col-12">
+        @if(Model.Product.Id!=0)
+        {
+             <button type="submit" class="btn btn-primary" style="width:150px">Update</button>
+        }
+        else
+        {
+             <button type="submit" onclick="return ValidateInput()" class="btn btn-primary" style="width:150px">Create</button>
+        }
+
+        <a asp-controller="Product" asp-action="Index" class="btn btn-secondary" style="width:150px">Back to List</a>
+    </div>
+  </div>
 </form>
 
 @section Scripts
@@ -81,4 +96,18 @@
         <partial name="_ValidationScriptsPartial"></partial>
 
      }
+     <script>
+        function ValidateInput(){
+            if(document.getElementById("uploadBox").value==""){
+                Swal.fire({
+                  icon: 'error',
+                  title: 'Oops...',
+                  text: 'Please upload an Image!'
+                });
+
+                return false;
+            }
+            return true;
+        }
+     </script>
 }
