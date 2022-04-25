@@ -3,16 +3,14 @@
     
     ViewData["Title"] = "Create";
 }
-
-
-<form method="post" asp-controller="Product" asp-action="Save">
+ 
+<form method="post" asp-controller="Product" asp-action="Upsert" enctype="multipart/form-data">
     <div class="border p-3 mt-4 row">
         <div class="row pb-2">
             <h2 class="text-secondary">@(Model.Product.Id!=0?"Update":"Create") Product</h2>
             <hr />
         </div>
     
-
     @*<div asp-validation-summary="All"></div>*@
     <div class="mb-3">
       <label asp-for="Product.Title" class="form-label mt-4">Product Title</label>
@@ -56,8 +54,7 @@
     </div>
      <div class="mb-3">
       <label asp-for="Product.ImageUrl" class="form-label mt-4">ImageUrl</label>
-      <input asp-for="Product.ImageUrl" id="uploadBox" type="file" class="form-control" />
-      <span asp-validation-for="Product.ImageUrl" class="text-danger"></span>
+      <input asp-for="Product.ImageUrl" id="uploadBox" name="file" type="file" class="form-control" />
     </div>
     <div class="mb-3 col-6">
       <label asp-for="Product.CategoryId" class="form-label mt-4">Category</label>

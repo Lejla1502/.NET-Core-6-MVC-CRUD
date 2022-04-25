@@ -10,9 +10,11 @@ namespace BulkyBookWeb.Areas.Admin.Controllers
     public class ProductController : Controller
     {
         private readonly IUnitOfWork _unitOfWork;
-        public ProductController(IUnitOfWork unitOfWork)
+        private readonly IWebHostEnvironment _hostEnvironment;
+        public ProductController(IUnitOfWork unitOfWork, IWebHostEnvironment hostEnvironment)
         {
             _unitOfWork = unitOfWork;
+            _hostEnvironment = hostEnvironment;
         }
         public IActionResult Index()
         {
@@ -58,11 +60,11 @@ namespace BulkyBookWeb.Areas.Admin.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Upsert(ProductVM obj, IFormFile file)
+        public IActionResult Upsert(ProductVM obj, IFormFile? file)
         {
             if (ModelState.IsValid)
             {
-                if (obj.Product.Id != 0 | obj.Product.Id != null)
+                if (obj.Product.Id != 0)
                 {
                     //_unitOfWork.Product.Update(obj.Product);
                     _unitOfWork.Save();
@@ -71,6 +73,28 @@ namespace BulkyBookWeb.Areas.Admin.Controllers
                 }
                 else
                 {
+                    //getting wwwroot path
+                    string wwwRootPath = _hostEnvironment.WebRootPath;
+                    if (file != null)
+                    {
+                        string fileName = Guid.NewGuid().ToString();
+
+                        //to find a final location where the file needs to be uploaded
+                        var uploads=Path.Combine(wwwRootPath, @"images\products");
+                        //to keep the same extension of the file
+                        var extension=Path.GetExtension(file.FileName);
+
+                        //we need to copy the file that was uploaded inside the product folder
+                        //we copy that using FileStream
+                        using (var fileStreams = new FileStream(Path.Combine(uploads, fileName + extension), FileMode.Create)) 
+                        {
+                            //copy file to location in FileStream
+                            file.CopyTo(fileStreams);
+                        }
+
+                        obj.Product.ImageUrl = @"images\products" + fileName + extension;
+                    }
+
                     _unitOfWork.Product.Add(obj.Product);
                     _unitOfWork.Save();
                     TempData["success"] = "Product created successfully";
