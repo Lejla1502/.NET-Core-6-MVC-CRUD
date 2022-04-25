@@ -546,3 +546,7 @@ C:\Users\Administrator\source\repos\BulkyBook\BulkyBookWeb\bin\Debug\net6.0\Micr
 C:\Users\Administrator\source\repos\BulkyBook\BulkyBookWeb\bin\Debug\net6.0\Microsoft.DotNet.PlatformAbstractions.dll
 C:\Users\Administrator\source\repos\BulkyBook\BulkyBookWeb\bin\Debug\net6.0\Microsoft.Extensions.DependencyModel.dll
 C:\Users\Administrator\source\repos\BulkyBook\BulkyBookWeb\bin\Debug\net6.0\Newtonsoft.Json.Bson.dll
+C:\Users\User\source\repos\BulkyBook\BulkyBookWeb\bin\Debug\net6.0\Microsoft.AspNetCore.JsonPatch.dll
+C:\Users\User\source\repos\BulkyBook\BulkyBookWeb\bin\Debug\net6.0\Microsoft.DotNet.PlatformAbstractions.dll
+C:\Users\User\source\repos\BulkyBook\BulkyBookWeb\bin\Debug\net6.0\Microsoft.Extensions.DependencyModel.dll
+C:\Users\User\source\repos\BulkyBook\BulkyBookWeb\bin\Debug\net6.0\Newtonsoft.Json.Bson.dll
