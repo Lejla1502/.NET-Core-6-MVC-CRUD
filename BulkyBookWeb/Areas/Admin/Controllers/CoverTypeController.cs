@@ -40,5 +40,54 @@ namespace BulkyBookWeb.Admin.Controllers
             else
                 return View("Create", obj);
         }
+
+        public IActionResult Edit(int? id)
+        {
+            if (id == null | id == 0)
+            {
+                return NotFound();
+            }
+            
+            CoverType obj = _unitOfWork.CoverType.GetFirstOrDefault(u => u.Id == id);
+
+            if (obj == null)
+                return NotFound();
+
+            return View(obj);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult SaveAfterEdit(CoverType obj)
+        {
+            if (ModelState.IsValid)
+            {
+                _unitOfWork.CoverType.Update(obj);
+                _unitOfWork.Save();
+                TempData["success"] = "Category edited successfully";
+                return RedirectToAction("Index");
+            }
+            else
+                return View("Edit", obj);
+        }
+
+        public IActionResult Delete(int? id)
+        {
+
+            if (id == null | id == 0)
+            {
+                return NotFound();
+            }
+
+            CoverType obj = _unitOfWork.CoverType.GetFirstOrDefault(u => u.Id == id);
+
+            if (obj == null)
+                return NotFound();
+
+            _unitOfWork.CoverType.Remove(_unitOfWork.CoverType.GetFirstOrDefault(u => u.Id == id));
+            _unitOfWork.Save();
+            TempData["success"] = "Category deleted successfully";
+            return RedirectToAction("Index");
+        }
     }
 }

@@ -1,25 +1,30 @@
 ﻿@model CoverType
 @{
-    ViewData["Title"] = "Create";
+    ViewData["Title"] = "Edit";
 }
 
 
-<form method="post" asp-controller="CoverType" asp-action="Save">
+<form method="post" asp-controller="CoverType" asp-action="SaveAfterEdit">
+    
     <div class="mt-4">
         <div class="row pb-2">
-            <h2 class="text-secondary">Create cover type</h2>
+            <h2 class="text-secondary">Edit category</h2>
         </div>
     </div>
-  
   <fieldset>
     @*<div asp-validation-summary="All"></div>*@
+    <div class="form-group">
+        <input type="hidden" asp-for="Id" />
+    </div>
     <div class="form-group">
       <label asp-for="Name" class="form-label mt-4">Cover type name</label>
       <input asp-for="Name" type="text" class="form-control" placeholder="Enter cover type name">
       <span asp-validation-for="Name" class="text-danger"></span>
     </div>
-       <br />
-    <button type="submit" class="btn btn-primary" style="width:150px">Submit</button>
+    
+   <br />
+    
+    <button type="submit" class="btn btn-warning" style="width:150px">Update</button>
     <a asp-controller="CoverType" asp-action="Index" class="btn btn-secondary" style="width:150px">Back to List</a>
   </fieldset>
 </form>
@@ -28,6 +33,5 @@
 {
     @{
         <partial name="_ValidationScriptsPartial"></partial>
-
      }
 }
