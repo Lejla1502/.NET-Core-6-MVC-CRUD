@@ -102,7 +102,7 @@ namespace BulkyBookWeb.Areas.Admin.Controllers
                         file.CopyTo(fileStreams);
                     }
 
-                    obj.Product.ImageUrl = @"images\products" + fileName + extension;
+                    obj.Product.ImageUrl = @"\images\products\" + fileName + extension;
                 }
 
                 if (obj.Product.Id == 0)
