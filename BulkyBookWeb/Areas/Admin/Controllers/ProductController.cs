@@ -69,42 +69,57 @@ namespace BulkyBookWeb.Areas.Admin.Controllers
         {
             if (ModelState.IsValid)
             {
-                if (obj.Product.Id != 0)
+                //getting wwwroot path
+                string wwwRootPath = _hostEnvironment.WebRootPath;
+                if (file != null)
                 {
-                    //_unitOfWork.Product.Update(obj.Product);
-                    _unitOfWork.Save();
-                    TempData["success"] = "Product edited successfully";
-                    return RedirectToAction("Index");
-                }
-                else
-                {
-                    //getting wwwroot path
-                    string wwwRootPath = _hostEnvironment.WebRootPath;
-                    if (file != null)
+                    string fileName = Guid.NewGuid().ToString();
+
+                    //to find a final location where the file needs to be uploaded
+                    var uploads=Path.Combine(wwwRootPath, @"images\products");
+                    //to keep the same extension of the file
+                    var extension=Path.GetExtension(file.FileName);
+
+                    //check if the file already exists in the DB, if so, delete it
+                    if(obj.Product.ImageUrl!=null)
                     {
-                        string fileName = Guid.NewGuid().ToString();
+                        //get the old image path
+                        //we need to trim the backward slash, because when we are adding image to DB
+                        //we don't use that
+                        var oldImagePath = Path.Combine(wwwRootPath, obj.Product.ImageUrl.TrimStart('\\'));
 
-                        //to find a final location where the file needs to be uploaded
-                        var uploads=Path.Combine(wwwRootPath, @"images\products");
-                        //to keep the same extension of the file
-                        var extension=Path.GetExtension(file.FileName);
+                        //check if any file exists in this old path, if yes, delete
+                        if(System.IO.File.Exists(oldImagePath))
+                            System.IO.File.Delete(oldImagePath);
 
-                        //we need to copy the file that was uploaded inside the product folder
-                        //we copy that using FileStream
-                        using (var fileStreams = new FileStream(Path.Combine(uploads, fileName + extension), FileMode.Create)) 
-                        {
-                            //copy file to location in FileStream
-                            file.CopyTo(fileStreams);
-                        }
-
-                        obj.Product.ImageUrl = @"images\products" + fileName + extension;
                     }
 
+                    //we need to copy the file that was uploaded inside the product folder
+                    //we copy that using FileStream
+                    using (var fileStreams = new FileStream(Path.Combine(uploads, fileName + extension), FileMode.Create)) 
+                    {
+                        //copy file to location in FileStream
+                        file.CopyTo(fileStreams);
+                    }
+
+                    obj.Product.ImageUrl = @"images\products" + fileName + extension;
+                }
+
+                if (obj.Product.Id == 0)
+                {
                     _unitOfWork.Product.Add(obj.Product);
                     _unitOfWork.Save();
                     TempData["success"] = "Product created successfully";
                     return RedirectToAction("Index");
                 }
+                else
+                {
+                    _unitOfWork.Product.Update(obj.Product);
+                    _unitOfWork.Save();
+                    TempData["success"] = "Product edited successfully";
+                    return RedirectToAction("Index");
+                }
+                
             }
             return View("Edit",obj);
         }
