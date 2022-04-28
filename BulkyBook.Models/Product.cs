@@ -21,23 +21,34 @@ namespace BulkyBook.Models
         public string Author { get; set; }
         [Required]
         [Range(1, 10000)]
+        [Display(Name = "List Price")]
+
         public double ListPrice { get; set; }
         [Required]
         [Range(1, 10000)]
+        [Display(Name = "Price for 1-50")]
+
         public double Price { get; set; }  //price if a person wants to buy just one product
         [Required]
         [Range(1, 10000)]
+        [Display(Name = "Price for 51-100")]
+
         public double Price50 { get; set; } //special pricing if a person is buying 50 books
         [Required]
         [Range(1, 10000)]
+        [Display(Name = "Price for 100+")]
+
         public double Price100 { get; set; } //special pricing if a person is buying 100 books
         [ValidateNever]
         public string ImageUrl { get; set; }
         [Required]
+        [Display(Name ="Category")]
         public int CategoryId { get; set; }
         [ValidateNever]
         public Category Category { get; set; }
         [Required]
+        [Display(Name = "Cover Type")]
+
         public int CoverTypeId { get; set; }
         [ValidateNever]
         public CoverType CoverType { get; set; }

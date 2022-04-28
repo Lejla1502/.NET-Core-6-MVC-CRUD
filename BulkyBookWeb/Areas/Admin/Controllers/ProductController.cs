@@ -24,22 +24,27 @@ namespace BulkyBookWeb.Areas.Admin.Controllers
 
         public IActionResult Upsert(int? id)
         {
-            ProductVM productVM = new ProductVM();
+            //this here will populate both Edit and Create in proper way
+            ProductVM productVM = new ProductVM
+            {
+                Product = new(),
+                CategoryList = _unitOfWork.Category.GetAll().Select(
+                u => new SelectListItem
+                {
+                    Text = u.Name,
+                    Value = u.Id.ToString()
+                }),
+                CoverTypeList = _unitOfWork.CoverType.GetAll().Select(
+               u => new SelectListItem
+               {
+                   Text = u.Name,
+                   Value = u.Id.ToString()
+               })
+            };
+
             if (id == 0 | id == null)
             {
-                productVM.Product = new();
-                productVM.CategoryList = _unitOfWork.Category.GetAll().Select(
-                    u => new SelectListItem
-                    {
-                        Text = u.Name,
-                        Value = u.Id.ToString()
-                    });
-                productVM.CoverTypeList = _unitOfWork.CoverType.GetAll().Select(
-                   u => new SelectListItem
-                   {
-                       Text = u.Name,
-                       Value = u.Id.ToString()
-                   });
+                
 
                 //ViewBag.CategoryList = CategoryList;
                 ////same thing as above, just different approach
@@ -49,6 +54,7 @@ namespace BulkyBookWeb.Areas.Admin.Controllers
             }
             else
             {
+               
                 productVM.Product = _unitOfWork.Product.GetFirstOrDefault(x => x.Id == id);
                 if (productVM.Product == null)
                     return NotFound();
