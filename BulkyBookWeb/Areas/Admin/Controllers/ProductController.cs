@@ -121,7 +121,7 @@ namespace BulkyBookWeb.Areas.Admin.Controllers
                 }
                 
             }
-            return View("Edit",obj);
+            return View(obj);
         }
 
         
