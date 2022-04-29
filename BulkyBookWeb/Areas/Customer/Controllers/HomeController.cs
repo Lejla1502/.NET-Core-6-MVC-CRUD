@@ -30,7 +30,7 @@ namespace BulkyBookWeb.Customer.Controllers
         {
             ShoppingCart cartObj = new ShoppingCart
             {
-                Product = _unitOfWork.Product.GetFirstOrDefault(x => x.Id == id),
+                Product = _unitOfWork.Product.GetFirstOrDefault(x => x.Id == id, includeProperties: "Category,CoverType"),
                 Count = 1
             };
 
