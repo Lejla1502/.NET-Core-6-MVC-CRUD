@@ -77,6 +77,19 @@ namespace BulkyBookWeb.Areas.Admin.Controllers
             return Json(new { data = companiesList });
         }
 
+        [HttpDelete]
+        public IActionResult Delete(int? id)
+        {
+            var objFromDB=_unitOfWork.Company.GetFirstOrDefault(x => x.Id == id);
+            if (objFromDB == null)
+                return Json(new { success=false, message = "Error while deleting" });
+            
+            _unitOfWork.Company.Remove(objFromDB);
+            _unitOfWork.Save();
+
+            return Json(new { success = true, message="Successfully deleted company" });
+        }
+
         #endregion
     }
 }
