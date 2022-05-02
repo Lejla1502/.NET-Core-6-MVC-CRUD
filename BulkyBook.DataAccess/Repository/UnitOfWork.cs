@@ -13,6 +13,7 @@ namespace BulkyBook.DataAccess.Repository
         public ICompanyRepository Company { get; private set; }
         public ICoverTypeRepository CoverType { get; private set; }
         public IProductRepository Product { get; private set; }
+        public IShoppingCartRepository ShoppingCart { get; private set; }
 
         //here we create global db context for our repositories, so we don't have to create in ever
         private readonly ApplicationDbContext _db;
@@ -22,7 +23,8 @@ namespace BulkyBook.DataAccess.Repository
             Category = new CategoryRepository(_db);
             Company = new CompanyRepository(_db);
             CoverType = new CoverTypeRepository(_db);
-            Product = new ProductRepository(_db);   
+            Product = new ProductRepository(_db);
+            ShoppingCart = new ShoppingCartRepository(_db);
         }
 
         public void Save()
