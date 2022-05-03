@@ -1,6 +1,7 @@
 ﻿using BulkyBook.DataAccess.Repository.IRepository;
 using BulkyBook.Models;
 using BulkyBook.Models.ViewModels;
+using BulkyBookWeb.Areas.Customer.Controllers;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
@@ -59,7 +60,7 @@ namespace BulkyBookWeb.Customer.Controllers
             }
                
             _unitOfWork.Save();
-            return RedirectToAction(nameof(Index));
+            return RedirectToAction(nameof(Index), nameof(CartController).Replace("Controller", ""));
         }
 
         public IActionResult Privacy()
