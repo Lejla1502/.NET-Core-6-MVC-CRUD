@@ -10,7 +10,7 @@ namespace BulkyBook.DataAccess.Repository.IRepository
     {
         //here we will create all of the repositories
         //plus global method Save
-
+        IApplicationUserRepository ApplicationUser { get; }
         ICategoryRepository Category { get; }
         ICompanyRepository Company { get; }
         ICoverTypeRepository CoverType { get; }
