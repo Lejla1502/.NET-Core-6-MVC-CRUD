@@ -50,7 +50,8 @@ namespace BulkyBookWeb.Areas.Customer.Controllers
 
             ShoppingCartVM = new ShoppingCartVM()
             {
-                ListCart = _unitOfWork.ShoppingCart.GetAll(u => u.ApplicationUserId == claim.Value, includeProperties: "Product")
+                ListCart = _unitOfWork.ShoppingCart.GetAll(u => u.ApplicationUserId == claim.Value, includeProperties: "Product"),
+                OrderHeader = new()
             };
 
             ShoppingCartVM.OrderHeader.ApplicationUser = _unitOfWork.ApplicationUser.GetFirstOrDefault(a => a.Id == claim.Value);
@@ -72,7 +73,7 @@ namespace BulkyBookWeb.Areas.Customer.Controllers
 
             ShoppingCartVM.OrderHeader.OrderTotal = OrderTotal;
 
-            return View();
+            return View(ShoppingCartVM);
         }
 
 
