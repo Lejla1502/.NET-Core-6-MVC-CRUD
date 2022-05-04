@@ -1,4 +1,4 @@
-﻿@model IEnumerable<ShoppingCart>
+﻿@model BulkyBook.Models.ViewModels.ShoppingCartVM
 
 
 
@@ -13,13 +13,13 @@
 						Shopping Cart
 					</div>
 					<div class="col-6 text-end">
-						<a class="btn btn-outline-info btn-sm">Continue Shopping</a>
+						<a asp-area="Customer" asp-controller="Home" asp-action="Index" class="btn btn-outline-info btn-sm">Continue Shopping</a>
 					</div>
 				</div>
 			</div>
 
 			
-			@foreach(var cart in Model)
+			@foreach(var cart in Model.ListCart)
 			{
 				<div class="card-body">
 				<div class="row">
