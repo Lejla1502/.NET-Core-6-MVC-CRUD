@@ -38,6 +38,8 @@ namespace BulkyBookWeb.Areas.Customer.Controllers
                 OrderTotal += item.Price * item.Count;
             }
 
+            ShoppingCartVM.CartTotal = OrderTotal;
+
             return View(ShoppingCartVM);
         }
 
