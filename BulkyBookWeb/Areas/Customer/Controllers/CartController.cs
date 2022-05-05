@@ -88,6 +88,10 @@ namespace BulkyBookWeb.Areas.Customer.Controllers
             //preparing OrderHeader object for DB
             ShoppingCartVM.ListCart = _unitOfWork.ShoppingCart.GetAll(u => u.ApplicationUserId == claim.Value, includeProperties: "Product");
 
+            if (ShoppingCartVM.ListCart.Count() < 1)
+                return RedirectToAction("Index", "Home");
+
+
             foreach (var item in ShoppingCartVM.ListCart)
             {
                 item.Price = GetPriceByQuantity(item.Count, item.Product.Price, item.Product.Price50, item.Product.Price100);
