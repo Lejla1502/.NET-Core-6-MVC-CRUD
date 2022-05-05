@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "3XYgfIK+IrBEoU4cSvdey4vzF+bNBRbigKgukF+rivw=",
+  "Hash": "cieXmpbTEVAlhsYfqTwWxQGdsBt6r2FnvgOZsLA35Yg=",
   "Source": "BulkyBookWeb",
   "BasePath": "_content/BulkyBookWeb",
   "Mode": "Default",
@@ -1324,6 +1324,23 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\images\\products\\f9e938f7-87c6-4ccd-8e0c-d25453764f01.jpg"
+    },
+    {
+      "Identity": "C:\\Users\\Administrator\\Desktop\\MY PROJECT - EXPERIMENT\\BulkyBookWeb\\wwwroot\\images\\products\\lawn_leaf.jpg",
+      "SourceId": "BulkyBookWeb",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\Administrator\\Desktop\\MY PROJECT - EXPERIMENT\\BulkyBookWeb\\wwwroot\\",
+      "BasePath": "_content/BulkyBookWeb",
+      "RelativePath": "images/products/lawn_leaf.jpg",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\images\\products\\lawn_leaf.jpg"
     },
     {
       "Identity": "C:\\Users\\Administrator\\Desktop\\MY PROJECT - EXPERIMENT\\BulkyBookWeb\\wwwroot\\js\\company.js",

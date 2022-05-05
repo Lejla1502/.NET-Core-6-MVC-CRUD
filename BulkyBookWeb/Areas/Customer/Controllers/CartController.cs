@@ -169,16 +169,32 @@ namespace BulkyBookWeb.Areas.Customer.Controllers
             Response.Headers.Add("Location", session.Url);
             return new StatusCodeResult(303);   //redirecting to Stripe portal
 
-        //    _unitOfWork.ShoppingCart.RemoveRange(ShoppingCartVM.ListCart);
-        //    _unitOfWork.Save();
-            
-        //    return RedirectToAction(nameof(Index), nameof(HomeController).Replace("Controller", ""));
+      }
+
+        public IActionResult OrderConfirmation(int id)
+        {
+            //to check whether order was successful, we need to retrieve OrderHeader
+            //more precisely sessionId and paymentIntentId
+
+            OrderHeader orderHeader = _unitOfWork.OrderHeader.GetFirstOrDefault(u => u.Id == id);
+
+            var service = new SessionService();
+            Session session = service.Get(orderHeader.SessionId);
+
+            //check the stripe status
+            if(session.PaymentStatus.ToLower()=="paid")
+            {
+                _unitOfWork.OrderHeader.UpdateStatus(orderHeader.Id, StaticDetails.StatusApproved, StaticDetails.PaymentStatusApproved);
+                _unitOfWork.Save();
+            }
+
+            List<ShoppingCart> shoppingCarts = _unitOfWork.ShoppingCart.GetAll(u => u.ApplicationUserId == orderHeader.ApplicationUserId).ToList();
+
+            _unitOfWork.ShoppingCart.RemoveRange(shoppingCarts);
+            _unitOfWork.Save();
+
+            return View(id);
         }
-
-        //public IActionResult OrderConfirmation(int id)
-        //{
-
-        //}
 
         public IActionResult IncrementQuantity(int id)
         {
