@@ -39,7 +39,7 @@ namespace BulkyBook.DataAccess.Repository
             if (orderFromDb != null)
             {
                 orderFromDb.SessionId= sessionId;
-                orderFromDb.PaymentStatus = paymentIntentId;
+                orderFromDb.PaymentIntentId = paymentIntentId;
             }
         }
     }
