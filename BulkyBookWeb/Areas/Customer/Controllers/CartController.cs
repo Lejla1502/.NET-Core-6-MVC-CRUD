@@ -160,6 +160,12 @@ namespace BulkyBookWeb.Areas.Customer.Controllers
             var service = new SessionService();
             Session session = service.Create(options);  //creating a session for Stripe payment
 
+            //when the session is created, we have sessionId and PaymentIntentId, so we update
+            //OrderHeader based on those parameters
+            //so that in OrderConfirmation we retrieve them and check if payment was successful
+            _unitOfWork.OrderHeader.UpdateStripePaymentID(ShoppingCartVM.OrderHeader.Id, session.Id, session.PaymentIntentId);
+            _unitOfWork.Save();
+            
             Response.Headers.Add("Location", session.Url);
             return new StatusCodeResult(303);   //redirecting to Stripe portal
 
