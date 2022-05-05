@@ -5,6 +5,7 @@ using BulkyBook.Utility;
 using BulkyBookWeb.Customer.Controllers;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Stripe.Checkout;
 using System.Security.Claims;
 
 namespace BulkyBookWeb.Areas.Customer.Controllers
@@ -124,11 +125,54 @@ namespace BulkyBookWeb.Areas.Customer.Controllers
                 _unitOfWork.Save();
              }
 
-            _unitOfWork.ShoppingCart.RemoveRange(ShoppingCartVM.ListCart);
-            _unitOfWork.Save();
+            //stripe settings
+            var domain = "https://localhost:44311/";
+            var options = new SessionCreateOptions
+            {
+                PaymentMethodTypes  = new List<string> { "card"},
+                LineItems = new List<SessionLineItemOptions>(),
+                Mode = "payment",
+                SuccessUrl = domain + $"customer/cart/OrderConfirmation?id={ShoppingCartVM.OrderHeader.Id}",
+                CancelUrl = domain + $"customer/cart/index",
+            };
+
+            foreach(var item in ShoppingCartVM.ListCart)
+            {
+                options.LineItems.Add(
+                 new SessionLineItemOptions
+                    {
+                        PriceData = new SessionLineItemPriceDataOptions
+                        {
+                            UnitAmount = (long)(item.Price*100), //20.00 - > 2000,
+                            Currency = "usd",
+                            ProductData = new SessionLineItemPriceDataProductDataOptions
+                            {
+                                Name = item.Product.Title,
+                            },
+
+                        },
+                        Quantity = item.Count
+                    }
+                
+                );
+            }
+
+            var service = new SessionService();
+            Session session = service.Create(options);  //creating a session for Stripe payment
+
+            Response.Headers.Add("Location", session.Url);
+            return new StatusCodeResult(303);   //redirecting to Stripe portal
+
+        //    _unitOfWork.ShoppingCart.RemoveRange(ShoppingCartVM.ListCart);
+        //    _unitOfWork.Save();
             
-            return RedirectToAction(nameof(Index), nameof(HomeController).Replace("Controller", ""));
+        //    return RedirectToAction(nameof(Index), nameof(HomeController).Replace("Controller", ""));
         }
+
+        //public IActionResult OrderConfirmation(int id)
+        //{
+
+        //}
 
         public IActionResult IncrementQuantity(int id)
         {
