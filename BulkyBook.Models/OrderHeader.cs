@@ -16,7 +16,7 @@ namespace BulkyBook.Models
         [ForeignKey("ApplicationUserId")]
         [ValidateNever]
         public ApplicationUser ApplicationUser { get; set; }
-        public string OrderNumber { get; set; }
+       // public string OrderNumber { get; set; }
         [Required]
         public DateTime OrderDate { get; set; }
         public DateTime ShippingDate { get; set; }
