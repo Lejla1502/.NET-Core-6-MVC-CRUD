@@ -93,7 +93,6 @@ namespace BulkyBookWeb.Areas.Customer.Controllers
             if (ShoppingCartVM.ListCart.Count() < 1)
                 return RedirectToAction("Index", "Home");
 
-
             foreach (var item in ShoppingCartVM.ListCart)
             {
                 item.Price = GetPriceByQuantity(item.Count, item.Product.Price, item.Product.Price50, item.Product.Price100);
@@ -110,6 +109,7 @@ namespace BulkyBookWeb.Areas.Customer.Controllers
                 ShoppingCartVM.OrderHeader.PaymentStatus = StaticDetails.PaymentStatusDelayedPayment;
                 ShoppingCartVM.OrderHeader.OrderStatus = StaticDetails.StatusApproved;
             }
+
             ShoppingCartVM.OrderHeader.OrderDate = DateTime.Now;
             ShoppingCartVM.OrderHeader.ApplicationUserId = _unitOfWork.ApplicationUser.GetFirstOrDefault(a => a.Id == claim.Value).Id;
 

@@ -125,7 +125,6 @@ namespace BulkyBookWeb.Areas.Admin.Controllers
         }
 
         
-
         //here we create API endpoints for datatable
         #region API CALLS
         [HttpGet]
