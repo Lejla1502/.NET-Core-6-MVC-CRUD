@@ -33,7 +33,7 @@ namespace BulkyBookWeb.Areas.Customer.Controllers
             };
 
 
-            foreach(var item in ShoppingCartVM.ListCart)
+            foreach (var item in ShoppingCartVM.ListCart)
             {
                 item.Price = GetPriceByQuantity(item.Count, item.Product.Price, item.Product.Price50, item.Product.Price100);
                 ShoppingCartVM.OrderHeader.OrderTotal += item.Price * item.Count;
@@ -45,7 +45,7 @@ namespace BulkyBookWeb.Areas.Customer.Controllers
 
         public IActionResult Summary()
         {
-            
+
             var claimsIdentity = (ClaimsIdentity)User.Identity;
             var claim = claimsIdentity.FindFirst(ClaimTypes.NameIdentifier);
 
@@ -57,15 +57,15 @@ namespace BulkyBookWeb.Areas.Customer.Controllers
 
             ShoppingCartVM.OrderHeader.ApplicationUser = _unitOfWork.ApplicationUser.GetFirstOrDefault(a => a.Id == claim.Value);
 
-            
-            ShoppingCartVM.OrderHeader.Name            = ShoppingCartVM.OrderHeader.ApplicationUser.Name;
-            ShoppingCartVM.OrderHeader.PhoneNumber     = ShoppingCartVM.OrderHeader.ApplicationUser.PhoneNumber;
-            ShoppingCartVM.OrderHeader.StreetAddress   = ShoppingCartVM.OrderHeader.ApplicationUser.StreetAddress;
-            ShoppingCartVM.OrderHeader.City            = ShoppingCartVM.OrderHeader.ApplicationUser.City;
-            ShoppingCartVM.OrderHeader.State           = ShoppingCartVM.OrderHeader.ApplicationUser.State;
-            ShoppingCartVM.OrderHeader.PostalCode      = ShoppingCartVM.OrderHeader.ApplicationUser.PostalCode;
 
-            
+            ShoppingCartVM.OrderHeader.Name = ShoppingCartVM.OrderHeader.ApplicationUser.Name;
+            ShoppingCartVM.OrderHeader.PhoneNumber = ShoppingCartVM.OrderHeader.ApplicationUser.PhoneNumber;
+            ShoppingCartVM.OrderHeader.StreetAddress = ShoppingCartVM.OrderHeader.ApplicationUser.StreetAddress;
+            ShoppingCartVM.OrderHeader.City = ShoppingCartVM.OrderHeader.ApplicationUser.City;
+            ShoppingCartVM.OrderHeader.State = ShoppingCartVM.OrderHeader.ApplicationUser.State;
+            ShoppingCartVM.OrderHeader.PostalCode = ShoppingCartVM.OrderHeader.ApplicationUser.PostalCode;
+
+
 
             foreach (var item in ShoppingCartVM.ListCart)
             {
@@ -73,7 +73,6 @@ namespace BulkyBookWeb.Areas.Customer.Controllers
                 ShoppingCartVM.OrderHeader.OrderTotal += item.Price * item.Count;
             }
 
-           
 
             return View(ShoppingCartVM);
         }
@@ -104,12 +103,12 @@ namespace BulkyBookWeb.Areas.Customer.Controllers
             if (appUser.CompanyId == 0)
             {
                 ShoppingCartVM.OrderHeader.PaymentStatus = StaticDetails.PaymentStatusPending;
-                ShoppingCartVM.OrderHeader.OrderStatus   = StaticDetails.StatusPending;
+                ShoppingCartVM.OrderHeader.OrderStatus = StaticDetails.StatusPending;
             }
             else
             {
                 ShoppingCartVM.OrderHeader.PaymentStatus = StaticDetails.PaymentStatusDelayedPayment;
-                ShoppingCartVM.OrderHeader.OrderStatus   = StaticDetails.StatusApproved;
+                ShoppingCartVM.OrderHeader.OrderStatus = StaticDetails.StatusApproved;
             }
             ShoppingCartVM.OrderHeader.OrderDate = DateTime.Now;
             ShoppingCartVM.OrderHeader.ApplicationUserId = _unitOfWork.ApplicationUser.GetFirstOrDefault(a => a.Id == claim.Value).Id;
@@ -133,7 +132,7 @@ namespace BulkyBookWeb.Areas.Customer.Controllers
                 //pushing OrderDetail object to DB
                 _unitOfWork.OrderDetail.Add(od);
                 _unitOfWork.Save();
-             }
+            }
 
             if (appUser.CompanyId == 0)
             {
@@ -156,7 +155,7 @@ namespace BulkyBookWeb.Areas.Customer.Controllers
                          PriceData = new SessionLineItemPriceDataOptions
                          {
                              UnitAmount = (long)(item.Price * 100), //20.00 - > 2000,
-                         Currency = "usd",
+                             Currency = "usd",
                              ProductData = new SessionLineItemPriceDataProductDataOptions
                              {
                                  Name = item.Product.Title
@@ -184,14 +183,14 @@ namespace BulkyBookWeb.Areas.Customer.Controllers
             else
                 return RedirectToAction("OrderConfirmation", new { id = ShoppingCartVM.OrderHeader.Id });
 
-      }
+        }
 
         public IActionResult OrderConfirmation(int id)
         {
             //to check whether order was successful, we need to retrieve OrderHeader
             //more precisely sessionId and paymentIntentId
-            
-           
+
+
             OrderHeader orderHeader = _unitOfWork.OrderHeader.GetFirstOrDefault(u => u.Id == id);
 
             if (orderHeader.PaymentStatus != StaticDetails.PaymentStatusDelayedPayment)
@@ -210,8 +209,8 @@ namespace BulkyBookWeb.Areas.Customer.Controllers
 
             _unitOfWork.ShoppingCart.RemoveRange(shoppingCarts);
             _unitOfWork.Save();
-            
-            
+
+
             return View(id);
         }
 

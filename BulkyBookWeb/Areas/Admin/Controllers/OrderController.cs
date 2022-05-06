@@ -1,5 +1,6 @@
 ﻿using BulkyBook.DataAccess.Repository.IRepository;
 using BulkyBook.Models;
+using BulkyBook.Models.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 
 namespace BulkyBookWeb.Areas.Admin.Controllers
@@ -12,16 +13,19 @@ namespace BulkyBookWeb.Areas.Admin.Controllers
         {
             _unitOfWork = unitOfWork;
         }
+        
         public IActionResult Index()
         {
-            IEnumerable<OrderHeader> orders = _unitOfWork.OrderHeader.GetAll();
-            return View(orders);
+            return View();
         }
 
         #region API CALLS
         public IActionResult GetAll()
         {
-            var orderList = _unitOfWork.OrderHeader.GetAll();
+            IEnumerable<OrderHeader>  orderList = _unitOfWork.OrderHeader.GetAll(includeProperties:"ApplicationUser");
+
+            
+
             return Json(new { data = orderList });
         }
         #endregion

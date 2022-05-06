@@ -11,20 +11,20 @@ function loadDataTable() {
             "url": "/Admin/Order/GetAll"
         },
         "columns": [
-            { "data": "id", "width": "15%" },
-            { "data": "name", "width": "15%" },
+            { "data": "id", "width": "5%" },
+            { "data": "name", "width": "25%" },
             { "data": "phoneNumber", "width": "15%" },
-            { "data": "email", "width": "15%" },
-            { "data": "status", "width": "15%" },
-            { "data": "total", "width": "15%" },
+            { "data": "applicationUser.email", "width": "15%" },
+            { "data": "orderStatus", "width": "15%" },
+            { "data": "orderTotal", "width": "15%" },
             {
                 "data": "id",
                 "render": function (data) {
                     return `
                         <div class="w-75 btn-group" role="group">
-                        <a onClick=Delete('/Admin/Product/Delete/${data}')
-                        class="btn btn-danger mx-2"> <i class="bi bi-trash-fill"></i> Delete</a>
-					</div>
+                        <a href="/Admin/Order/Details?orderId=${data}"
+                        class="btn btn-primary mx-2"> <i class="bi bi-pencil-square"></i> Details</a>
+					    </div>
                         `
                 },
                 "width": "15%"
@@ -33,29 +33,3 @@ function loadDataTable() {
     });
 }
 
-function Delete(url) {
-    Swal.fire({
-        title: 'Are you sure?',
-        text: "You won't be able to revert this!",
-        icon: 'warning',
-        showCancelButton: true,
-        confirmButtonColor: '#3085d6',
-        cancelButtonColor: '#d33',
-        confirmButtonText: 'Yes, delete it!'
-    }).then((result) => {
-        if (result.isConfirmed) {
-            $.ajax({
-                url: url,
-                type: 'DELETE',
-                success: function (data) {
-                    if (data.success) {
-                        dataTable.ajax.reload();
-                        toastr.success(data.message);
-                    }
-                    else
-                        toastr.error(data.message);
-                }
-            })
-        }
-    })
-}
