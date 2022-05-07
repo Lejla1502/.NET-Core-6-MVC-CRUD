@@ -99,7 +99,7 @@ namespace BulkyBookWeb.Areas.Customer.Controllers
                 ShoppingCartVM.OrderHeader.OrderTotal += item.Price * item.Count;
             }
 
-            if (appUser.CompanyId == 0)
+            if (appUser.CompanyId == 0 || appUser.CompanyId == null)
             {
                 ShoppingCartVM.OrderHeader.PaymentStatus = StaticDetails.PaymentStatusPending;
                 ShoppingCartVM.OrderHeader.OrderStatus = StaticDetails.StatusPending;
@@ -112,6 +112,7 @@ namespace BulkyBookWeb.Areas.Customer.Controllers
 
             ShoppingCartVM.OrderHeader.OrderDate = DateTime.Now;
             ShoppingCartVM.OrderHeader.ApplicationUserId = _unitOfWork.ApplicationUser.GetFirstOrDefault(a => a.Id == claim.Value).Id;
+
 
             //pushing OrderHeader object to DB
             _unitOfWork.OrderHeader.Add(ShoppingCartVM.OrderHeader);
@@ -134,7 +135,7 @@ namespace BulkyBookWeb.Areas.Customer.Controllers
                 _unitOfWork.Save();
             }
 
-            if (appUser.CompanyId == 0)
+            if (appUser.CompanyId == 0 || appUser.CompanyId == null)
             {
                 //stripe settings
                 var domain = "https://localhost:44311/";
@@ -190,7 +191,6 @@ namespace BulkyBookWeb.Areas.Customer.Controllers
             //to check whether order was successful, we need to retrieve OrderHeader
             //more precisely sessionId and paymentIntentId
 
-
             OrderHeader orderHeader = _unitOfWork.OrderHeader.GetFirstOrDefault(u => u.Id == id);
 
             if (orderHeader.PaymentStatus != StaticDetails.PaymentStatusDelayedPayment)
@@ -205,11 +205,11 @@ namespace BulkyBookWeb.Areas.Customer.Controllers
                     _unitOfWork.Save(); 
                 }
             }
+
             List<ShoppingCart> shoppingCarts = _unitOfWork.ShoppingCart.GetAll(u => u.ApplicationUserId == orderHeader.ApplicationUserId).ToList();
 
             _unitOfWork.ShoppingCart.RemoveRange(shoppingCarts);
             _unitOfWork.Save();
-
 
             return View(id);
         }
