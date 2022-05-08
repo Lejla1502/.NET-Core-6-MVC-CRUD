@@ -64,6 +64,34 @@ namespace BulkyBookWeb.Areas.Admin.Controllers
             return RedirectToAction("Details", "Order", new {orderId=orderHeader.Id});
         }
 
+        public IActionResult StartProcessing()
+        {
+
+            _unitOfWork.OrderHeader.UpdateStatus(OrderVM.OrderHeader.Id, StaticDetails.StatusInProcess);
+            _unitOfWork.Save();
+
+            TempData["Success"] = "Order Status Updated Successfully";
+
+            return RedirectToAction("Details", "Order", new {orderId=OrderVM.OrderHeader.Id});
+        }
+
+        public IActionResult ShipOrder()
+        {
+            OrderHeader orderHeader = _unitOfWork.OrderHeader.GetFirstOrDefault(u => u.Id == OrderVM.OrderHeader.Id, tracked: false);
+
+            orderHeader.Carrier = OrderVM.OrderHeader.Carrier;
+            orderHeader.TrackingNumber = OrderVM.OrderHeader.TrackingNumber;
+            orderHeader.OrderStatus = StaticDetails.StatusShipped;
+            orderHeader.ShippingDate = DateTime.Now;
+
+            _unitOfWork.OrderHeader.Update(orderHeader);
+            _unitOfWork.Save();
+
+            TempData["Success"] = "Order Status Updated Successfully";
+
+            return RedirectToAction("Details", "Order", new { orderId = OrderVM.OrderHeader.Id });
+        }
+
         #region API CALLS
         [HttpGet]
         public IActionResult GetAll(string status)
