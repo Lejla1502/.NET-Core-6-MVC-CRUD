@@ -11,7 +11,7 @@ namespace BulkyBook.DataAccess.Repository.IRepository
     {
         //this interface should be generic and should be able to handle all of the classes
 
-        T GetFirstOrDefault(Expression<Func<T, bool>> filter, string? includeProperties = null);
+        T GetFirstOrDefault(Expression<Func<T, bool>> filter, string? includeProperties = null, bool tracked=true);
         IEnumerable<T> GetAll(Expression<Func<T, bool>>? filter=null, string? includeProperties = null);
 
         void Add(T entity);

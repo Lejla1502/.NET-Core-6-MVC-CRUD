@@ -39,9 +39,17 @@ namespace BulkyBook.DataAccess.Repository
         }
 
         public T GetFirstOrDefault(System.Linq.Expressions.Expression<Func<T, bool>> filter,
-            string? includeProperties = null)
+            string? includeProperties = null, bool tracked=true)
         {
-            IQueryable<T> query = dbSet.Where(filter);
+            IQueryable<T> query;
+
+            if (tracked)
+                query = dbSet;
+            else
+                query = dbSet.AsNoTracking();
+
+            query = query.Where(filter);
+
             if (includeProperties != null)
             {
                 foreach (var includeProp in includeProperties.Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries))
