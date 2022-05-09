@@ -1,10 +1,13 @@
 ﻿using BulkyBook.DataAccess.Repository.IRepository;
 using BulkyBook.Models;
+using BulkyBook.Utility;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace BulkyBookWeb.Areas.Admin.Controllers
 {
     [Area("Admin")]
+    [Authorize(Roles=StaticDetails.Role_Admin)]
     public class CompanyController : Controller
     {
         private readonly IUnitOfWork _unitOfWork;
@@ -46,7 +49,6 @@ namespace BulkyBookWeb.Areas.Admin.Controllers
         {
             if (ModelState.IsValid)
             {
-               
                 if (obj.Id == 0)
                 {
                     _unitOfWork.Company.Add(obj);
@@ -65,8 +67,6 @@ namespace BulkyBookWeb.Areas.Admin.Controllers
             }
             return View(obj);
         }
-
-
 
 
         #region API CALLS
