@@ -118,7 +118,7 @@ namespace BulkyBookWeb.Areas.Customer.Controllers
             _unitOfWork.OrderHeader.Add(ShoppingCartVM.OrderHeader);
             _unitOfWork.Save();
 
-
+            
             //------------>>>>>>>>>
             appUser.Name = ShoppingCartVM.OrderHeader.Name;
             appUser.StreetAddress = ShoppingCartVM.OrderHeader.StreetAddress;
