@@ -119,6 +119,24 @@ namespace BulkyBookWeb.Areas.Customer.Controllers
             _unitOfWork.Save();
 
 
+            //------------>>>>>>>>>
+            appUser.Name = ShoppingCartVM.OrderHeader.Name;
+            appUser.StreetAddress = ShoppingCartVM.OrderHeader.StreetAddress;
+            appUser.City = ShoppingCartVM.OrderHeader.City;
+            appUser.State = ShoppingCartVM.OrderHeader.State;
+            appUser.PhoneNumber = ShoppingCartVM.OrderHeader.PhoneNumber;
+            appUser.PostalCode = ShoppingCartVM.OrderHeader.PostalCode;
+            _unitOfWork.ApplicationUser.Update(appUser);
+            _unitOfWork.Save();
+
+            //------->>>>>>> is it neccessary to also update data for ApplicationUser if Admin decides 
+            //to change it (because like this, parameters like Name, Street, etc. will be "updated" 
+            //only for OrderHeader
+            //and we will deal with inconsistrency
+            //because user will be able to change personal data for every order, but originnal personal
+            //data will remain the same
+
+
             //preparing OrderDetails object to DB
             foreach (var item in ShoppingCartVM.ListCart)
             {
