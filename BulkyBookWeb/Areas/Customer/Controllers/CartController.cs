@@ -4,6 +4,7 @@ using BulkyBook.Models.ViewModels;
 using BulkyBook.Utility;
 using BulkyBookWeb.Customer.Controllers;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.Mvc;
 using Stripe.Checkout;
 using System.Security.Claims;
@@ -15,11 +16,13 @@ namespace BulkyBookWeb.Areas.Customer.Controllers
     public class CartController : Controller
     {
         private readonly IUnitOfWork _unitOfWork;
+        private readonly IEmailSender _emailSender;
         [BindProperty]
         public ShoppingCartVM ShoppingCartVM { get; set; }
-        public CartController(IUnitOfWork unitOfWork)
+        public CartController(IUnitOfWork unitOfWork, IEmailSender emailSender)
         {
             _unitOfWork = unitOfWork;
+            _emailSender = emailSender;
         }
         public IActionResult Index()
         {
@@ -39,13 +42,11 @@ namespace BulkyBookWeb.Areas.Customer.Controllers
                 ShoppingCartVM.OrderHeader.OrderTotal += item.Price * item.Count;
             }
 
-
             return View(ShoppingCartVM);
         }
 
         public IActionResult Summary()
         {
-
             var claimsIdentity = (ClaimsIdentity)User.Identity;
             var claim = claimsIdentity.FindFirst(ClaimTypes.NameIdentifier);
 
@@ -57,7 +58,6 @@ namespace BulkyBookWeb.Areas.Customer.Controllers
 
             ShoppingCartVM.OrderHeader.ApplicationUser = _unitOfWork.ApplicationUser.GetFirstOrDefault(a => a.Id == claim.Value);
 
-
             ShoppingCartVM.OrderHeader.Name = ShoppingCartVM.OrderHeader.ApplicationUser.Name;
             ShoppingCartVM.OrderHeader.PhoneNumber = ShoppingCartVM.OrderHeader.ApplicationUser.PhoneNumber;
             ShoppingCartVM.OrderHeader.StreetAddress = ShoppingCartVM.OrderHeader.ApplicationUser.StreetAddress;
@@ -66,13 +66,11 @@ namespace BulkyBookWeb.Areas.Customer.Controllers
             ShoppingCartVM.OrderHeader.PostalCode = ShoppingCartVM.OrderHeader.ApplicationUser.PostalCode;
 
 
-
             foreach (var item in ShoppingCartVM.ListCart)
             {
                 item.Price = GetPriceByQuantity(item.Count, item.Product.Price, item.Product.Price50, item.Product.Price100);
                 ShoppingCartVM.OrderHeader.OrderTotal += item.Price * item.Count;
             }
-
 
             return View(ShoppingCartVM);
         }
@@ -209,7 +207,7 @@ namespace BulkyBookWeb.Areas.Customer.Controllers
             //to check whether order was successful, we need to retrieve OrderHeader
             //more precisely sessionId and paymentIntentId
 
-            OrderHeader orderHeader = _unitOfWork.OrderHeader.GetFirstOrDefault(u => u.Id == id);
+            OrderHeader orderHeader = _unitOfWork.OrderHeader.GetFirstOrDefault(u => u.Id == id, includeProperties: "ApplicationUser");
 
             if (orderHeader.PaymentStatus != StaticDetails.PaymentStatusDelayedPayment)
             {
@@ -223,6 +221,46 @@ namespace BulkyBookWeb.Areas.Customer.Controllers
                     _unitOfWork.Save(); 
                 }
             }
+
+            var orderDetailsList = _unitOfWork.OrderDetail.GetAll(u=>u.OrderId==orderHeader.Id, includeProperties:"Product");
+
+            string emailBody = @"<div class=""container"">
+    <div class=""row"">
+        <h1 class=""text-align"" style=""padding-bottom:20px;""><i class=""bi bi-check2-square""></i></h1>
+        <h1>Thank You For Your Order!</h1>
+        <p>You've successfully completed your order. Thank you for shopping at our store. Below
+            are detailed information about the order you've purchased':
+        </p>
+
+    </div>
+    <div class=""row"">
+        <table class=""table table-responsive"">
+            <thead>
+                <tr>
+                    <th>
+                        Order Confirmation #
+                    </th>
+                    <th>" + orderHeader.Id + @"</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                     @foreach (var item in "+orderDetailsList.ToList()+@")
+                    {";
+            foreach (var item in orderDetailsList)
+                    {
+                        emailBody += @"<td> @" + item.Product.Title + "(  @" + item.Count + @")  </td >" ;
+
+                        emailBody += @"<td> @" + item.Price + @"</td>";
+
+                            
+                    }
+                emailBody+=@"}</tr>
+            </tbody>
+        </table>
+    </div>
+</div>";
+            _emailSender.SendEmailAsync(orderHeader.ApplicationUser.Email, "New Order - Bulky Book", emailBody);
 
             List<ShoppingCart> shoppingCarts = _unitOfWork.ShoppingCart.GetAll(u => u.ApplicationUserId == orderHeader.ApplicationUserId).ToList();
 
