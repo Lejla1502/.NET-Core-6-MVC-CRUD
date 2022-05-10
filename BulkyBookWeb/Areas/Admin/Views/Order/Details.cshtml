@@ -229,6 +229,10 @@
 									</div>
 								</li>
 							</ul>
+							@if (Model.OrderHeader.PaymentStatus == StaticDetails.PaymentStatusDelayedPayment && Model.OrderHeader.OrderStatus == StaticDetails.StatusShipped)
+								{
+									<input type="submit" class="btn btn-success form-control my-1" value="Pay Now" />
+								}
 							@if (User.IsInRole(StaticDetails.Role_Admin) || User.IsInRole(StaticDetails.Role_Employee))
 							{
 								@if (Model.OrderHeader.OrderStatus == StaticDetails.StatusApproved)
@@ -239,10 +243,6 @@
 								{
 									<input id="ship_order" asp-action="ShipOrder" onclick="return ValidateInput()" type="submit" class="btn btn-primary form-control my-1" value="Ship Order" />
 								} 
-								@if (Model.OrderHeader.PaymentStatus == StaticDetails.PaymentStatusDelayedPayment && Model.OrderHeader.OrderStatus == StaticDetails.StatusShipped)
-								{
-									<input type="submit" class="btn btn-success form-control my-1" value="Pay Now" />
-								}
 								@if(Model.OrderHeader.OrderStatus != StaticDetails.StatusRefunded && Model.OrderHeader.OrderStatus != StaticDetails.StatusCancelled && Model.OrderHeader.OrderStatus!= StaticDetails.StatusShipped)
 								{
 									<input type="submit" asp-action="CancelOrder" class="btn btn-danger form-control my-1" value="Cancel Order" />
