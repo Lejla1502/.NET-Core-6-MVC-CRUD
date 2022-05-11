@@ -68,8 +68,9 @@ namespace BulkyBookWeb.Customer.Controllers
             {
                 _unitOfWork.ShoppingCart.IncrementCount(cartFromDB, shoppingCart.Count);
                 _unitOfWork.Save();
+
             }
-               
+
             return RedirectToAction(nameof(Index), nameof(CartController).Replace("Controller", ""));
         }
 

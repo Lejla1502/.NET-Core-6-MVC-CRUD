@@ -350,26 +350,29 @@ namespace BulkyBookWeb.Areas.Customer.Controllers
             _unitOfWork.ShoppingCart.IncrementCount(sc, 1);
             _unitOfWork.Save();
 
+            HttpContext.Session.SetInt32(StaticDetails.SessionCart, _unitOfWork.ShoppingCart.GetAll(u => u.ApplicationUserId == sc.ApplicationUserId).ToList().Count);
+
+
             return RedirectToAction(nameof(Index));
         }
 
         public IActionResult DecrementQuantity(int id)
         {
-            var claimsIdentity = (ClaimsIdentity)User.Identity;
-            var claim = claimsIdentity.FindFirst(ClaimTypes.NameIdentifier);
-
             ShoppingCart sc = _unitOfWork.ShoppingCart.GetFirstOrDefault(x => x.Id == id);
             if (sc.Count > 1)
             {
                 _unitOfWork.ShoppingCart.DecrementCount(sc, 1);
                 _unitOfWork.Save();
+
+                HttpContext.Session.SetInt32(StaticDetails.SessionCart, _unitOfWork.ShoppingCart.GetAll(u => u.ApplicationUserId == sc.ApplicationUserId).ToList().Count);
+
             }
             else
             {
                 _unitOfWork.ShoppingCart.Remove(sc);
                 _unitOfWork.Save();
 
-                HttpContext.Session.SetInt32(StaticDetails.SessionCart, _unitOfWork.ShoppingCart.GetAll(u => u.ApplicationUserId == claim.Value).ToList().Count);
+                HttpContext.Session.SetInt32(StaticDetails.SessionCart, _unitOfWork.ShoppingCart.GetAll(u => u.ApplicationUserId == sc.ApplicationUserId).ToList().Count);
 
             }
 
@@ -379,15 +382,11 @@ namespace BulkyBookWeb.Areas.Customer.Controllers
 
         public IActionResult Remove(int id)
         {
-            var claimsIdentity = (ClaimsIdentity)User.Identity;
-            var claim = claimsIdentity.FindFirst(ClaimTypes.NameIdentifier);
-
-
             ShoppingCart sc = _unitOfWork.ShoppingCart.GetFirstOrDefault(x => x.Id == id);
             _unitOfWork.ShoppingCart.Remove(sc);
             _unitOfWork.Save();
 
-            HttpContext.Session.SetInt32(StaticDetails.SessionCart, _unitOfWork.ShoppingCart.GetAll(u => u.ApplicationUserId == claim.Value).ToList().Count);
+            HttpContext.Session.SetInt32(StaticDetails.SessionCart, _unitOfWork.ShoppingCart.GetAll(u => u.ApplicationUserId == sc.ApplicationUserId).ToList().Count);
 
 
             return RedirectToAction(nameof(Index));
