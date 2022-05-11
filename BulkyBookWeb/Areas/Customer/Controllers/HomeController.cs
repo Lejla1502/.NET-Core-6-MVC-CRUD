@@ -26,10 +26,6 @@ namespace BulkyBookWeb.Customer.Controllers
 
         public IActionResult Index()
         {
-            var claimsIdentity = (ClaimsIdentity)User.Identity;
-            var claim = claimsIdentity.FindFirst(ClaimTypes.NameIdentifier);
-            HttpContext.Session.SetInt32(StaticDetails.SessionCart, _unitOfWork.ShoppingCart.GetAll(u => u.ApplicationUserId == claim.Value).ToList().Count);
-
             IEnumerable<Product> listOfProducts = _unitOfWork.Product.GetAll(includeProperties:"Category,CoverType");
             
             return View(listOfProducts);
@@ -62,7 +58,8 @@ namespace BulkyBookWeb.Customer.Controllers
             {
                 _unitOfWork.ShoppingCart.Add(shoppingCart);
                 _unitOfWork.Save();
-                HttpContext.Session.SetInt32(StaticDetails.SessionCart, _unitOfWork.ShoppingCart.GetAll(u => u.ApplicationUserId == claim.Value).ToList().Count);
+                HttpContext.Session.SetInt32(StaticDetails.SessionCart,
+                    _unitOfWork.ShoppingCart.GetAll(u => u.ApplicationUserId == claim.Value).ToList().Count);
             }
             else
             {
@@ -70,6 +67,7 @@ namespace BulkyBookWeb.Customer.Controllers
                 _unitOfWork.Save();
 
             }
+
 
             return RedirectToAction(nameof(Index), nameof(CartController).Replace("Controller", ""));
         }
