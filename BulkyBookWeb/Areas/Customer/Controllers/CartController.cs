@@ -231,36 +231,39 @@ namespace BulkyBookWeb.Areas.Customer.Controllers
             var orderDetailsList = _unitOfWork.OrderDetail.GetAll(u=>u.OrderId==orderHeader.Id, includeProperties:"Product");
 
 
-            var webRoot = _environment.WebRootPath;
+            //var webRoot = _environment.WebRootPath;
 
-            var pathToFile = _environment.WebRootPath
-                            + Path.DirectorySeparatorChar.ToString()
-                            + "Templates"
-                            + Path.DirectorySeparatorChar.ToString()
-                            + "EmailTemplate"
-                            + Path.DirectorySeparatorChar.ToString()
-                            + "Confirm_Order.html";
+            //var pathToFile = _environment.WebRootPath
+            //                + Path.DirectorySeparatorChar.ToString()
+            //                + "Templates"
+            //                + Path.DirectorySeparatorChar.ToString()
+            //                + "EmailTemplate"
+            //                + Path.DirectorySeparatorChar.ToString()
+            //                + "Confirm_Order.html";
 
-            var builder = new BodyBuilder();
-            using (StreamReader SourceReader = System.IO.File.OpenText(pathToFile))
-            {
+            //var builder = new BodyBuilder();
+            //using (StreamReader SourceReader = System.IO.File.OpenText(pathToFile))
+            //{
 
-                builder.HtmlBody = SourceReader.ReadToEnd();
+            //    builder.HtmlBody = SourceReader.ReadToEnd();
 
-            }
+            //}
 
-            var mailBodyTemplate = System.IO.File.ReadAllText("wwwroot/Templates/EmailTemplate/Confirm_Order.html");
-            var tableRowTemplate = System.IO.File.ReadAllText("wwwroot/Templates/EmailTemplate/Order_Confirm_TableRow.html");
+            //var mailBodyTemplate = System.IO.File.ReadAllText("wwwroot/Templates/EmailTemplate/Confirm_Order.html");
+            //var tableRowTemplate = System.IO.File.ReadAllText("wwwroot/Templates/EmailTemplate/Order_Confirm_TableRow.html");
 
-            var tableRows = new StringBuilder();
+            //var tableRows = new StringBuilder();
+            //var totalPrice = 0;
+            //foreach (DataRow Row in Tables[0].Rows)
+            //{
+            //    totalPrice += Convert.ToInt32(Row["Price"]);
+            //    tableRows.AppendFormat(tableRowTemplate, Row["Name"], Row["UOM"], Row["Quantity"], Row["UnitPrice"], Row["Price"]);
+            //}
+            //var mailBody = string.Format(mailBodyTemplate, tableRows.ToString(), totalPrice);
+            //// Send your mail body
+            ///
+
             var totalPrice = 0;
-            foreach (DataRow Row in Tables[0].Rows)
-            {
-                totalPrice += Convert.ToInt32(Row["Price"]);
-                tableRows.AppendFormat(tableRowTemplate, Row["Name"], Row["UOM"], Row["Quantity"], Row["UnitPrice"], Row["Price"]);
-            }
-            var mailBody = string.Format(mailBodyTemplate, tableRows.ToString(), totalPrice);
-            // Send your mail body
 
             string emailBody = @"<div class=""container"">
     <div class=""row"">
@@ -282,18 +285,52 @@ namespace BulkyBookWeb.Areas.Customer.Controllers
                 </tr>
             </thead>
             <tbody>
-                <tr>
-                     @foreach (var item in "+orderDetailsList.ToList()+@")
-                    {";
+                ";
             foreach (var item in orderDetailsList)
                     {
-                        emailBody += @"<td> @" + item.Product.Title + "(  @" + item.Count + @")  </td >" ;
+                        emailBody += @"<tr>";
+                        emailBody += @"<td> " + item.Product.Title + "(  " + item.Count + @" )  </td >" ;
 
-                        emailBody += @"<td> @" + item.Price + @"</td>";
-
-                            
+                        emailBody += @"<td>" + item.Price.ToString("c") + @"</td>";
+                        emailBody += @"</tr>";
+                         
                     }
-                emailBody+=@"}</tr>
+            emailBody += @"
+            </tbody>
+            <tfoot>
+                <tr>
+                    <td>TOTAL</td>
+                    <td>"+(orderHeader.OrderTotal).ToString("c");
+            emailBody+= @"</td>
+                </tr>
+            </tfoot>
+        </table>
+    </div>
+    <div class=""row"">
+         <table class=""table table-responsive"">
+            <thead>
+                <tr>
+                    <th>
+                        Delivery Address
+                    </th>
+                    <th>
+                        Estimated Delivery Date
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>"+orderHeader.StreetAddress + @"</td>
+                    <td>" + orderHeader.ShippingDate + @"</td>
+                </tr>
+                 <tr>
+                    <td>" + orderHeader.City + " , " + orderHeader.State + @"</td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>" + orderHeader.PostalCode + @"</td>
+                    <td></td>
+                </tr>
             </tbody>
         </table>
     </div>
