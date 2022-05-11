@@ -8,6 +8,10 @@ using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.Mvc;
 using Stripe.Checkout;
 using System.Security.Claims;
+using System.IO;
+using System.Text;
+using System.Data;
+using MimeKit;
 
 namespace BulkyBookWeb.Areas.Customer.Controllers
 {
@@ -17,12 +21,14 @@ namespace BulkyBookWeb.Areas.Customer.Controllers
     {
         private readonly IUnitOfWork _unitOfWork;
         private readonly IEmailSender _emailSender;
+        private Microsoft.AspNetCore.Hosting.IHostingEnvironment _environment;
         [BindProperty]
         public ShoppingCartVM ShoppingCartVM { get; set; }
-        public CartController(IUnitOfWork unitOfWork, IEmailSender emailSender)
+        public CartController(IUnitOfWork unitOfWork, IEmailSender emailSender, Microsoft.AspNetCore.Hosting.IHostingEnvironment hostingEnvironment)
         {
             _unitOfWork = unitOfWork;
             _emailSender = emailSender;
+            _environment = hostingEnvironment;
         }
         public IActionResult Index()
         {
@@ -223,6 +229,38 @@ namespace BulkyBookWeb.Areas.Customer.Controllers
             }
 
             var orderDetailsList = _unitOfWork.OrderDetail.GetAll(u=>u.OrderId==orderHeader.Id, includeProperties:"Product");
+
+
+            var webRoot = _environment.WebRootPath;
+
+            var pathToFile = _environment.WebRootPath
+                            + Path.DirectorySeparatorChar.ToString()
+                            + "Templates"
+                            + Path.DirectorySeparatorChar.ToString()
+                            + "EmailTemplate"
+                            + Path.DirectorySeparatorChar.ToString()
+                            + "Confirm_Order.html";
+
+            var builder = new BodyBuilder();
+            using (StreamReader SourceReader = System.IO.File.OpenText(pathToFile))
+            {
+
+                builder.HtmlBody = SourceReader.ReadToEnd();
+
+            }
+
+            var mailBodyTemplate = System.IO.File.ReadAllText("wwwroot/Templates/EmailTemplate/Confirm_Order.html");
+            var tableRowTemplate = System.IO.File.ReadAllText("wwwroot/Templates/EmailTemplate/Order_Confirm_TableRow.html");
+
+            var tableRows = new StringBuilder();
+            var totalPrice = 0;
+            foreach (DataRow Row in Tables[0].Rows)
+            {
+                totalPrice += Convert.ToInt32(Row["Price"]);
+                tableRows.AppendFormat(tableRowTemplate, Row["Name"], Row["UOM"], Row["Quantity"], Row["UnitPrice"], Row["Price"]);
+            }
+            var mailBody = string.Format(mailBodyTemplate, tableRows.ToString(), totalPrice);
+            // Send your mail body
 
             string emailBody = @"<div class=""container"">
     <div class=""row"">
