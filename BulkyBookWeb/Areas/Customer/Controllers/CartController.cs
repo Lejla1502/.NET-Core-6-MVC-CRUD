@@ -121,7 +121,6 @@ namespace BulkyBookWeb.Areas.Customer.Controllers
             //pushing OrderHeader object to DB
             _unitOfWork.OrderHeader.Add(ShoppingCartVM.OrderHeader);
             _unitOfWork.Save();
-
             
             //------------>>>>>>>>>
             appUser.Name = ShoppingCartVM.OrderHeader.Name;
@@ -356,26 +355,40 @@ namespace BulkyBookWeb.Areas.Customer.Controllers
 
         public IActionResult DecrementQuantity(int id)
         {
+            var claimsIdentity = (ClaimsIdentity)User.Identity;
+            var claim = claimsIdentity.FindFirst(ClaimTypes.NameIdentifier);
+
             ShoppingCart sc = _unitOfWork.ShoppingCart.GetFirstOrDefault(x => x.Id == id);
             if (sc.Count > 1)
             {
                 _unitOfWork.ShoppingCart.DecrementCount(sc, 1);
+                _unitOfWork.Save();
             }
             else
             {
                 _unitOfWork.ShoppingCart.Remove(sc);
+                _unitOfWork.Save();
+
+                HttpContext.Session.SetInt32(StaticDetails.SessionCart, _unitOfWork.ShoppingCart.GetAll(u => u.ApplicationUserId == claim.Value).ToList().Count);
 
             }
 
-            _unitOfWork.Save();
+
             return RedirectToAction(nameof(Index));
         }
 
         public IActionResult Remove(int id)
         {
+            var claimsIdentity = (ClaimsIdentity)User.Identity;
+            var claim = claimsIdentity.FindFirst(ClaimTypes.NameIdentifier);
+
+
             ShoppingCart sc = _unitOfWork.ShoppingCart.GetFirstOrDefault(x => x.Id == id);
             _unitOfWork.ShoppingCart.Remove(sc);
             _unitOfWork.Save();
+
+            HttpContext.Session.SetInt32(StaticDetails.SessionCart, _unitOfWork.ShoppingCart.GetAll(u => u.ApplicationUserId == claim.Value).ToList().Count);
+
 
             return RedirectToAction(nameof(Index));
         }
