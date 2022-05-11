@@ -859,3 +859,4 @@ C:\Users\Administrator\Desktop\MY PROJECT - EXPERIMENT\BulkyBookWeb\bin\Debug\ne
 C:\Users\User\source\repos\BulkyBook\BulkyBookWeb\bin\Debug\net6.0\MailKit.dll
 C:\Users\User\source\repos\BulkyBook\BulkyBookWeb\bin\Debug\net6.0\MimeKit.dll
 C:\Users\User\source\repos\BulkyBook\BulkyBookWeb\bin\Debug\net6.0\BouncyCastle.Crypto.dll
+C:\Users\User\source\repos\BulkyBook\BulkyBookWeb\bin\Debug\net6.0\Microsoft.AspNetCore.Authentication.Facebook.dll

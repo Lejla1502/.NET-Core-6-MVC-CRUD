@@ -24,6 +24,12 @@ builder.Services.Configure<StripeSettings>(builder.Configuration.GetSection("Str
 
 builder.Services.AddRazorPages();
 
+builder.Services.AddAuthentication().AddFacebook(options =>
+{
+    options.AppId = "7272762792798438";
+    options.AppSecret = "fb739ce59b32fe2a26ae138f653ab08b";
+});
+
 builder.Services.ConfigureApplicationCookie(options =>
 {
     options.LoginPath = $"/Identity/Account/Login";
