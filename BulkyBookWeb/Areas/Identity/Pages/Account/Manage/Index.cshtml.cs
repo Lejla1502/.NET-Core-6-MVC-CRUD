@@ -6,6 +6,7 @@ using System;
 using System.ComponentModel.DataAnnotations;
 using System.Text.Encodings.Web;
 using System.Threading.Tasks;
+using BulkyBook.DataAccess.Repository.IRepository;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
@@ -16,13 +17,16 @@ namespace BulkyBookWeb.Areas.Identity.Pages.Account.Manage
     {
         private readonly UserManager<IdentityUser> _userManager;
         private readonly SignInManager<IdentityUser> _signInManager;
+        private readonly IUnitOfWork _unitOfWork;
 
         public IndexModel(
             UserManager<IdentityUser> userManager,
-            SignInManager<IdentityUser> signInManager)
+            SignInManager<IdentityUser> signInManager,
+            IUnitOfWork unitOfWork)
         {
             _userManager = userManager;
             _signInManager = signInManager;
+            _unitOfWork = unitOfWork;
         }
 
         /// <summary>
@@ -58,6 +62,10 @@ namespace BulkyBookWeb.Areas.Identity.Pages.Account.Manage
             [Phone]
             [Display(Name = "Phone number")]
             public string PhoneNumber { get; set; }
+            public string StreetAddress { get; set; }
+            public string City { get; set; }
+            public string State { get; set; }
+            public string PostalCode { get; set; }
         }
 
         private async Task LoadAsync(IdentityUser user)
@@ -67,9 +75,15 @@ namespace BulkyBookWeb.Areas.Identity.Pages.Account.Manage
 
             Username = userName;
 
+            var appUser = _unitOfWork.ApplicationUser.GetFirstOrDefault(u => u.Id == user.Id);
+
             Input = new InputModel
             {
-                PhoneNumber = phoneNumber
+                PhoneNumber = phoneNumber,
+                StreetAddress = appUser.StreetAddress,
+                City = appUser.City,
+                State= appUser.State,
+                PostalCode = appUser.PostalCode
             };
         }
 
@@ -109,6 +123,15 @@ namespace BulkyBookWeb.Areas.Identity.Pages.Account.Manage
                     return RedirectToPage();
                 }
             }
+
+            var appUser = _unitOfWork.ApplicationUser.GetFirstOrDefault(u => u.Id == user.Id);
+            appUser.StreetAddress = Input.StreetAddress;
+            appUser.City = Input.City;
+            appUser.State = Input.State;
+            appUser.PostalCode = Input.PostalCode;
+
+            _unitOfWork.ApplicationUser.Update(appUser);
+            _unitOfWork.Save();
 
             await _signInManager.RefreshSignInAsync(user);
             StatusMessage = "Your profile has been updated";
