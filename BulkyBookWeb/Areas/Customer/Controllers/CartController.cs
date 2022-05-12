@@ -341,6 +341,8 @@ namespace BulkyBookWeb.Areas.Customer.Controllers
             _unitOfWork.ShoppingCart.RemoveRange(shoppingCarts);
             _unitOfWork.Save();
 
+            HttpContext.Session.SetInt32(StaticDetails.SessionCart, 0);
+
             return View(id);
         }
 
