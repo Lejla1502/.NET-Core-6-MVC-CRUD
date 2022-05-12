@@ -23,11 +23,15 @@ builder.Services.Configure<StripeSettings>(builder.Configuration.GetSection("Str
 
 builder.Services.AddRazorPages();
 
-builder.Services.AddAuthentication().AddFacebook(options =>
-{
-    options.AppId = "7272762792798438";
-    options.AppSecret = "fb739ce59b32fe2a26ae138f653ab08b";
-});
+builder.Services.AddAuthentication()
+    .AddFacebook(options =>
+    {
+        options.AppId = "7272762792798438";
+        options.AppSecret = "fb739ce59b32fe2a26ae138f653ab08b";
+    }).AddGoogle(options => {
+        options.ClientId = "171441014134-cld3ocfufn9sle00fp0il557s3ir9evt.apps.googleusercontent.com";
+        options.ClientSecret = "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";
+    });
 
 builder.Services.ConfigureApplicationCookie(options =>
 {

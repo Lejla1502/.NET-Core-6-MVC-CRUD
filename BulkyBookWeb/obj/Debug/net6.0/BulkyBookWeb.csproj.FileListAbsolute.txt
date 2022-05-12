@@ -1150,3 +1150,4 @@ C:\Users\Administrator\Desktop\BulkyBook\BulkyBookWeb\obj\Debug\net6.0\refint\Bu
 C:\Users\Administrator\Desktop\BulkyBook\BulkyBookWeb\obj\Debug\net6.0\BulkyBookWeb.pdb
 C:\Users\Administrator\Desktop\BulkyBook\BulkyBookWeb\obj\Debug\net6.0\BulkyBookWeb.genruntimeconfig.cache
 C:\Users\Administrator\Desktop\BulkyBook\BulkyBookWeb\obj\Debug\net6.0\ref\BulkyBookWeb.dll
+C:\Users\Administrator\Desktop\BulkyBook\BulkyBookWeb\bin\Debug\net6.0\Microsoft.AspNetCore.Authentication.Google.dll
