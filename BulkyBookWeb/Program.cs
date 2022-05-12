@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI.Services;
 using BulkyBook.Utility;
 using Stripe;
+using BulkyBookWeb.Hubs;
 
 var builder = WebApplication.CreateBuilder(args);
 var connectionString = builder.Configuration.GetConnectionString("ApplicationDbContextConnection");;
@@ -22,6 +23,8 @@ builder.Services.AddDbContext<ApplicationDbContext>(options=>options.UseSqlServe
 builder.Services.Configure<StripeSettings>(builder.Configuration.GetSection("Stripe"));
 
 builder.Services.AddRazorPages();
+
+builder.Services.AddSignalR();
 
 builder.Services.AddAuthentication()
     .AddFacebook(options =>
@@ -78,5 +81,14 @@ app.MapRazorPages();
 app.MapControllerRoute(
     name: "default",
     pattern: "{area=Customer}/{controller=Home}/{action=Index}/{id?}");
+
+//app.UseEndpoints(endpoints =>
+//{
+
+//    endpoints.MapControllers();
+//    endpoints.MapHub<NotificationHub>("/NotificationHub");
+//});
+
+app.MapHub<NotificationHub>("/ NotificationHub");
 
 app.Run();
