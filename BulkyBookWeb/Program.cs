@@ -89,6 +89,6 @@ app.MapControllerRoute(
 //    endpoints.MapHub<NotificationHub>("/NotificationHub");
 //});
 
-app.MapHub<NotificationHub>("/ NotificationHub");
+app.MapHub<NotificationHub>("/NotificationHub");
 
 app.Run();

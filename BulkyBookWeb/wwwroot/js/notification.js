@@ -20,7 +20,8 @@ connection.start().then(function () {
     return console.error(err.toString());
 });
 
-document.getElementById("sendButton").addEventListener("click", function (event) {
+
+window.addEventListener("load", function () {
     var user = document.getElementById("userInput").value;
     var message = document.getElementById("messageInput").value;
     connection.invoke("SendMessage", user, message).catch(function (err) {
@@ -28,3 +29,11 @@ document.getElementById("sendButton").addEventListener("click", function (event)
     });
     event.preventDefault();
 });
+//document.getElementById("sendButton").addEventListener("click", function (event) {
+//    var user = document.getElementById("userInput").value;
+//    var message = document.getElementById("messageInput").value;
+//    connection.invoke("SendMessage", user, message).catch(function (err) {
+//        return console.error(err.toString());
+//    });
+//    event.preventDefault();
+//});
