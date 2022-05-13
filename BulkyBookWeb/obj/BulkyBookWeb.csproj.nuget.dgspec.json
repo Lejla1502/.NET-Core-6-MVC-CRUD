@@ -269,6 +269,10 @@
               "target": "Package",
               "version": "[2.3.85, )"
             },
+            "Microsoft.AspNet.SignalR.Core": {
+              "target": "Package",
+              "version": "[2.4.3, )"
+            },
             "Microsoft.AspNetCore.Authentication.Facebook": {
               "target": "Package",
               "version": "[6.0.5, )"
