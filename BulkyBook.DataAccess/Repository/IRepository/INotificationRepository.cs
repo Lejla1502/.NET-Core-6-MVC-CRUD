@@ -12,6 +12,7 @@ namespace BulkyBook.DataAccess.Repository.IRepository
         void Add(Notification notification, string userId);
         void Update(Notification notification);
         void ReadNotification(int id);
+        public List<NotificationApplicationUser> GetUserNotifications();
 
     }
 }

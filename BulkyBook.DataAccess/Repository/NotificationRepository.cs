@@ -1,5 +1,6 @@
 ﻿using BulkyBook.DataAccess.Repository.IRepository;
 using BulkyBook.Models;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -40,6 +41,13 @@ namespace BulkyBook.DataAccess.Repository
         {
             var notificationFromDb = _db.Notifications.FirstOrDefault(x => x.Id == id);
             notificationFromDb.IsRead = true;
+        }
+
+        public List<NotificationApplicationUser> GetUserNotifications()
+        {
+            return _db.NotificationApplicationUsers.Where(u =>!u.Notification.IsRead)
+                                            .Include(n => n.Notification)
+                                            .ToList();
         }
     }
 }
