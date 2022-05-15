@@ -89,6 +89,7 @@ app.MapControllerRoute(
 //    endpoints.MapHub<NotificationHub>("/NotificationHub");
 //});
 
+app.MapHub<OrderNotificationHub>("/orderNotificationHub");
 app.MapHub<NotificationHub>("/notificationHub");
 app.MapHub<ChatHub>("/chatHub");
 
