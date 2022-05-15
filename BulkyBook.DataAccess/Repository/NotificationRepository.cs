@@ -16,6 +16,21 @@ namespace BulkyBook.DataAccess.Repository
             _db = db;
         }
 
+        //this will probably need fixing later
+        public void Add(Notification notification, string userId)
+        {
+            _db.Notifications.Add(notification);    
+            _db.SaveChanges();
+
+            var userNotification = new NotificationApplicationUser();
+            userNotification.Date = DateTime.Now;
+            userNotification.ApplicationUserId = userId;
+            userNotification.NotificationId= notification.Id;
+
+            _db.NotificationApplicationUsers.Add(userNotification);
+            _db.SaveChanges();
+        }
+
         public void Update(Notification notification)
         {
             _db.Notifications.Update(notification);
