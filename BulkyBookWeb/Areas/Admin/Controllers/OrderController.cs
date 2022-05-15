@@ -106,6 +106,17 @@ namespace BulkyBookWeb.Areas.Admin.Controllers
                 {
                     _unitOfWork.OrderHeader.UpdateStatus(orderHeader.Id, orderHeader.OrderStatus, StaticDetails.PaymentStatusApproved);
                     _unitOfWork.Save();
+
+                    var username = orderHeader.ApplicationUser.Name;
+                    var orderNum = orderHeader.Id;
+
+                    var notification = new Notification
+                    {
+                        Text = $"{username} has completed the payment for the order {orderNum}"
+                    };
+
+                    _unitOfWork.Notification.Add(notification, orderHeader.ApplicationUserId);
+                    _unitOfWork.Save();
                 }
             }
 
