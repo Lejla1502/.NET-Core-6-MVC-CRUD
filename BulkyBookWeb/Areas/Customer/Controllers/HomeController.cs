@@ -31,6 +31,10 @@ namespace BulkyBookWeb.Customer.Controllers
             return View(listOfProducts);
         }
 
+        public IActionResult ChatDemo()
+        {
+            return View();
+        }
         public IActionResult Details(int productId)
         {
             ShoppingCart cartObj = new ShoppingCart

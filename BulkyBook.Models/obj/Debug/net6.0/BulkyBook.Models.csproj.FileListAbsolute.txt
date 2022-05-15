@@ -1,15 +1,3 @@
-C:\Users\Administrator\source\repos\BulkyBook\BulkyBook.Models\bin\Debug\net6.0\BulkyBook.Models.deps.json
-C:\Users\Administrator\source\repos\BulkyBook\BulkyBook.Models\bin\Debug\net6.0\BulkyBook.Models.dll
-C:\Users\Administrator\source\repos\BulkyBook\BulkyBook.Models\bin\Debug\net6.0\BulkyBook.Models.pdb
-C:\Users\Administrator\source\repos\BulkyBook\BulkyBook.Models\obj\Debug\net6.0\BulkyBook.Models.csproj.AssemblyReference.cache
-C:\Users\Administrator\source\repos\BulkyBook\BulkyBook.Models\obj\Debug\net6.0\BulkyBook.Models.GeneratedMSBuildEditorConfig.editorconfig
-C:\Users\Administrator\source\repos\BulkyBook\BulkyBook.Models\obj\Debug\net6.0\BulkyBook.Models.AssemblyInfoInputs.cache
-C:\Users\Administrator\source\repos\BulkyBook\BulkyBook.Models\obj\Debug\net6.0\BulkyBook.Models.AssemblyInfo.cs
-C:\Users\Administrator\source\repos\BulkyBook\BulkyBook.Models\obj\Debug\net6.0\BulkyBook.Models.csproj.CoreCompileInputs.cache
-C:\Users\Administrator\source\repos\BulkyBook\BulkyBook.Models\obj\Debug\net6.0\BulkyBook.Models.dll
-C:\Users\Administrator\source\repos\BulkyBook\BulkyBook.Models\obj\Debug\net6.0\refint\BulkyBook.Models.dll
-C:\Users\Administrator\source\repos\BulkyBook\BulkyBook.Models\obj\Debug\net6.0\BulkyBook.Models.pdb
-C:\Users\Administrator\source\repos\BulkyBook\BulkyBook.Models\obj\Debug\net6.0\ref\BulkyBook.Models.dll
 C:\Users\User\source\repos\BulkyBook\BulkyBook.Models\bin\Debug\net6.0\BulkyBook.Models.deps.json
 C:\Users\User\source\repos\BulkyBook\BulkyBook.Models\bin\Debug\net6.0\BulkyBook.Models.dll
 C:\Users\User\source\repos\BulkyBook\BulkyBook.Models\bin\Debug\net6.0\BulkyBook.Models.pdb
@@ -22,27 +10,3 @@ C:\Users\User\source\repos\BulkyBook\BulkyBook.Models\obj\Debug\net6.0\BulkyBook
 C:\Users\User\source\repos\BulkyBook\BulkyBook.Models\obj\Debug\net6.0\refint\BulkyBook.Models.dll
 C:\Users\User\source\repos\BulkyBook\BulkyBook.Models\obj\Debug\net6.0\BulkyBook.Models.pdb
 C:\Users\User\source\repos\BulkyBook\BulkyBook.Models\obj\Debug\net6.0\ref\BulkyBook.Models.dll
-C:\Users\Administrator\Desktop\MY PROJECT - EXPERIMENT\BulkyBook.Models\bin\Debug\net6.0\BulkyBook.Models.deps.json
-C:\Users\Administrator\Desktop\MY PROJECT - EXPERIMENT\BulkyBook.Models\bin\Debug\net6.0\BulkyBook.Models.dll
-C:\Users\Administrator\Desktop\MY PROJECT - EXPERIMENT\BulkyBook.Models\bin\Debug\net6.0\BulkyBook.Models.pdb
-C:\Users\Administrator\Desktop\MY PROJECT - EXPERIMENT\BulkyBook.Models\obj\Debug\net6.0\BulkyBook.Models.csproj.AssemblyReference.cache
-C:\Users\Administrator\Desktop\MY PROJECT - EXPERIMENT\BulkyBook.Models\obj\Debug\net6.0\BulkyBook.Models.GeneratedMSBuildEditorConfig.editorconfig
-C:\Users\Administrator\Desktop\MY PROJECT - EXPERIMENT\BulkyBook.Models\obj\Debug\net6.0\BulkyBook.Models.AssemblyInfoInputs.cache
-C:\Users\Administrator\Desktop\MY PROJECT - EXPERIMENT\BulkyBook.Models\obj\Debug\net6.0\BulkyBook.Models.AssemblyInfo.cs
-C:\Users\Administrator\Desktop\MY PROJECT - EXPERIMENT\BulkyBook.Models\obj\Debug\net6.0\BulkyBook.Models.csproj.CoreCompileInputs.cache
-C:\Users\Administrator\Desktop\MY PROJECT - EXPERIMENT\BulkyBook.Models\obj\Debug\net6.0\BulkyBook.Models.dll
-C:\Users\Administrator\Desktop\MY PROJECT - EXPERIMENT\BulkyBook.Models\obj\Debug\net6.0\refint\BulkyBook.Models.dll
-C:\Users\Administrator\Desktop\MY PROJECT - EXPERIMENT\BulkyBook.Models\obj\Debug\net6.0\BulkyBook.Models.pdb
-C:\Users\Administrator\Desktop\MY PROJECT - EXPERIMENT\BulkyBook.Models\obj\Debug\net6.0\ref\BulkyBook.Models.dll
-C:\Users\Administrator\Desktop\BulkyBook\BulkyBook.Models\bin\Debug\net6.0\BulkyBook.Models.deps.json
-C:\Users\Administrator\Desktop\BulkyBook\BulkyBook.Models\bin\Debug\net6.0\BulkyBook.Models.dll
-C:\Users\Administrator\Desktop\BulkyBook\BulkyBook.Models\bin\Debug\net6.0\BulkyBook.Models.pdb
-C:\Users\Administrator\Desktop\BulkyBook\BulkyBook.Models\obj\Debug\net6.0\BulkyBook.Models.csproj.AssemblyReference.cache
-C:\Users\Administrator\Desktop\BulkyBook\BulkyBook.Models\obj\Debug\net6.0\BulkyBook.Models.GeneratedMSBuildEditorConfig.editorconfig
-C:\Users\Administrator\Desktop\BulkyBook\BulkyBook.Models\obj\Debug\net6.0\BulkyBook.Models.AssemblyInfoInputs.cache
-C:\Users\Administrator\Desktop\BulkyBook\BulkyBook.Models\obj\Debug\net6.0\BulkyBook.Models.AssemblyInfo.cs
-C:\Users\Administrator\Desktop\BulkyBook\BulkyBook.Models\obj\Debug\net6.0\BulkyBook.Models.csproj.CoreCompileInputs.cache
-C:\Users\Administrator\Desktop\BulkyBook\BulkyBook.Models\obj\Debug\net6.0\BulkyBook.Models.dll
-C:\Users\Administrator\Desktop\BulkyBook\BulkyBook.Models\obj\Debug\net6.0\refint\BulkyBook.Models.dll
-C:\Users\Administrator\Desktop\BulkyBook\BulkyBook.Models\obj\Debug\net6.0\BulkyBook.Models.pdb
-C:\Users\Administrator\Desktop\BulkyBook\BulkyBook.Models\obj\Debug\net6.0\ref\BulkyBook.Models.dll
