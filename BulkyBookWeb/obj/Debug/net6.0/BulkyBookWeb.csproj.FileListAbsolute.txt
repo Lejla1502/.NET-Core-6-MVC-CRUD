@@ -1151,6 +1151,11 @@ C:\Users\Administrator\Desktop\BulkyBook\BulkyBookWeb\obj\Debug\net6.0\BulkyBook
 C:\Users\Administrator\Desktop\BulkyBook\BulkyBookWeb\obj\Debug\net6.0\BulkyBookWeb.genruntimeconfig.cache
 C:\Users\Administrator\Desktop\BulkyBook\BulkyBookWeb\obj\Debug\net6.0\ref\BulkyBookWeb.dll
 C:\Users\Administrator\Desktop\BulkyBook\BulkyBookWeb\bin\Debug\net6.0\Microsoft.AspNetCore.Authentication.Google.dll
+<<<<<<< HEAD
 C:\Users\User\source\repos\BulkyBook\BulkyBookWeb\bin\Debug\net6.0\libman.json
 C:\Users\User\source\repos\BulkyBook\BulkyBookWeb\bin\Debug\net6.0\Microsoft.AspNetCore.Authentication.Google.dll
 C:\Users\User\source\repos\BulkyBook\BulkyBookWeb\bin\Debug\net6.0\System.Net.WebSockets.WebSocketProtocol.dll
+=======
+C:\Users\Administrator\Desktop\BulkyBook\BulkyBookWeb\bin\Debug\net6.0\libman.json
+C:\Users\Administrator\Desktop\BulkyBook\BulkyBookWeb\bin\Debug\net6.0\System.Net.WebSockets.WebSocketProtocol.dll
+>>>>>>> 5c761ea85d7c842ac157a16facd276828fef0aca

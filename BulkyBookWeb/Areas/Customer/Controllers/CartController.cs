@@ -229,7 +229,6 @@ namespace BulkyBookWeb.Areas.Customer.Controllers
 
             var orderDetailsList = _unitOfWork.OrderDetail.GetAll(u=>u.OrderId==orderHeader.Id, includeProperties:"Product");
 
-
             //var webRoot = _environment.WebRootPath;
 
             //var pathToFile = _environment.WebRootPath
