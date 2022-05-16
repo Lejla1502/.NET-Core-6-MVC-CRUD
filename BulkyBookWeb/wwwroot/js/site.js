@@ -23,7 +23,7 @@ $(function(){
         //and appending text of each notification to <ul> list
         //and also extracting count and adding it to badge in navbar
 
-        var res = "<ul id='notify-group' class='list-group'>";
+        var res = "<ul class='list-group'>";
 
         $.ajax({
             url: "/Admin/Notification/GetNotification",
@@ -31,13 +31,12 @@ $(function(){
             success: function (result) {
                 $("#notificationCount").html(result.count);
                 var notifications = result.notificationApplicationUser;
-                //notifications.forEach(element => {
-                //    /*console.log(element.notification.text);*/
-                //    //console.log(element.notification.id);
-                //    res = res + "<li class='list-group-item notification-text' data-id='" + element.notification.id +"'>" + element.notification.text + "</li>";
-                //});
-                res = res + "<li id='single' class='list-group-item notification-text'> " + notifications[0].notification.text + "</li> ";
-                res = res + "</ul>";
+                notifications.forEach(element => {
+                    /*console.log(element.notification.text);*/
+                    //console.log(element.notification.id);
+                    res = res + "<li class='list-group-item notification-text' data-id='" + element.notification.id + "'>" + element.notification.text + "</li>";
+                });
+                
 
                 //here we are appending this list to "notification-content" in order to display it in popover
                 $("#notification-content").html(res);
@@ -51,18 +50,20 @@ $(function(){
     }
 
 
-    //since the popover list has been generated during runtime we need to go to parent of element 
+    //since the popover list has been generated during runtime we need to go to parent of element
     //from which we want to capture the event
-    //$("#notify-group").on('click', 'li.list-group-item.notification-text', function (e) {
-    //    console.log("anything");
-    //    alert("jsdhfjsdnfjksd");
-    //    var target = e.target;
-    //    var id = $(target).data('id');
-    //    console.log(id);
-    //});
-    $("#notify-group").click(function () {
-        console.log("hsjfhsjdhfkjsdfjsdfhjsdhfjshd");
+    $(document).on('click', 'li.notification-text', function (e) {
+        console.log("anything");
+        var target = e.target;
+        var id = $(target).data('id');
+        console.log(id);
+
+
     });
+    
+    //$("#notify-group").click(function () {
+    //    console.log("hsjfhsjdhfkjsdfjsdfhjsdhfjshd");
+    //});
 
     getNotification();
 });
