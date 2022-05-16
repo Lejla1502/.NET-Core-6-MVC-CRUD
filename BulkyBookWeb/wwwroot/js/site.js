@@ -29,7 +29,14 @@ $(function(){
             url: "/Admin/Notification/GetNotification",
             method: "GET",
             success: function (result) {
-                $("#notificationCount").html(result.count);
+                if (result.count != 0) {
+                    $("#notificationCount").html(result.count);
+                }
+                else {
+                    $("#notificationCount").html();
+                    $("#notificationCount").hide('slow');
+                    $("#notificationCount").popover('hide');
+                }
                 var notifications = result.notificationApplicationUser;
                 notifications.forEach(element => {
                     /*console.log(element.notification.text);*/
@@ -73,6 +80,7 @@ $(function(){
             },
             success: function (result) {
                 getNotification();
+                $(target).fadeOut('slow');
             },
             error: function (error) {
                 console.log(error);
