@@ -94,7 +94,7 @@ namespace BulkyBookWeb.Areas.Admin.Controllers
 
         public IActionResult PaymentConfirmation(int orderHeaderId)
         {
-            OrderHeader orderHeader = _unitOfWork.OrderHeader.GetFirstOrDefault(u => u.Id == orderHeaderId);
+            OrderHeader orderHeader = _unitOfWork.OrderHeader.GetFirstOrDefault(u => u.Id == orderHeaderId, includeProperties:"ApplicationUser");
 
             if (orderHeader.PaymentStatus == StaticDetails.PaymentStatusDelayedPayment)
             {
