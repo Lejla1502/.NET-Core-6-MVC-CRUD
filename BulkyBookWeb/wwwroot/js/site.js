@@ -23,7 +23,7 @@ $(function(){
         //and appending text of each notification to <ul> list
         //and also extracting count and adding it to badge in navbar
 
-        var res = "<ul class='list-group'>";
+        var res = "<ul  class='list-group'>";
 
         $.ajax({
             url: "/Admin/Notification/GetNotification",
@@ -34,9 +34,11 @@ $(function(){
                 notifications.forEach(element => {
                     /*console.log(element.notification.text);*/
                     //console.log(element.notification.id);
-                    res = res + "<li class='list-group-item notification-text' data-id='" + element.notification.id + "'>" + element.notification.text + "</li>";
+
+                    res = res + "<li id='" + element.notification.id + "' class='list-group-item notification-text'>" + element.notification.text + "</li>";
                 });
                 
+                res = res + "</ul>";
 
                 //here we are appending this list to "notification-content" in order to display it in popover
                 $("#notification-content").html(res);
@@ -55,10 +57,9 @@ $(function(){
     $(document).on('click', 'li.notification-text', function (e) {
         console.log("anything");
         var target = e.target;
-        var id = $(target).data('id');
+        console.log(target);
+        var id = $(target).attr('id');
         console.log(id);
-
-
     });
     
     //$("#notify-group").click(function () {
