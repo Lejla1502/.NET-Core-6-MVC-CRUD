@@ -16,3 +16,9 @@ html {
 body {
   margin-bottom: 60px;
 }
+
+.notification-count {
+    top: 12px;
+    position: relative;
+    cursor: pointer;
+}
