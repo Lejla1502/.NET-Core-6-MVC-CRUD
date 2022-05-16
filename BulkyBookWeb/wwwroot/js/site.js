@@ -55,16 +55,30 @@ $(function(){
     //since the popover list has been generated during runtime we need to go to parent of element
     //from which we want to capture the event
     $(document).on('click', 'li.notification-text', function (e) {
-        console.log("anything");
+        
         var target = e.target;
         console.log(target);
         var id = $(target).attr('id');
         console.log(id);
+
+        readNotification(id, target);
     });
     
-    //$("#notify-group").click(function () {
-    //    console.log("hsjfhsjdhfkjsdfjsdfhjsdhfjshd");
-    //});
+    function readNotification(id, target) {
+        $.ajax({
+            url: "/Admin/Notification/ReadNotification",
+            method: 'GET',
+            data: {
+                notificationId:id
+            },
+            success: function (result) {
+                getNotification();
+            },
+            error: function (error) {
+                console.log(error);
+            }
+        })
+    }
 
     getNotification();
 });
