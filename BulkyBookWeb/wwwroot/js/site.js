@@ -90,7 +90,12 @@ $(function(){
 
     getNotification();
 
+    //connectiong to NotificationHub
     var connection = new signalR.HubConnectionBuilder().withUrl("/NotificationHub").build();
 
-    connection.on('displayNotification')
+    connection.on('displayNotification', function () {
+        getNotification();
+    });
+
+    connection.start();
 });
