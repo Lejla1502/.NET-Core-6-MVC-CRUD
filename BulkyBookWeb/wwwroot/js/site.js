@@ -89,4 +89,8 @@ $(function(){
     }
 
     getNotification();
+
+    var connection = new signalR.HubConnectionBuilder().withUrl("/NotificationHub").build();
+
+    connection.on('displayNotification')
 });
