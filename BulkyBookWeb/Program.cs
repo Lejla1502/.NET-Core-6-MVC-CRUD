@@ -9,25 +9,15 @@ using Stripe;
 using BulkyBookWeb.Hubs;
 using System.Text.Json.Serialization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.SignalR;
 
-var MyAllowSpecificOrigins = "_myAllowSpecificOrigins";
 var builder = WebApplication.CreateBuilder(args);
 var connectionString = builder.Configuration.GetConnectionString("ApplicationDbContextConnection");;
 
 builder.Services.AddIdentity<IdentityUser, IdentityRole>().AddDefaultUI().AddDefaultTokenProviders()
     .AddEntityFrameworkStores<ApplicationDbContext>();
 
-builder.Services.AddCors(options =>
-{
-    options.AddPolicy(name: MyAllowSpecificOrigins,
-                      builder =>
-                      {
-                          builder.WithOrigins("http://localhost:4200")
-                          .AllowAnyHeader()
-                            .AllowAnyMethod()
-                        .AllowCredentials(); ;
-                      });
-});
+
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
@@ -40,6 +30,17 @@ builder.Services.Configure<StripeSettings>(builder.Configuration.GetSection("Str
 builder.Services.AddRazorPages();
 
 builder.Services.AddSignalR();
+builder.Services.AddCors(options =>
+{
+    options.AddDefaultPolicy(
+        builder =>
+        {
+            builder.WithOrigins("https://localhost:4200", "http://localhost:4200")
+                .AllowAnyHeader()
+                .WithMethods("GET", "POST")
+                .AllowCredentials();
+        });
+});
 
 builder.Services.AddAuthentication()
     .AddFacebook(options =>
@@ -84,11 +85,12 @@ if (!app.Environment.IsDevelopment())
     app.UseHsts();
 }
 
+
 app.UseHttpsRedirection();
 app.UseStaticFiles();
 
 app.UseRouting();
-app.UseCors("MyAllowSpecificOrigins");
+app.UseCors();
 
 StripeConfiguration.ApiKey = builder.Configuration.GetSection("Stripe:SecretKey").Get<string>();
 

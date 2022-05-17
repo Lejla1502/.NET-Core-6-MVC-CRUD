@@ -12,6 +12,8 @@ using System.IO;
 using System.Text;
 using System.Data;
 using MimeKit;
+using BulkyBookWeb.Hubs;
+using Microsoft.AspNetCore.SignalR;
 
 namespace BulkyBookWeb.Areas.Customer.Controllers
 {
@@ -21,13 +23,18 @@ namespace BulkyBookWeb.Areas.Customer.Controllers
     {
         private readonly IUnitOfWork _unitOfWork;
         private readonly IEmailSender _emailSender;
+        private IHubContext<NotificationHub> _hubContext;
+
         private Microsoft.AspNetCore.Hosting.IHostingEnvironment _environment;
         [BindProperty]
         public ShoppingCartVM ShoppingCartVM { get; set; }
-        public CartController(IUnitOfWork unitOfWork, IEmailSender emailSender, Microsoft.AspNetCore.Hosting.IHostingEnvironment hostingEnvironment)
+        public CartController(IUnitOfWork unitOfWork, IEmailSender emailSender,
+            IHubContext<NotificationHub> hubcontext,
+            Microsoft.AspNetCore.Hosting.IHostingEnvironment hostingEnvironment)
         {
             _unitOfWork = unitOfWork;
             _emailSender = emailSender;
+            _hubContext = hubcontext;
             _environment = hostingEnvironment;
         }
         public IActionResult Index()
@@ -234,6 +241,8 @@ namespace BulkyBookWeb.Areas.Customer.Controllers
 
                     _unitOfWork.Notification.Add(notification, orderHeader.ApplicationUserId);
                     _unitOfWork.Save();
+
+                    _hubContext.Clients.All.SendAsync("displayNotification", "");
                 }
             }
 

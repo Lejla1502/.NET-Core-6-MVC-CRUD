@@ -31,6 +31,7 @@ $(function(){
             success: function (result) {
                 if (result.count != 0) {
                     $("#notificationCount").html(result.count);
+                    $("#notificationCount").show('slow');
                 }
                 else {
                     $("#notificationCount").html();
@@ -91,11 +92,19 @@ $(function(){
     getNotification();
 
     //connectiong to NotificationHub
-    var connection = new signalR.HubConnectionBuilder().withUrl("/NotificationHub").build();
+    var connection = new signalR.HubConnectionBuilder().withUrl("/notificationHub").build();
 
+
+    //method that we are calling from server
     connection.on('displayNotification', function () {
         getNotification();
     });
+
+    //whenever we are creating notification in notification repository we call 'displayNotification'
+    //whenever 'displayNotification' is called it executes 'getNotification()' which in turn
+    //displays notification in our browser
+
+    ///when we finish creating notification in repository, that is where we call this method with signalR
 
     connection.start();
 });

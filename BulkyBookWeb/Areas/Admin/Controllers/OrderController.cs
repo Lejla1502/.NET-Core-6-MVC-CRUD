@@ -2,8 +2,10 @@
 using BulkyBook.Models;
 using BulkyBook.Models.ViewModels;
 using BulkyBook.Utility;
+using BulkyBookWeb.Hubs;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.SignalR;
 using Stripe;
 using Stripe.Checkout;
 using System.Security.Claims;
@@ -15,11 +17,13 @@ namespace BulkyBookWeb.Areas.Admin.Controllers
     public class OrderController : Controller
     {
         private readonly IUnitOfWork _unitOfWork;
+        private IHubContext<NotificationHub> _hubContext;
         [BindProperty]
         public OrderVM OrderVM { get; set; }
-        public OrderController(IUnitOfWork unitOfWork)
+        public OrderController(IUnitOfWork unitOfWork, IHubContext<NotificationHub> hubContext)
         {
             _unitOfWork = unitOfWork;
+            _hubContext = hubContext;
         }
         
         public IActionResult Index()
