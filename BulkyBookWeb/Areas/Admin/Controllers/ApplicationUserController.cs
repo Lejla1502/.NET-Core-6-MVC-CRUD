@@ -22,5 +22,11 @@ namespace BulkyBookWeb.Areas.Admin.Controllers
             IEnumerable<ApplicationUser> users = _unitOfWork.ApplicationUser.GetAll();
             return View(users);
         }
+
+        public IActionResult RedirectToIdentity(string userId)
+        {
+            string url = "/Identity/Account/Manage?userId=" + userId;
+            return LocalRedirect(url);
+        }
     }
 }

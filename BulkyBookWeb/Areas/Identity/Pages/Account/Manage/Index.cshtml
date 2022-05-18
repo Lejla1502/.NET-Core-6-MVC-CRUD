@@ -1,4 +1,4 @@
-﻿@page
+﻿@page "{userId?}"
 @model IndexModel
 @{
     ViewData["Title"] = "Profile";
@@ -10,6 +10,7 @@
 <div class="row">
     <div class="col-md-6">
         <form id="profile-form" method="post">
+            <input asp-for="Input.Id" hidden />
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-floating py-2">
                 <input asp-for="Username" class="form-control" disabled />
@@ -21,7 +22,7 @@
                 <span asp-validation-for="Input.PhoneNumber" class="text-danger"></span>
             </div>
             <div class="form-floating py-2">
-                <input asp-for="Input.StreetAddress" class="form-control" aria-required="true" />
+                <input asp-for="Input.StreetAddress" class="form-control" aria-required="true"/>
                 <label asp-for="Input.StreetAddress"></label>
                 <span asp-validation-for="Input.StreetAddress" class="text-danger"></span>
             </div>

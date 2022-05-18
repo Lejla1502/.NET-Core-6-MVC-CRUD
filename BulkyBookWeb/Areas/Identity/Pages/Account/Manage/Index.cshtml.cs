@@ -59,6 +59,7 @@ namespace BulkyBookWeb.Areas.Identity.Pages.Account.Manage
             ///     This API supports the ASP.NET Core Identity default UI infrastructure and is not intended to be used
             ///     directly from your code. This API may change or be removed in future releases.
             /// </summary>
+            public string Id { get; set; }
             [Phone]
             [Display(Name = "Phone number")]
             public string PhoneNumber { get; set; }
@@ -68,34 +69,60 @@ namespace BulkyBookWeb.Areas.Identity.Pages.Account.Manage
             public string PostalCode { get; set; }
         }
 
-        private async Task LoadAsync(IdentityUser user)
+        private async Task LoadAsync(IdentityUser? user, string? userId)
         {
-            var userName = await _userManager.GetUserNameAsync(user);
-            var phoneNumber = await _userManager.GetPhoneNumberAsync(user);
-
-            Username = userName;
-
-            var appUser = _unitOfWork.ApplicationUser.GetFirstOrDefault(u => u.Id == user.Id);
-
-            Input = new InputModel
+            
+            if (userId == null || userId=="")
             {
-                PhoneNumber = phoneNumber,
-                StreetAddress = appUser.StreetAddress,
-                City = appUser.City,
-                State= appUser.State,
-                PostalCode = appUser.PostalCode
-            };
+                var id = await _userManager.GetUserIdAsync(user);    
+                var userName = await _userManager.GetUserNameAsync(user);
+                var phoneNumber = await _userManager.GetPhoneNumberAsync(user);
+
+                Username = userName;
+
+                var appUser = _unitOfWork.ApplicationUser.GetFirstOrDefault(u => u.Id == user.Id);
+
+                Input = new InputModel
+                {
+                    Id=id,
+                    PhoneNumber = phoneNumber,
+                    StreetAddress = appUser.StreetAddress,
+                    City = appUser.City,
+                    State = appUser.State,
+                    PostalCode = appUser.PostalCode
+                };
+            }
+            else
+            {
+                var appUser = _unitOfWork.ApplicationUser.GetFirstOrDefault(u => u.Id == userId);
+
+                Username = appUser.UserName;
+
+                Input = new InputModel
+                {
+                    Id=appUser.Id,
+                    PhoneNumber = appUser.PhoneNumber,
+                    StreetAddress = appUser.StreetAddress,
+                    City = appUser.City,
+                    State = appUser.State,
+                    PostalCode = appUser.PostalCode
+                };
+            }
         }
 
-        public async Task<IActionResult> OnGetAsync()
+        public async Task<IActionResult> OnGetAsync(string? userId)
         {
+            
             var user = await _userManager.GetUserAsync(User);
             if (user == null)
             {
                 return NotFound($"Unable to load user with ID '{_userManager.GetUserId(User)}'.");
             }
-
-            await LoadAsync(user);
+            if (userId != "" || userId != null)
+                await LoadAsync(user, userId);
+            else
+                await LoadAsync(user, null);
+            
             return Page();
         }
 
@@ -109,7 +136,7 @@ namespace BulkyBookWeb.Areas.Identity.Pages.Account.Manage
 
             if (!ModelState.IsValid)
             {
-                await LoadAsync(user);
+                await LoadAsync(user, Input.Id);
                 return Page();
             }
 
