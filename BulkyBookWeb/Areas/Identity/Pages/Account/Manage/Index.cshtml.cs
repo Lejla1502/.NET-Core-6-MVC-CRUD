@@ -139,30 +139,49 @@ namespace BulkyBookWeb.Areas.Identity.Pages.Account.Manage
                 await LoadAsync(user, Input.Id);
                 return Page();
             }
-
-            var phoneNumber = await _userManager.GetPhoneNumberAsync(user);
-            if (Input.PhoneNumber != phoneNumber)
+            if (Input.Id == null || Input.Id == "")
             {
-                var setPhoneResult = await _userManager.SetPhoneNumberAsync(user, Input.PhoneNumber);
-                if (!setPhoneResult.Succeeded)
+                var phoneNumber = await _userManager.GetPhoneNumberAsync(user);
+                if (Input.PhoneNumber != phoneNumber)
                 {
-                    StatusMessage = "Unexpected error when trying to set phone number.";
-                    return RedirectToPage();
+                    var setPhoneResult = await _userManager.SetPhoneNumberAsync(user, Input.PhoneNumber);
+                    if (!setPhoneResult.Succeeded)
+                    {
+                        StatusMessage = "Unexpected error when trying to set phone number.";
+                        return RedirectToPage();
+                    }
                 }
+
+                var appUser = _unitOfWork.ApplicationUser.GetFirstOrDefault(u => u.Id == user.Id);
+                appUser.StreetAddress = Input.StreetAddress;
+                appUser.City = Input.City;
+                appUser.State = Input.State;
+                appUser.PostalCode = Input.PostalCode;
+
+                _unitOfWork.ApplicationUser.Update(appUser);
+                _unitOfWork.Save();
+
+                await _signInManager.RefreshSignInAsync(user);
+                StatusMessage = "Your profile has been updated";
+                return RedirectToPage();
             }
+            else
+            {
+                var appUser = _unitOfWork.ApplicationUser.GetFirstOrDefault(u => u.Id == Input.Id);
+                appUser.StreetAddress = Input.StreetAddress;
+                appUser.City = Input.City;
+                appUser.State = Input.State;
+                appUser.PostalCode = Input.PostalCode;
+                appUser.PhoneNumber = Input.PhoneNumber;
 
-            var appUser = _unitOfWork.ApplicationUser.GetFirstOrDefault(u => u.Id == user.Id);
-            appUser.StreetAddress = Input.StreetAddress;
-            appUser.City = Input.City;
-            appUser.State = Input.State;
-            appUser.PostalCode = Input.PostalCode;
+                _unitOfWork.ApplicationUser.Update(appUser);
+                _unitOfWork.Save();
 
-            _unitOfWork.ApplicationUser.Update(appUser);
-            _unitOfWork.Save();
-
-            await _signInManager.RefreshSignInAsync(user);
-            StatusMessage = "Your profile has been updated";
-            return RedirectToPage();
+                string url = "/Identity/Account/Manage?userId="+Input.Id;
+                return LocalRedirect(url);
+            }
+           
+            
         }
     }
 }
