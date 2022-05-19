@@ -66,6 +66,22 @@ namespace BulkyBookWeb.Areas.Admin.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult Update(ApplicationUserVM appUserVM)
         {
+            if (appUserVM.Role != "Company")
+                appUserVM.CompanyId = null;
+
+            var appUserFromDb = _unitOfWork.ApplicationUser.GetFirstOrDefault(x => x.Id == appUserVM.AppUser.Id);
+
+            appUserFromDb.PhoneNumber = appUserVM.AppUser.PhoneNumber;
+            appUserFromDb.StreetAddress = appUserVM.AppUser.StreetAddress;
+            appUserFromDb.City = appUserVM.AppUser.City;
+            appUserFromDb.State = appUserVM.AppUser.State;
+            appUserFromDb.CompanyId = appUserVM.CompanyId;
+            
+            //how to change the role??????????
+
+            _unitOfWork.ApplicationUser.Update(appUserFromDb);
+
+            _unitOfWork.Save();
 
             return RedirectToAction("Update", new { userId=appUserVM.AppUser.Id });
         }
