@@ -1,0 +1,71 @@
+﻿@model BulkyBook.Models.ViewModels.ApplicationUserVM
+
+<h2 class="mt-5">EDIT USER : @Model.AppUser.Name</h2>
+<div class="row">
+    <div class="col-md-6">
+        <form id="profile-form" class="row" method="post">
+            <input asp-for="AppUser.Id" hidden />
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-floating py-2">
+                <input asp-for="AppUser.Email" class="form-control" disabled />
+                <label asp-for="AppUser.Email" class="form-label"></label>
+            </div>
+            <div class="form-floating py-2">
+                <input asp-for="AppUser.PhoneNumber" class="form-control" />
+                <label asp-for="AppUser.PhoneNumber" class="form-label"></label>
+                <span asp-validation-for="AppUser.PhoneNumber" class="text-danger"></span>
+            </div>
+            <div class="form-floating py-2">
+                <input asp-for="AppUser.StreetAddress" class="form-control" aria-required="true"/>
+                <label asp-for="AppUser.StreetAddress"></label>
+                <span asp-validation-for="AppUser.StreetAddress" class="text-danger"></span>
+            </div>
+            <div class="form-floating py-2">
+                <input asp-for="AppUser.City" class="form-control" aria-required="true" />
+                <label asp-for="AppUser.City"></label>
+                <span asp-validation-for="AppUser.City" class="text-danger"></span>
+            </div>
+            <div class="form-floating py-2">
+                <input asp-for="AppUser.State" class="form-control" aria-required="true" />
+                <label asp-for="AppUser.State"></label>
+                <span asp-validation-for="AppUser.State" class="text-danger"></span>
+            </div>
+            <div class="form-floating py-2">
+                <input asp-for="AppUser.PostalCode" class="form-control" aria-required="true" />
+                <label asp-for="AppUser.PostalCode"></label>
+                <span asp-validation-for="AppUser.PostalCode" class="text-danger"></span>
+            </div>
+             <div class="form-floating py-2 col-6">
+                    <select asp-for="Role" asp-items="@Model.RolesList" class="form-select">
+                        <option disabled selected>--Select Role--</option>
+                    </select>
+                </div>
+                <div class="form-floating py-2 col-6">
+                    <select asp-for="CompanyId" style="display:none;" asp-items="@Model.CompanyList" class="form-select">
+                    <option disabled selected>--Select Company--</option>
+                    </select>
+                </div>
+            <button id="update-profile-button" type="submit" class="w-100 btn btn-primary">Save</button>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+    <script>
+        $(document).ready(function(){
+             var selection=$('#CompanyId').val();
+                if(selection==null)
+                    $('#CompanyId').hide();
+                else
+                    $('#CompanyId').show();
+            $('#Role').change(function(){
+                var selection=$('#Role Option:Selected').text();
+                if(selection!="Company")
+                    $('#CompanyId').hide();
+                else
+                    $('#CompanyId').show();
+            })
+        })
+    </script>
+}
