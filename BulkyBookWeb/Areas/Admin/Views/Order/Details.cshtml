@@ -194,7 +194,11 @@
 							</div>
 							@if(User.IsInRole(StaticDetails.Role_Admin) || User.IsInRole(StaticDetails.Role_Employee))
 							{
-								<input asp-action="UpdateOrderDetails" type="submit" class="btn btn-warning form-control my-1" value="Update Order Details" />
+								if(Model.OrderHeader.OrderStatus!=StaticDetails.StatusShipped)
+								{
+									<input asp-action="UpdateOrderDetails" type="submit" class="btn btn-warning form-control my-1" value="Update Order Details" />
+							
+								}
 							}
 						</div>
 						<div class="col-12 col-lg-5 offset-lg-1">
