@@ -66,7 +66,8 @@ namespace BulkyBookWeb.Areas.Admin.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult Update(ApplicationUserVM appUserVM)
         {
-            return RedirectToAction("");
+
+            return RedirectToAction("Update", new { userId=appUserVM.AppUser.Id });
         }
         
     }
