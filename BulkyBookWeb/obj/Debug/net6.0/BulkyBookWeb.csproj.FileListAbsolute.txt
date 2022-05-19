@@ -594,3 +594,13 @@ C:\Users\Administrator\Desktop\BulkyBook\BulkyBookWeb\bin\Debug\net6.0\Microsoft
 C:\Users\Administrator\Desktop\BulkyBook\BulkyBookWeb\bin\Debug\net6.0\Microsoft.Extensions.Features.dll
 C:\Users\Administrator\Desktop\BulkyBook\BulkyBookWeb\bin\Debug\net6.0\Microsoft.Extensions.Logging.Abstractions.dll
 C:\Users\Administrator\Desktop\BulkyBook\BulkyBookWeb\bin\Debug\net6.0\System.IO.Pipelines.dll
+C:\Users\User\source\repos\BulkyBook\BulkyBookWeb\bin\Debug\net6.0\Microsoft.AspNetCore.Connections.Abstractions.dll
+C:\Users\User\source\repos\BulkyBook\BulkyBookWeb\bin\Debug\net6.0\Microsoft.AspNetCore.Http.Connections.Client.dll
+C:\Users\User\source\repos\BulkyBook\BulkyBookWeb\bin\Debug\net6.0\Microsoft.AspNetCore.Http.Connections.Common.dll
+C:\Users\User\source\repos\BulkyBook\BulkyBookWeb\bin\Debug\net6.0\Microsoft.AspNetCore.SignalR.Client.dll
+C:\Users\User\source\repos\BulkyBook\BulkyBookWeb\bin\Debug\net6.0\Microsoft.AspNetCore.SignalR.Client.Core.dll
+C:\Users\User\source\repos\BulkyBook\BulkyBookWeb\bin\Debug\net6.0\Microsoft.AspNetCore.SignalR.Common.dll
+C:\Users\User\source\repos\BulkyBook\BulkyBookWeb\bin\Debug\net6.0\Microsoft.AspNetCore.SignalR.Protocols.Json.dll
+C:\Users\User\source\repos\BulkyBook\BulkyBookWeb\bin\Debug\net6.0\Microsoft.Extensions.Features.dll
+C:\Users\User\source\repos\BulkyBook\BulkyBookWeb\bin\Debug\net6.0\Microsoft.Extensions.Logging.Abstractions.dll
+C:\Users\User\source\repos\BulkyBook\BulkyBookWeb\bin\Debug\net6.0\System.IO.Pipelines.dll

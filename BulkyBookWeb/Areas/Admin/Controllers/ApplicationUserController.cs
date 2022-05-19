@@ -18,6 +18,8 @@ namespace BulkyBookWeb.Areas.Admin.Controllers
         private readonly RoleManager<IdentityRole> _roleManager;
 
         private readonly IUnitOfWork _unitOfWork;
+
+        private string RoleOfTheUser { get; set; }
         public ApplicationUserController(IUnitOfWork unitOfWork, UserManager<IdentityUser> usrManager, RoleManager<IdentityRole> roleManager)
         {
             _unitOfWork = unitOfWork;
@@ -64,7 +66,7 @@ namespace BulkyBookWeb.Areas.Admin.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Update(ApplicationUserVM appUserVM)
+        public async Task<IActionResult> Update(ApplicationUserVM appUserVM)
         {
             if (appUserVM.Role != "Company")
                 appUserVM.CompanyId = null;
@@ -76,7 +78,13 @@ namespace BulkyBookWeb.Areas.Admin.Controllers
             appUserFromDb.City = appUserVM.AppUser.City;
             appUserFromDb.State = appUserVM.AppUser.State;
             appUserFromDb.CompanyId = appUserVM.CompanyId;
-            
+
+            var user = await _usrManager.FindByIdAsync(appUserVM.AppUser.Id);
+            string rolename = _usrManager.GetRolesAsync(user).GetAwaiter().GetResult().FirstOrDefault();
+
+
+            await _usrManager.RemoveFromRoleAsync(user, rolename);
+            await _usrManager.AddToRoleAsync(user, appUserVM.Role);
             //how to change the role??????????
 
             _unitOfWork.ApplicationUser.Update(appUserFromDb);
