@@ -232,19 +232,24 @@ namespace BulkyBookWeb.Areas.Customer.Controllers
                     _unitOfWork.OrderHeader.UpdateStatus(orderHeader.Id, StaticDetails.StatusApproved, StaticDetails.PaymentStatusApproved);
                     _unitOfWork.Save();
 
-                    var username = orderHeader.ApplicationUser.Name;
-                    var orderNum = orderHeader.Id;
-
-                    var notification = new Notification {
-                        Text = $"{username} has completed the order {orderNum}"
-                    };
-
-                    _unitOfWork.Notification.Add(notification, orderHeader.ApplicationUserId);
-                    _unitOfWork.Save();
-
-                    _hubContext.Clients.All.SendAsync("displayNotification", "");
+                   
                 }
+
             }
+
+            var username = orderHeader.ApplicationUser.Name;
+            var orderNum = orderHeader.Id;
+
+            var notification = new Notification
+            {
+                Text = $"{username} has completed the order {orderNum}"
+            };
+
+            _unitOfWork.Notification.Add(notification, orderHeader.ApplicationUserId);
+            _unitOfWork.Save();
+
+            _hubContext.Clients.All.SendAsync("displayNotification", "");
+
 
             var orderDetailsList = _unitOfWork.OrderDetail.GetAll(u=>u.OrderId==orderHeader.Id, includeProperties:"Product");
 
