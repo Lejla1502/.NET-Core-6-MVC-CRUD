@@ -30,7 +30,7 @@
                          <div class="img-container mx-auto my-2">
                               <a>
                                    <img src="@product.ImageUrl" class="card-img-top"/>
-                              </a>
+                              </a> 
                         </div>
                         <div class="card-body d-flex flex-column">
                             <div class="pl-1 justify-content-between align-items-center">
@@ -49,17 +49,20 @@
                                 <div>
                                     Put rating here
                                 </div>
-                                @if(product.IsFavourite)
+                                @if(User.Identity.IsAuthenticated)
                                 {
-                                     <a asp-action="RemoveFromFavourite" asp-route-id="@product.Id">
-                                        <i id="icon" class="bi bi-bookmark-heart-fill"></i>
-                                    </a>
-                                }
-                                else
-                                {
-                                    <a asp-action="AddToFavourite" asp-route-id="@product.Id">
-                                        <i id="icon" class="bi bi-bookmark-heart"></i>
-                                    </a>
+                                    @if(product.IsFavourite)
+                                    {
+                                         <a asp-action="RemoveFromFavourite" asp-route-id="@product.Id">
+                                            <i id="icon" class="bi bi-bookmark-heart-fill"></i>
+                                        </a>
+                                    }
+                                    else
+                                    {
+                                        <a asp-action="AddToFavourite" asp-route-id="@product.Id">
+                                            <i id="icon" class="bi bi-bookmark-heart"></i>
+                                        </a>
+                                    }
                                 }
                             </div>
                         </div>

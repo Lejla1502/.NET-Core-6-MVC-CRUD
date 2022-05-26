@@ -31,6 +31,11 @@ namespace BulkyBookWeb.Customer.Controllers
             return View(listOfProducts);
         }
 
+        public IActionResult DisplayFavourites()
+        {
+            return View();
+        }
+
         public IActionResult ChatDemo()
         {
             return View();
