@@ -268,6 +268,9 @@ namespace BulkyBookWeb.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<bool>("IsFavourite")
+                        .HasColumnType("bit");
+
                     b.Property<double>("ListPrice")
                         .HasColumnType("float");
 

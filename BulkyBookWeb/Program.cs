@@ -21,7 +21,7 @@ builder.Services.AddIdentity<IdentityUser, IdentityRole>().AddDefaultUI().AddDef
 builder.Services.AddControllersWithViews();
 
 builder.Services.AddDbContext<ApplicationDbContext>(options=>options.UseSqlServer(
-    builder.Configuration.GetConnectionString("Somee")));
+    builder.Configuration.GetConnectionString("DefaultConnection")));
 
 builder.Services.Configure<StripeSettings>(builder.Configuration.GetSection("Stripe"));
 

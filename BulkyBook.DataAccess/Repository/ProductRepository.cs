@@ -40,5 +40,22 @@ namespace BulkyBook.DataAccess.Repository
                     objFromDb.ImageUrl = obj.ImageUrl;
             }
         }
+
+        public void UpdateStatus(int id)
+        {
+            
+            var productFromDb = _db.Products.FirstOrDefault(x => x.Id == id);
+           
+            if (productFromDb != null)
+            {
+                if (productFromDb.IsFavourite)
+                    productFromDb.IsFavourite = false;
+                else
+                    productFromDb.IsFavourite = true;
+                
+            }
+            //_db.OrderHeaders.Update(orderFromDb);
+            
+        }
     }
 }

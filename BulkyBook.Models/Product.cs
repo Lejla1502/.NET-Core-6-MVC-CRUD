@@ -52,5 +52,7 @@ namespace BulkyBook.Models
         public int CoverTypeId { get; set; }
         [ValidateNever]
         public CoverType CoverType { get; set; }
+
+        public bool IsFavourite { get; set; } 
     }
 }

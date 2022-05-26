@@ -38,14 +38,29 @@
                                     @product.Title
                                 </h5>
                                 <p class="card-subtitle mb-2 text-info">by <b>@product.Author</b></p>
-
-                                 
                             </div>
                             <div class="pl-1">
                                 <p>List Price: <strike><b>$@product.ListPrice.ToString("0.00")</b></strike></p>
                             </div>
                              <div class="pl-1">
                                 <p>As low as: <b>$@product.Price100.ToString("0.00")</b></p>
+                            </div>
+                            <div class="d-flex justify-content-between">
+                                <div>
+                                    Put rating here
+                                </div>
+                                @if(product.IsFavourite)
+                                {
+                                     <a asp-action="RemoveFromFavourite" asp-route-id="@product.Id">
+                                        <i id="icon" class="bi bi-bookmark-heart-fill"></i>
+                                    </a>
+                                }
+                                else
+                                {
+                                    <a asp-action="AddToFavourite" asp-route-id="@product.Id">
+                                        <i id="icon" class="bi bi-bookmark-heart"></i>
+                                    </a>
+                                }
                             </div>
                         </div>
                     </div>
@@ -57,3 +72,31 @@
         </div>
     }
 </div>
+
+
+@section Scripts{
+    <script>
+       //$(document).ready(() => {
+       //   var button = $("#click_favourite");
+       //    var favourite_icon = button.find("i");
+       //   button.click(() => {
+       //       if(favourite_icon.hasClass('bi-bookmark-heart'))
+       //       button.html("<i class='bi bi-bookmark-heart-fill'></i>");
+           
+       //   });
+
+function change_Icon(id) {
+    //try to figure it out later
+
+    //var btn_id = "click_favourite_"+id;
+    
+    //var btn = document.getElementById(btn_id);
+    //var favourite_icon = btn.closest("i");
+         
+    //if(favourite_icon.matches('bi bi-bookmark-heart'))
+    //btn.html("<i class='bi bi-bookmark-heart-fill'></i>");
+
+};
+    </script>
+
+}

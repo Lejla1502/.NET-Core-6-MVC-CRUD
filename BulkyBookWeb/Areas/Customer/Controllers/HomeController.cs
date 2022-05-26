@@ -76,6 +76,21 @@ namespace BulkyBookWeb.Customer.Controllers
             return RedirectToAction(nameof(Index), nameof(CartController).Replace("Controller", ""));
         }
 
+        public IActionResult AddToFavourite(int id)
+        {
+            _unitOfWork.Product.UpdateStatus(id);
+            _unitOfWork.Save();
+
+            return RedirectToAction("Index");
+        }
+        public IActionResult RemoveFromFavourite(int id)
+        {
+            _unitOfWork.Product.UpdateStatus(id);
+            _unitOfWork.Save();
+
+            return RedirectToAction("Index");
+        }
+
         public IActionResult Privacy()
         {
             return View();
