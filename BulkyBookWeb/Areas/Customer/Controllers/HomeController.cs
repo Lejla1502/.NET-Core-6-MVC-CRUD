@@ -33,7 +33,9 @@ namespace BulkyBookWeb.Customer.Controllers
 
         public IActionResult DisplayFavourites()
         {
-            return View();
+            IEnumerable<Product> listOfProducts = _unitOfWork.Product.GetAll(x=>x.IsFavourite==true,includeProperties: "Category,CoverType");
+
+            return View(listOfProducts);
         }
 
         public IActionResult ChatDemo()
@@ -81,19 +83,25 @@ namespace BulkyBookWeb.Customer.Controllers
             return RedirectToAction(nameof(Index), nameof(CartController).Replace("Controller", ""));
         }
 
-        public IActionResult AddToFavourite(int id)
+        public IActionResult AddToFavourite(int id, bool isFromFavouritesPage)
         {
             _unitOfWork.Product.UpdateStatus(id);
             _unitOfWork.Save();
 
-            return RedirectToAction("Index");
+            if (!isFromFavouritesPage)
+                return RedirectToAction("Index");
+            else
+                return RedirectToAction("DisplayFavourites");
         }
-        public IActionResult RemoveFromFavourite(int id)
+        public IActionResult RemoveFromFavourite(int id, bool isFromFavouritesPage)
         {
             _unitOfWork.Product.UpdateStatus(id);
             _unitOfWork.Save();
 
-            return RedirectToAction("Index");
+            if (!isFromFavouritesPage)
+                return RedirectToAction("Index");
+            else
+                return RedirectToAction("DisplayFavourites");
         }
 
         public IActionResult Privacy()

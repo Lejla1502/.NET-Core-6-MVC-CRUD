@@ -53,13 +53,13 @@
                                 {
                                     @if(product.IsFavourite)
                                     {
-                                         <a asp-action="RemoveFromFavourite" asp-route-id="@product.Id">
+                                         <a asp-action="RemoveFromFavourite" asp-route-id="@product.Id" asp-route-isFromFavouritesPage="false">
                                             <i id="icon" class="bi bi-bookmark-heart-fill"></i>
                                         </a>
                                     }
                                     else
                                     {
-                                        <a asp-action="AddToFavourite" asp-route-id="@product.Id">
+                                        <a asp-action="AddToFavourite" asp-route-id="@product.Id" asp-route-isFromFavouritesPage="false">
                                             <i id="icon" class="bi bi-bookmark-heart"></i>
                                         </a>
                                     }
