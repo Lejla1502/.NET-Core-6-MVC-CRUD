@@ -23,7 +23,7 @@ namespace BulkyBook.DataAccess
         public DbSet<OrderDetail> OrderDetails { get; set; }
         public DbSet<Notification> Notifications { get; set; }
         public DbSet<NotificationApplicationUser> NotificationApplicationUsers { get; set; }
-
+        public DbSet<Review> Reviews { get; set; }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<NotificationApplicationUser>()
@@ -38,6 +38,19 @@ namespace BulkyBook.DataAccess
                 .HasOne(pt => pt.ApplicationUser)
                 .WithMany(t => t.NotificationApplicationUsers)
                 .HasForeignKey(pt => pt.ApplicationUserId);
+
+            modelBuilder.Entity<Review>()
+                .HasKey(t => new {t.ProductId, t.ApplicationUserId});
+
+            modelBuilder.Entity<Review>()
+                .HasOne(rp => rp.Product)
+                .WithMany(r => r.Reviews)
+                .HasForeignKey(rp => rp.ProductId);
+
+            modelBuilder.Entity<Review>()
+                .HasOne(ra => ra.ApplicationUser)
+                .WithMany(r => r.Reviews)
+                .HasForeignKey(ra => ra.ApplicationUserId);
 
             base.OnModelCreating(modelBuilder);
         }

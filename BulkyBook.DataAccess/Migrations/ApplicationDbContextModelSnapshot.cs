@@ -296,6 +296,27 @@ namespace BulkyBookWeb.Migrations
                     b.ToTable("Products");
                 });
 
+            modelBuilder.Entity("BulkyBook.Models.Review", b =>
+                {
+                    b.Property<int>("ProductId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("ApplicationUserId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("Rating")
+                        .HasColumnType("int");
+
+                    b.HasKey("ProductId", "ApplicationUserId");
+
+                    b.HasIndex("ApplicationUserId");
+
+                    b.ToTable("Reviews");
+                });
+
             modelBuilder.Entity("BulkyBook.Models.ShoppingCart", b =>
                 {
                     b.Property<int>("Id")
@@ -624,6 +645,25 @@ namespace BulkyBookWeb.Migrations
                     b.Navigation("CoverType");
                 });
 
+            modelBuilder.Entity("BulkyBook.Models.Review", b =>
+                {
+                    b.HasOne("BulkyBook.Models.ApplicationUser", "ApplicationUser")
+                        .WithMany("Reviews")
+                        .HasForeignKey("ApplicationUserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("BulkyBook.Models.Product", "Product")
+                        .WithMany("Reviews")
+                        .HasForeignKey("ProductId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("ApplicationUser");
+
+                    b.Navigation("Product");
+                });
+
             modelBuilder.Entity("BulkyBook.Models.ShoppingCart", b =>
                 {
                     b.HasOne("BulkyBook.Models.ApplicationUser", "ApplicationUser")
@@ -710,9 +750,16 @@ namespace BulkyBookWeb.Migrations
                     b.Navigation("NotificationApplicationUsers");
                 });
 
+            modelBuilder.Entity("BulkyBook.Models.Product", b =>
+                {
+                    b.Navigation("Reviews");
+                });
+
             modelBuilder.Entity("BulkyBook.Models.ApplicationUser", b =>
                 {
                     b.Navigation("NotificationApplicationUsers");
+
+                    b.Navigation("Reviews");
                 });
 #pragma warning restore 612, 618
         }

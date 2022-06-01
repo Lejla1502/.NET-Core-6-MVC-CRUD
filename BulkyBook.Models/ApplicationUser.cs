@@ -24,6 +24,7 @@ namespace BulkyBook.Models
         public Company Company { get; set; }
 
         public List<NotificationApplicationUser> NotificationApplicationUsers { get; set; }
+        public List<Review> Reviews { get; set; }
 
     }
 }
