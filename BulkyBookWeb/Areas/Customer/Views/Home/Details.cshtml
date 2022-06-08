@@ -79,19 +79,23 @@
         </div>
 </form>
 
-<div class="container">
+<div class="container review">
     <h1>Reviews</h1>
-    <h3>What people think about @Model.Product.Title</h3>
-    <div>
-        Here put the rating
+    <div class="what-people-think-about-book-div">What people think about <strong>"@Model.Product.Title"</strong></div>
+    <div class="rating-number">
+        4.0
+    </div>
+    <div class="star-container mb-2">
+         <img class="icon-star" src="~/icons/star.png" width="25" height="25">
+         <img class="icon-star" src="~/icons/star.png" width="25" height="25">
+         <img class="icon-star" src="~/icons/star.png" width="25" height="25">
+         <img class="icon-star" src="~/icons/star.png" width="25" height="25">
+         <img class="icon-star" src="~/icons/star.png" width="25" height="25">
     </div>
     <div>
-        Here put the stars
+        <p>145 ratings / 8 reviews</p>
     </div>
-    <div>
-        Here put the num of ratings / review (comment)
-    </div>
-    <form>
+    <form class="mt-5 left-side">
         <h4>What do you think</h4>
         <div>Stars</div>
         <h5>Write a review (optional)</h5>

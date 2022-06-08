@@ -27,3 +27,23 @@ body {
     width:500px;
     cursor:pointer;
 }
+
+
+/*REVIEW*/
+.review{
+    margin-top:5rem;
+}
+
+.what-people-think-about-book-div{
+    font-size:30px;
+    color:black;
+    font-weight:400;
+}
+
+.rating-number{
+    font-size:8rem;
+}
+
+.left-side{
+    padding-left:5rem;
+}
