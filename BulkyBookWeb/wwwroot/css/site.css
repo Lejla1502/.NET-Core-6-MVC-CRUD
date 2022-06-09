@@ -47,3 +47,27 @@ body {
 .left-side{
     padding-left:5rem;
 }
+
+.what-did-you-think
+{
+    font-size:20px;
+    color:black;
+    font-weight:bold;
+}
+
+.write-review{
+    font-size:18px;
+    color:black;
+}
+
+.textarea-review{
+    padding:1rem;
+    border:1px solid;
+    border-radius:.35rem;
+    margin-bottom:5rem;
+}
+/*
+.textarea-review:placeholder{
+
+  
+}*/
