@@ -10,5 +10,8 @@ namespace BulkyBook.Models.ViewModels
     {
         public IEnumerable<Review> Reviews { get; set; }
         public string Title { get; set; }
+        public decimal AvgRating { get; set; }
+        public decimal SumOfRatings { get; set; }
+        public int NumOfRatings { get; set; }
     }
 }

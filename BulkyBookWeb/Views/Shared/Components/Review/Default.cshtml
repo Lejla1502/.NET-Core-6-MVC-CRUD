@@ -3,7 +3,7 @@
     <h1>Reviews</h1>
     <div class="what-people-think-about-book-div">What people think about <strong>"@Model.Title"</strong></div>
     <div class="rating-number">
-        4.0
+        @Model.AvgRating
     </div>
     <div class="star-container mb-2">
          <img class="icon-star" src="~/icons/star.png" width="20" height="20">
@@ -13,7 +13,7 @@
          <img class="icon-star" src="~/icons/star.png" width="20" height="20">
     </div>
     <div>
-        <p>145 ratings / 8 reviews</p>
+        <p>@Model.SumOfRatings ratings / @Model.NumOfRatings reviews</p>
     </div>
     <form class="mt-5 left-side col-xxl-9">
         <div class="what-did-you-think">What did you think?</div>
@@ -28,14 +28,15 @@
         <textarea class="form-control textarea-review" placeholder="Tell others what you thought of @Model.Title"></textarea>
     </form>
     <h4>Readers reviews</h4>
-   
-        <div class="row">
+   @foreach(var r in @Model.Reviews)
+      { 
+         <div class="row">
             <div class="col-xxl-3">
-                <p>Lejla Spahic</p>
+                <p>@r.ApplicationUser.Name</p>
             </div>
             <div class="col-xxl-8">
                 <p>A short story that kept my attention. I liked Finn as the main character. An unlucky fellow who it seemed like his luck was about to run out. This was a short read but a good one.</p>
             </div>
         </div>
-    
+      }
 </div>
