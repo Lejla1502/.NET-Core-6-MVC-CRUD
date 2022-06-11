@@ -83,6 +83,18 @@ namespace BulkyBookWeb.Customer.Controllers
             return RedirectToAction(nameof(Index), nameof(CartController).Replace("Controller", ""));
         }
 
+
+        public IActionResult GetReviews(int bookID)
+        {
+            ReviewVM reviewVM = new ReviewVM
+            {
+                Reviews = _unitOfWork.Review.GetAll(r => r.ProductId == bookID).ToList(),
+                Title = _unitOfWork.Product.GetFirstOrDefault(p => p.Id == bookID).Title
+            };
+
+            return View("_Review", reviewVM);
+        }
+
         public IActionResult AddToFavourite(int id, bool isFromFavouritesPage)
         {
             _unitOfWork.Product.UpdateStatus(id);

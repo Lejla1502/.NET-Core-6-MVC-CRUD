@@ -78,6 +78,15 @@
             </div>
         </div>
 </form>
+<div id="reviewDetails">
+
+</div>
+
+
+@await Component.InvokeAsync("Review", @Model.ProductId)
+    
+
+@*<partial name="_Review" />*@
 @*
 <div class="container review">
     <h1>Reviews</h1>

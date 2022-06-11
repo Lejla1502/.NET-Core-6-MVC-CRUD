@@ -18,6 +18,7 @@ namespace BulkyBook.DataAccess.Repository
         public IOrderHeaderRepository OrderHeader { get; private set; }
         public IOrderDetailRepository OrderDetail { get; private set; }
         public INotificationRepository Notification { get; private set; }
+        public IReviewRepository Review { get; private set; }
 
         //here we create global db context for our repositories, so we don't have to create in ever
         private readonly ApplicationDbContext _db;
@@ -33,6 +34,7 @@ namespace BulkyBook.DataAccess.Repository
             OrderHeader = new OrderHeaderRepository(_db);
             OrderDetail = new OrderDetailRepository(_db);
             Notification = new NotificationRepository(_db);
+            Review = new ReviewRepository(_db);
         }
 
         public void Save()
