@@ -66,6 +66,21 @@ body {
     border-radius:.35rem;
     margin-bottom:5rem;
 }
+
+.icon-star{
+    width:20px;
+    height:20px;
+}
+
+.ratingStar {
+    width: 40px;
+    height: 40px;
+}
+
+    .ratingStar:hover {
+        
+    }
+
 /*
 .textarea-review:placeholder{
 

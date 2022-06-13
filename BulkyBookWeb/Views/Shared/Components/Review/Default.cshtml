@@ -1,4 +1,9 @@
 ﻿@model BulkyBook.Models.ViewModels.ReviewVM
+
+<style>
+    
+</style>
+
 <div class="container review">
     <h1>Reviews</h1>
     <div class="what-people-think-about-book-div">What people think about <strong>"@Model.Title"</strong></div>
@@ -6,11 +11,15 @@
         @Model.AvgRating
     </div>
     <div class="star-container mb-2">
-         <img class="icon-star" src="~/icons/star.png" width="20" height="20">
-         <img class="icon-star" src="~/icons/star.png" width="20" height="20">
-         <img class="icon-star" src="~/icons/star.png" width="20" height="20">
-         <img class="icon-star" src="~/icons/star.png" width="20" height="20">
-         <img class="icon-star" src="~/icons/star.png" width="20" height="20">
+         @for(int i=0; i<Model.AvgRating;i++)
+                {
+                    <i class="ratingStar bi bi-star-fill mx-1"></i> 
+                }
+                @for(int i=Model.AvgRating; i<5; i++)
+                {
+                    
+                    <i class="ratingStar bi bi-star mx-1"></i>
+                }
     </div>
     <div>
         <p>@Model.SumOfRatings ratings / @Model.NumOfRatings reviews</p>
@@ -18,21 +27,42 @@
     <form class="mt-5 left-side col-xxl-9">
         <div class="what-did-you-think">What did you think?</div>
         <div class="py-1 px-1">
+  
+      <i class="ratingStar bi bi-star icon-star mx-1"></i>
+      <i class="ratingStar bi bi-star icon-star mx-1"></i>
+      <i class="ratingStar bi bi-star icon-star mx-1"></i>
+      <i class="ratingStar bi bi-star icon-star mx-1"></i>
+      <i class="ratingStar bi bi-star icon-star mx-1"></i>
+               
+</div>
+        @*<div class="py-1 px-1">
              <img class="icon-star mx-1" src="~/icons/star.png" width="30" height="30">
              <img class="icon-star mx-1" src="~/icons/star.png" width="30" height="30">
              <img class="icon-star mx-1" src="~/icons/star.png" width="30" height="30">
              <img class="icon-star mx-1" src="~/icons/star.png" width="30" height="30">
              <img class="icon-star mx-1" src="~/icons/star.png" width="30" height="30">
-        </div>
+        </div>*@
         <div class="write-review my-1"><strong>Write a review</strong> (optional)</div>
         <textarea class="form-control textarea-review" placeholder="Tell others what you thought of @Model.Title"></textarea>
     </form>
     <h4>Readers reviews</h4>
+
+ 
+
    @foreach(var r in @Model.Reviews)
-      { 
+      { <hr />
          <div class="row">
             <div class="col-xxl-3">
                 <p>@r.ApplicationUser.Name</p>
+                @for(int i=0; i<r.Rating;i++)
+                {
+                    <i class="ratingStar bi bi-star-fill mx-1"></i> 
+                }
+                @for(int i=r.Rating; i<5; i++)
+                {
+                    
+                    <i class="ratingStar bi bi-star mx-1"></i>
+                }
             </div>
             <div class="col-xxl-8">
                 <p>A short story that kept my attention. I liked Finn as the main character. An unlucky fellow who it seemed like his luck was about to run out. This was a short read but a good one.</p>

@@ -55,17 +55,17 @@ namespace BulkyBookWeb.ViewComponents
             reviewVM.Reviews = _unitOfWork.Review.GetAll(r => r.ProductId == bookID, includeProperties: "ApplicationUser");
             reviewVM.Title = _unitOfWork.Product.GetFirstOrDefault(p => p.Id == bookID).Title;
          
-            float sum = 0f;
+            int sum = 0;
             foreach(var r in reviewVM.Reviews)
             {
                 sum += r.Rating;
             }
 
-            float avg = sum / reviewVM.Reviews.Count();
+            int avg = (int)(sum / reviewVM.Reviews.Count());
 
-            reviewVM.SumOfRatings = (decimal)sum;
+            reviewVM.SumOfRatings = sum;
             reviewVM.NumOfRatings = reviewVM.Reviews.Count();
-            reviewVM.AvgRating = (decimal)avg;
+            reviewVM.AvgRating = avg;
 
             return View("", reviewVM);
             
