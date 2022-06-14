@@ -1,9 +1,50 @@
 ﻿@model BulkyBook.Models.ViewModels.ReviewVM
 
+@{
+    Layout = "_Layout";
+}
+
 <style>
     
 </style>
+ <script type="text/javascript">
 
+      function creteOut(rating){
+            for (var i = 1; i <= rating; i++)
+            {
+                $("#icon" + i).attr('class', 'ratingStar bi bi-star icon-star mx-1');
+            }
+        }
+        function createOver(rating)
+        {
+             for (var i = 1; i <= rating; i++)
+            {
+                $("#icon" + i).attr('class', 'ratingStar bi bi-star-fill mx-1');
+            }
+        }
+        function createClick(rating)
+        {
+            $("#lblRating").val(rating);
+            for(var i=1; i<=rating; i++)
+            {
+                $("#icon" + i).attr('class', 'ratingStar bi bi-star-fill mx-1');
+            }
+            for(var i=rating; i<=5; i++)
+            {
+                $("#icon" + i).attr('class', 'ratingStar bi bi-star icon-star mx-1');
+            }
+        }
+        function createSelected() {
+            var rating= $("#lblRating").val();
+            for(var i=rating; i<=5; i++)
+            {
+                $("#icon" + i).attr('class', 'ratingStar bi bi-star icon-star mx-1');
+            }
+        }
+
+      </script>
+
+@if(@Model.Reviews.Count()>0){
 <div class="container review">
     <h1>Reviews</h1>
     <div class="what-people-think-about-book-div">What people think about <strong>"@Model.Title"</strong></div>
@@ -26,9 +67,9 @@
     </div>
     <form class="mt-5 left-side col-xxl-9">
         <div class="what-did-you-think">What did you think?</div>
-        <div onmouseout="CreateSelected()" class="py-1 px-1">
+        <div onmouseout="createSelected()" class="py-1 px-1">
   
-          <span language="javascript" id="icon1" onmouseout="creteOut(1)" onmouseover="createOver(1)" onclick="CreateClick(1)" class="ratingStar bi bi-star icon-star mx-1"></span>
+          <span language="javascript" id="icon1" onmouseout="creteOut(1)" onmouseover="createOver(1)" onclick="createClick(1)" class="ratingStar bi bi-star icon-star mx-1"></span>
           <i id="icon2" onmouseout="creteOut(2)" onmouseover="createOver(2)" onclick="createClick(2)" class="ratingStar bi bi-star icon-star mx-1"></i>
           <i id="icon3" onmouseout="creteOut(3)" onmouseover="createOver(3)" onclick="createClick(3)" class="ratingStar bi bi-star icon-star mx-1"></i>
           <i id="icon4" onmouseout="creteOut(4)" onmouseover="createOver(4)" onclick="createClick(4)" class="ratingStar bi bi-star icon-star mx-1"></i>
@@ -68,52 +109,46 @@
                 }
             </div>
             <div class="col-xxl-8">
-                <p>A short story that kept my attention. I liked Finn as the main character. An unlucky fellow who it seemed like his luck was about to run out. This was a short read but a good one.</p>
+                <p>@r.Comment</p>
             </div>
         </div>
       }
 </div>
-
-@section Scripts{
-    <script type="text/javascript">
-        function creteOut(rating){
-            alert("createOut");
-            for (int i = 1; i <= rating; i++)
-            {
-                $("#icon" + i).attr('class', 'ratingStar bi bi-star icon-star mx-1');
-            }
-        }
-
-        function createOver(rating)
-        {
-            alert("CreateOver");
-             for (int i = 1; i <= rating; i++)
-            {
-                $("#icon" + i).attr('class', 'ratingStar bi bi-star-fill mx-1');
-            }
-        }
-
-        function createClick(rating)
-        {
-            alert("createClick");
-            $("#lblRating").val(rating);
-            for(var i=1; i<=rating; i++)
-            {
-                $("#icon" + i).attr('class', 'ratingStar bi bi-star-fill mx-1');
-            }
-
-            for(var i=rating; i<=5; i++)
-            {
-                $("#icon" + i).attr('class', 'ratingStar bi bi-star icon-star mx-1');
-            }
-        }
-
-        function CreateSelected() {
-            var rating= $("#lblRating").val();
-            for(var i=rating; i<=5; i++)
-            {
-                $("#icon" + i).attr('class', 'ratingStar bi bi-star icon-star mx-1');
-            }
-        }
-    </script>
 }
+else
+{
+    <div class="container review">
+        <h1>No reviews for this book</h1>
+   </div>
+
+    <form class="mt-5 left-side col-xxl-9">
+        <div class="what-did-you-think">What did you think?</div>
+        <div onmouseout="createSelected()" class="py-1 px-1">
+  
+          <span language="javascript" id="icon1" onmouseout="creteOut(1)" onmouseover="createOver(1)" onclick="createClick(1)" class="ratingStar bi bi-star icon-star mx-1"></span>
+          <i id="icon2" onmouseout="creteOut(2)" onmouseover="createOver(2)" onclick="createClick(2)" class="ratingStar bi bi-star icon-star mx-1"></i>
+          <i id="icon3" onmouseout="creteOut(3)" onmouseover="createOver(3)" onclick="createClick(3)" class="ratingStar bi bi-star icon-star mx-1"></i>
+          <i id="icon4" onmouseout="creteOut(4)" onmouseover="createOver(4)" onclick="createClick(4)" class="ratingStar bi bi-star icon-star mx-1"></i>
+          <i id="icon5" onmouseout="creteOut(5)" onmouseover="createOver(5)" onclick="createClick(5)" class="ratingStar bi bi-star icon-star mx-1"></i>
+               
+        </div>
+        <div>
+            <input type="hidden" id="lblRating" />
+        </div>
+        @*<div class="py-1 px-1">
+             <img class="icon-star mx-1" src="~/icons/star.png" width="30" height="30">
+             <img class="icon-star mx-1" src="~/icons/star.png" width="30" height="30">
+             <img class="icon-star mx-1" src="~/icons/star.png" width="30" height="30">
+             <img class="icon-star mx-1" src="~/icons/star.png" width="30" height="30">
+             <img class="icon-star mx-1" src="~/icons/star.png" width="30" height="30">
+        </div>*@
+        <div class="write-review my-1"><strong>Write a review</strong> (optional)</div>
+        <textarea class="form-control textarea-review" placeholder="Tell others what you thought of @Model.Title"></textarea>
+    </form>
+}
+
+
+
+
+
+
