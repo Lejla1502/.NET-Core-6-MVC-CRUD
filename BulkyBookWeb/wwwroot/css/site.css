@@ -27,3 +27,62 @@ body {
     width:500px;
     cursor:pointer;
 }
+
+
+/*REVIEW*/
+.review{
+    margin-top:5rem;
+}
+
+.what-people-think-about-book-div{
+    font-size:30px;
+    color:black;
+    font-weight:400;
+}
+
+.rating-number{
+    font-size:8rem;
+}
+
+.left-side{
+    padding-left:5rem;
+}
+
+.what-did-you-think
+{
+    font-size:20px;
+    color:black;
+    font-weight:bold;
+}
+
+.write-review{
+    font-size:18px;
+    color:black;
+}
+
+.textarea-review{
+    padding:1rem;
+    border:1px solid;
+    border-radius:.35rem;
+    margin-bottom:5rem;
+}
+
+.icon-star{
+    width:20px;
+    height:20px;
+}
+
+.ratingStar {
+    width: 40px;
+    height: 40px;
+}
+
+    .ratingStar:hover {
+        
+    }
+
+/*
+.textarea-review:placeholder{
+
+  
+}*/
