@@ -1,8 +1,8 @@
 ﻿@model BulkyBook.Models.ViewModels.ReviewVM
 
-@{
+@*@{
     Layout = "_Layout";
-}
+}*@
 
 <style>
     
@@ -29,7 +29,7 @@
             {
                 $("#icon" + i).attr('class', 'ratingStar bi bi-star-fill mx-1');
             }
-            for(var i=rating; i<=5; i++)
+            for(var i=rating+1; i<=5; i++)
             {
                 $("#icon" + i).attr('class', 'ratingStar bi bi-star icon-star mx-1');
             }
@@ -41,6 +41,8 @@
                 $("#icon" + i).attr('class', 'ratingStar bi bi-star icon-star mx-1');
             }
         }
+
+
 
       </script>
 
@@ -65,7 +67,10 @@
     <div>
         <p>@Model.SumOfRatings ratings / @Model.NumOfRatings reviews</p>
     </div>
-    <form class="mt-5 left-side col-xxl-9">
+
+    @*************************************   FORM    **********************************************************@
+    <form class="mt-5 left-side col-xxl-9" ajax-poziv="da">
+        <input asp-for="Review.ProductId" hidden>
         <div class="what-did-you-think">What did you think?</div>
         <div onmouseout="createSelected()" class="py-1 px-1">
   
@@ -87,7 +92,8 @@
              <img class="icon-star mx-1" src="~/icons/star.png" width="30" height="30">
         </div>*@
         <div class="write-review my-1"><strong>Write a review</strong> (optional)</div>
-        <textarea class="form-control textarea-review" placeholder="Tell others what you thought of @Model.Title"></textarea>
+        <textarea asp-for="Review.Comment" class="form-control textarea-review" placeholder="Tell others what you thought of @Model.Title"></textarea>
+        <input id="submitReview" type="submit" class="btn btn-primary active mb-5" name="saveReview" value="Submit Review"> 
     </form>
     <h4>Readers reviews</h4>
 
@@ -147,7 +153,54 @@ else
     </form>
 }
 
+<script>
+    $(document).ready(function() {
 
+    $("form[ajax-poziv='da']").submit(function(event) {
+
+        event.preventDefault();
+        var urlZaPoziv = '@Url.Action("PostReviews", "Home")';
+        var divZaRezultat = $(this).attr("ajax-rezultat");
+
+        var form = $(this);
+
+        alert(form.serialize());
+
+        $.ajax({
+            type: "POST",
+            url: urlZaPoziv,
+            data: form.serialize(),
+            success: function(data) {
+                $("#loadReviewComponent").html(data);
+            }
+        });
+
+    });
+
+    //$('#submitReview').click(function() {
+    //    var id = @Model.Reviews.First().ProductId;
+    //    var _url = '@Url.Action("GetReviewComponent", "Home")';
+    //    var urlPost = '@Url.Action("PostReviews", "Home")';
+    //    $.ajax({
+    //        type: "POST",
+    //        url: urlPost,
+    //        data: { id: id },
+    //        success: function(result) {
+    //            $("#loadReviewComponent").html(result);
+    //        },
+    //    });
+    //    //$.ajax({
+    //    //    type: "GET",
+    //    //    url: _url,
+    //    //    data: { id: id },
+    //    //    success: function(result) {
+    //    //        $("#loadReviewComponent").html(result);
+    //    //    },
+    //    //});
+    //}
+
+    });
+</script>
 
 
 
