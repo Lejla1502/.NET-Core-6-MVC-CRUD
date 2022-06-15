@@ -96,8 +96,10 @@ namespace BulkyBookWeb.Customer.Controllers
             var claim = claimsIdentity.FindFirst(ClaimTypes.NameIdentifier);
             review.ApplicationUserId = claim.Value;
 
-            //_unitOfWork.Review.Add(review);
-            //_unitOfWork.SaveChanges();
+            review.CreatedAt = DateTime.Now;
+
+            _unitOfWork.Review.Add(review);
+            _unitOfWork.Save();
 
             return ViewComponent("Review", new { bookID = review.ProductId });
         }
