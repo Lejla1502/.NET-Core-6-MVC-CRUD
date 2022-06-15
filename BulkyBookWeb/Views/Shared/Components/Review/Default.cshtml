@@ -36,9 +36,9 @@
         }
         function createSelected() {
             var rating= $("#lblRating").val();
-            for(var i=rating; i<=5; i++)
+            for(var i=1; i<=rating; i++)
             {
-                $("#icon" + i).attr('class', 'ratingStar bi bi-star icon-star mx-1');
+                $("#icon" + i).attr('class', 'ratingStar bi bi-star-fill mx-1');
             }
         }
 
@@ -82,7 +82,7 @@
                
         </div>
         <div>
-            <input type="hidden" id="lblRating" />
+            <input type="hidden" id="lblRating" asp-for="Review.Rating"/>
         </div>
         @*<div class="py-1 px-1">
              <img class="icon-star mx-1" src="~/icons/star.png" width="30" height="30">
@@ -139,7 +139,7 @@ else
                
         </div>
         <div>
-            <input type="hidden" id="lblRating" />
+            <input type="hidden" id="lblRating" asp-for="Review.Rating"/>
         </div>
         @*<div class="py-1 px-1">
              <img class="icon-star mx-1" src="~/icons/star.png" width="30" height="30">
@@ -149,7 +149,8 @@ else
              <img class="icon-star mx-1" src="~/icons/star.png" width="30" height="30">
         </div>*@
         <div class="write-review my-1"><strong>Write a review</strong> (optional)</div>
-        <textarea class="form-control textarea-review" placeholder="Tell others what you thought of @Model.Title"></textarea>
+        <textarea asp-for="Review.Comment" class="form-control textarea-review" placeholder="Tell others what you thought of @Model.Title"></textarea>
+        <input id="submitReview" type="submit" class="btn btn-primary active mb-5" name="saveReview" value="Submit Review"> 
     </form>
 }
 
@@ -158,22 +159,31 @@ else
 
     $("form[ajax-poziv='da']").submit(function(event) {
 
-        event.preventDefault();
-        var urlZaPoziv = '@Url.Action("PostReviews", "Home")';
-        var divZaRezultat = $(this).attr("ajax-rezultat");
+        var rating= $("#lblRating").val();
+        if (rating == 0) {
+            alert("Please select Rating");
+            return false;
+        }
+        else {
+            //@Model.Review.Rating=rating;
+            event.preventDefault();
+            var urlZaPoziv = '@Url.Action("PostReviews", "Home")';
+            var divZaRezultat = $(this).attr("ajax-rezultat");
 
-        var form = $(this);
+            var form = $(this);
+            
 
-        alert(form.serialize());
+            alert(form.serialize());
 
-        $.ajax({
-            type: "POST",
-            url: urlZaPoziv,
-            data: form.serialize(),
-            success: function(data) {
-                $("#loadReviewComponent").html(data);
-            }
-        });
+            $.ajax({
+                type: "POST",
+                url: urlZaPoziv,
+                data: form.serialize(),
+                success: function(data) {
+                    $("#loadReviewComponent").html(data);
+                }
+            });
+        }
 
     });
 

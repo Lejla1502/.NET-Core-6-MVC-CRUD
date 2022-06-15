@@ -92,6 +92,13 @@ namespace BulkyBookWeb.Customer.Controllers
         [HttpPost]
         public IActionResult PostReviews(Review review)
         {
+            var claimsIdentity = (ClaimsIdentity)User.Identity;
+            var claim = claimsIdentity.FindFirst(ClaimTypes.NameIdentifier);
+            review.ApplicationUserId = claim.Value;
+
+            //_unitOfWork.Review.Add(review);
+            //_unitOfWork.SaveChanges();
+
             return ViewComponent("Review", new { bookID = review.ProductId });
         }
 
