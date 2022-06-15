@@ -16,9 +16,7 @@
             <div class="card-body row container">
                 <div class="container rounded p-2">
                     <div class="row">
-
                         <div class="col-8 col-lg-8">
-
                             <div class="row pl-2">
                                 <h5 class="text-muted">ISBN : @Model.Product.ISBN</h5>
                             </div>
@@ -84,8 +82,12 @@
 </div>
 
 
-@await Component.InvokeAsync("Review", @Model.ProductId)
+@*@await Component.InvokeAsync("Review", @Model.ProductId)
+*@
 
+<div id="loadReviewComponent">
+
+</div>
 
 @*<partial name="_Review" />*@
 @*
@@ -133,3 +135,22 @@
 
 //PUT ALL OF THIS INTO SEPARATE PARTIAL VIEW!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 *@
+
+@section Scripts{
+<script>
+
+    $(document).ready(function() {
+        var id = @Model.ProductId;
+        var _url = '@Url.Action("GetReviewComponent", "Home")';
+        $.ajax({
+            type: "GET",
+            url: _url,
+            data: { id: id },
+            success: function(result) {
+                $("#loadReviewComponent").html(result);
+            },
+        });
+    });
+
+</script>
+}

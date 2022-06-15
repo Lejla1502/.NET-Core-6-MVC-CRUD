@@ -42,6 +42,7 @@ namespace BulkyBookWeb.Customer.Controllers
         {
             return View();
         }
+        [HttpGet]
         public IActionResult Details(int productId)
         {
             ShoppingCart cartObj = new ShoppingCart
@@ -83,17 +84,34 @@ namespace BulkyBookWeb.Customer.Controllers
             return RedirectToAction(nameof(Index), nameof(CartController).Replace("Controller", ""));
         }
 
-
-        public IActionResult GetReviews(int bookID)
+        public IActionResult GetReviewComponent(int id)
         {
-            ReviewVM reviewVM = new ReviewVM
-            {
-                Reviews = _unitOfWork.Review.GetAll(r => r.ProductId == bookID).ToList(),
-                Title = _unitOfWork.Product.GetFirstOrDefault(p => p.Id == bookID).Title
-            };
-
-            return View("_Review", reviewVM);
+            return ViewComponent("Review", new {bookID=id});
         }
+
+        [HttpPost]
+        public IActionResult PostReviews(Review review)
+        {
+            return ViewComponent("Review", new { bookID = review.ProductId });
+        }
+
+        //public IActionResult GetReviews(int bookID)
+        //{
+        //    ReviewVM reviewVM = new ReviewVM
+        //    {
+        //        Reviews = _unitOfWork.Review.GetAll(r => r.ProductId == bookID).ToList(),
+        //        Title = _unitOfWork.Product.GetFirstOrDefault(p => p.Id == bookID).Title
+        //    };
+
+        //    return View("_Review", reviewVM);
+        //}
+
+        //[HttpPost]
+        //[ValidateAntiForgeryToken]
+        //public IActionResult PostReviews()
+        //{
+        //    return View("_Review");
+        //}
 
         public IActionResult AddToFavourite(int id, bool isFromFavouritesPage)
         {
