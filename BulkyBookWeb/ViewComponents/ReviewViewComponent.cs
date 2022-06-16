@@ -25,7 +25,9 @@ namespace BulkyBookWeb.ViewComponents
             ReviewVM reviewVM = new ReviewVM();
             reviewVM.Review = new BulkyBook.Models.Review();
             reviewVM.Review.ProductId = bookID;
-            reviewVM.Reviews = _unitOfWork.Review.GetAll(r => r.ProductId == bookID, includeProperties: "ApplicationUser");
+
+            if(_unitOfWork.Review.GetAll()!=null)
+                reviewVM.Reviews = _unitOfWork.Review.GetAll(r => r.ProductId == bookID, includeProperties: "ApplicationUser");
             reviewVM.Title = _unitOfWork.Product.GetFirstOrDefault(p => p.Id == bookID).Title;
 
             if (reviewVM.Reviews.Count() > 0)
