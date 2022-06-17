@@ -13,6 +13,7 @@ namespace BulkyBook.Models.ViewModels
         public int AvgRating { get; set; }
         public int SumOfRatings { get; set; }
         public int NumOfRatings { get; set; }
+        public bool AlreadyLeftReview { get; set; }
 
         public Review Review { get; set; }
     }

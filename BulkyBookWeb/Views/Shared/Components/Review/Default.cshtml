@@ -81,27 +81,30 @@
 
     @if (Model.Review.ApplicationUserId != "")
     {
-        <form class="mt-5 left-side col-xxl-9" ajax-poziv="da">
-            <input asp-for="Review.ProductId" hidden>
-        <div class="what-did-you-think">What did you think?</div>
-        <div onmouseout="createSelected()" class="py-1 px-1">
-          <span language="javascript" id="icon1" onmouseout="creteOut(1)" onmouseover="createOver(1)" onclick="createClick(1)" class="ratingStar bi bi-star icon-star mx-1"></span>
-          <i id="icon2" onmouseout="creteOut(2)" onmouseover="createOver(2)" onclick="createClick(2)" class="ratingStar bi bi-star icon-star mx-1"></i>
-          <i id="icon3" onmouseout="creteOut(3)" onmouseover="createOver(3)" onclick="createClick(3)" class="ratingStar bi bi-star icon-star mx-1"></i>
-          <i id="icon4" onmouseout="creteOut(4)" onmouseover="createOver(4)" onclick="createClick(4)" class="ratingStar bi bi-star icon-star mx-1"></i>
-          <i id="icon5" onmouseout="creteOut(5)" onmouseover="createOver(5)" onclick="createClick(5)" class="ratingStar bi bi-star icon-star mx-1"></i>  
-        </div>
-        <div>
-            <input type="hidden" id="lblRating" asp-for="Review.Rating"/>
-        </div>
-        <div class="write-review my-1"><strong>Write a review</strong> (optional)</div>
-        <textarea id="txtComment" asp-for="Review.Comment" class="form-control textarea-review" placeholder="Tell others what you thought of @Model.Title"></textarea>
-        <input id="submitReview" type="submit" class="btn btn-primary active mb-5" name="saveReview" value="Submit Review"> 
-    </form>
+        @if (!Model.AlreadyLeftReview)
+        {
+            <form class="mt-5 left-side col-xxl-9" ajax-poziv="da">
+                <input asp-for="Review.ProductId" hidden>
+                <div class="what-did-you-think">What did you think?</div>
+                <div onmouseout="createSelected()" class="py-1 px-1">
+                    <span language="javascript" id="icon1" onmouseout="creteOut(1)" onmouseover="createOver(1)" onclick="createClick(1)" class="ratingStar bi bi-star icon-star mx-1"></span>
+                    <i id="icon2" onmouseout="creteOut(2)" onmouseover="createOver(2)" onclick="createClick(2)" class="ratingStar bi bi-star icon-star mx-1"></i>
+                    <i id="icon3" onmouseout="creteOut(3)" onmouseover="createOver(3)" onclick="createClick(3)" class="ratingStar bi bi-star icon-star mx-1"></i>
+                    <i id="icon4" onmouseout="creteOut(4)" onmouseover="createOver(4)" onclick="createClick(4)" class="ratingStar bi bi-star icon-star mx-1"></i>
+                    <i id="icon5" onmouseout="creteOut(5)" onmouseover="createOver(5)" onclick="createClick(5)" class="ratingStar bi bi-star icon-star mx-1"></i>  
+                </div>
+                <div>
+                    <input type="hidden" id="lblRating" asp-for="Review.Rating"/>
+                </div>
+                <div class="write-review my-1"><strong>Write a review</strong> (optional)</div>
+                <textarea id="txtComment" asp-for="Review.Comment" class="form-control textarea-review" placeholder="Tell others what you thought of @Model.Title"></textarea>
+                <input id="submitReview" type="submit" class="btn btn-primary active mb-5" name="saveReview" value="Submit Review"> 
+            </form>
+        }
     }
      @if (@Model.Reviews.Count() > 0)
     {
-        <h4>Readers reviews</h4>
+        <h4 class="mt-5">Readers reviews</h4>
 
         @foreach (var r in @Model.Reviews)
         {
@@ -154,7 +157,7 @@
                 var form = $(this);
 
 
-                alert(form.serialize());
+                //alert(form.serialize());
 
                 $.ajax({
                     type: "POST",

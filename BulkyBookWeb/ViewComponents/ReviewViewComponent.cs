@@ -28,13 +28,21 @@ namespace BulkyBookWeb.ViewComponents
             ReviewVM reviewVM = new ReviewVM();
             reviewVM.Review = new BulkyBook.Models.Review();
             reviewVM.Review.ProductId = bookID;
+            reviewVM.AlreadyLeftReview = false;
 
             if (claim != null)
+            {
                 reviewVM.Review.ApplicationUserId = claim.Value;
+
+                if (_unitOfWork.Review.GetAll(r => r.ProductId == bookID && r.ApplicationUserId == claim.Value).Count() > 0)
+                    reviewVM.AlreadyLeftReview = true;
+            }
             else
                 reviewVM.Review.ApplicationUserId = "";
 
             reviewVM.Reviews = _unitOfWork.Review.GetAll(r => r.ProductId == bookID, includeProperties: "ApplicationUser");
+
+
             reviewVM.Title = _unitOfWork.Product.GetFirstOrDefault(p => p.Id == bookID).Title;
 
             if (reviewVM.Reviews.Count() > 0)
