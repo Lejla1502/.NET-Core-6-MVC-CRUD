@@ -90,6 +90,8 @@ namespace BulkyBookWeb.Customer.Controllers
         }
 
         [HttpPost]
+        [Authorize]
+        [ValidateAntiForgeryToken]
         public IActionResult PostReviews(Review review)
         {
             var claimsIdentity = (ClaimsIdentity)User.Identity;

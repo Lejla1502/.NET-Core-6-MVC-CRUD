@@ -4,6 +4,7 @@ using BulkyBook.Models.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System.Linq;
+using System.Security.Claims;
 
 namespace BulkyBookWeb.ViewComponents
 {
@@ -21,13 +22,19 @@ namespace BulkyBookWeb.ViewComponents
 
         public async Task<IViewComponentResult> InvokeAsync(int bookID)
         {
+            var claimsIdentity = (ClaimsIdentity)User.Identity;
+            var claim = claimsIdentity.FindFirst(ClaimTypes.NameIdentifier);
 
             ReviewVM reviewVM = new ReviewVM();
             reviewVM.Review = new BulkyBook.Models.Review();
             reviewVM.Review.ProductId = bookID;
 
-            if(_unitOfWork.Review.GetAll()!=null)
-                reviewVM.Reviews = _unitOfWork.Review.GetAll(r => r.ProductId == bookID, includeProperties: "ApplicationUser");
+            if (claim != null)
+                reviewVM.Review.ApplicationUserId = claim.Value;
+            else
+                reviewVM.Review.ApplicationUserId = "";
+
+            reviewVM.Reviews = _unitOfWork.Review.GetAll(r => r.ProductId == bookID, includeProperties: "ApplicationUser");
             reviewVM.Title = _unitOfWork.Product.GetFirstOrDefault(p => p.Id == bookID).Title;
 
             if (reviewVM.Reviews.Count() > 0)
@@ -44,6 +51,11 @@ namespace BulkyBookWeb.ViewComponents
                 reviewVM.NumOfRatings = reviewVM.Reviews.Count();
                 reviewVM.AvgRating = avg;
             }
+
+            
+
+            //if (reviewVM.Reviews.Count() < 1)
+             //   reviewVM = null;
             return View("", reviewVM);
            
            

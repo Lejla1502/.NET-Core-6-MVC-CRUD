@@ -78,8 +78,11 @@
         </div>
     }
     @*************************************   FORM    **********************************************************@
-    <form class="mt-5 left-side col-xxl-9" ajax-poziv="da">
-        <input asp-for="Review.ProductId" hidden>
+
+    @if (Model.Review.ApplicationUserId != "")
+    {
+        <form class="mt-5 left-side col-xxl-9" ajax-poziv="da">
+            <input asp-for="Review.ProductId" hidden>
         <div class="what-did-you-think">What did you think?</div>
         <div onmouseout="createSelected()" class="py-1 px-1">
           <span language="javascript" id="icon1" onmouseout="creteOut(1)" onmouseover="createOver(1)" onclick="createClick(1)" class="ratingStar bi bi-star icon-star mx-1"></span>
@@ -91,18 +94,11 @@
         <div>
             <input type="hidden" id="lblRating" asp-for="Review.Rating"/>
         </div>
-        @*<div class="py-1 px-1">
-             <img class="icon-star mx-1" src="~/icons/star.png" width="30" height="30">
-             <img class="icon-star mx-1" src="~/icons/star.png" width="30" height="30">
-             <img class="icon-star mx-1" src="~/icons/star.png" width="30" height="30">
-             <img class="icon-star mx-1" src="~/icons/star.png" width="30" height="30">
-             <img class="icon-star mx-1" src="~/icons/star.png" width="30" height="30">
-        </div>*@
         <div class="write-review my-1"><strong>Write a review</strong> (optional)</div>
         <textarea id="txtComment" asp-for="Review.Comment" class="form-control textarea-review" placeholder="Tell others what you thought of @Model.Title"></textarea>
         <input id="submitReview" type="submit" class="btn btn-primary active mb-5" name="saveReview" value="Submit Review"> 
     </form>
-
+    }
      @if (@Model.Reviews.Count() > 0)
     {
         <h4>Readers reviews</h4>
@@ -173,27 +169,7 @@
 
     });
 
-    //$('#submitReview').click(function() {
-    //    var id = @Model.Reviews.First().ProductId;
-    //    var _url = '@Url.Action("GetReviewComponent", "Home")';
-    //    var urlPost = '@Url.Action("PostReviews", "Home")';
-    //    $.ajax({
-    //        type: "POST",
-    //        url: urlPost,
-    //        data: { id: id },
-    //        success: function(result) {
-    //            $("#loadReviewComponent").html(result);
-    //        },
-    //    });
-    //    //$.ajax({
-    //    //    type: "GET",
-    //    //    url: _url,
-    //    //    data: { id: id },
-    //    //    success: function(result) {
-    //    //        $("#loadReviewComponent").html(result);
-    //    //    },
-    //    //});
-    //}
+  
 
     });
 </script>
