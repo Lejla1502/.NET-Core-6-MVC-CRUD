@@ -6,7 +6,9 @@ using BulkyBookWeb.Areas.Customer.Controllers;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using System.Collections.Generic;
 using System.Diagnostics;
+using System.Linq;
 using System.Security.Claims;
 
 namespace BulkyBookWeb.Customer.Controllers
@@ -26,9 +28,29 @@ namespace BulkyBookWeb.Customer.Controllers
 
         public IActionResult Index()
         {
-            IEnumerable<Product> listOfProducts = _unitOfWork.Product.GetAll(includeProperties:"Category,CoverType");
-            
-            return View(listOfProducts);
+            //IEnumerable<Product> listOfProducts = _unitOfWork.Product.GetAll(includeProperties:"Category,CoverType");
+
+            ProductReviewVM productReviewVM = new ProductReviewVM()
+            {
+                Products = _unitOfWork.Product.GetAll(includeProperties: "Category,CoverType").Select(x => new ProductReviewVM.ProductInfo
+                {
+                    Id=x.Id,
+                    Title=x.Title,
+                    Description =x.Description,
+                    ISBN=x.ISBN,
+                    Author=x.Author,
+                    ListPrice=x.ListPrice,
+                    Price=x.Price,
+                    Price50=x.Price50,
+                    Price100=x.Price100,
+                    IsFavourite=x.IsFavourite,
+                    ImageUrl=x.ImageUrl,
+                    AvgRating =(_unitOfWork.Review.GetAll(y => y.ProductId == x.Id).Count()>0)? (_unitOfWork.Review.GetAll(y=>y.ProductId==x.Id).Select(s=>s.Rating).Sum()/_unitOfWork.Review.GetAll(y => y.ProductId == x.Id).Count()):0
+                }).ToList()
+            };
+        
+
+            return View(productReviewVM);
         }
 
         public IActionResult DisplayFavourites()

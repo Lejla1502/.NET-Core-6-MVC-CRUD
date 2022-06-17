@@ -1,4 +1,4 @@
-﻿@model IEnumerable<Product>
+﻿@model BulkyBook.Models.ViewModels.ProductReviewVM
 @{
     ViewData["Title"] = "Home Page";
 }
@@ -19,9 +19,13 @@
 }
 
 
+.colored{
+    color:darkorange;
+}
+
 </style>
 <div class="row pb-3" style="z-index:-900;">
-    @foreach (var product in Model)
+    @foreach (var product in Model.Products)
     {
         <div class="col-lg-3 col-sm-6">
             <div class="row p-2">
@@ -46,8 +50,23 @@
                                 <p>As low as: <b>$@product.Price100.ToString("0.00")</b></p>
                             </div>
                             <div class="d-flex justify-content-between">
-                                <div>
-                                    Put rating here
+                                <div class="star-container mb-2">
+                                    @if(product.AvgRating==0)
+                                    {
+                                        <h6 class="colored">Not rated yet</h6>
+                                    }
+                                    else
+                                    {
+                                        @for (int i = 0; i < product.AvgRating; i++)
+                                        {
+                                            <i class="ratingStar bi bi-star-fill colored mx-1"></i>
+                                        }
+                                        @for (int i = product.AvgRating; i < 5; i++)
+                                        {
+
+                                            <i class="ratingStar bi bi-star colored mx-1"></i>
+                                        }
+                                    }
                                 </div>
                                 @if(User.Identity.IsAuthenticated)
                                 {
