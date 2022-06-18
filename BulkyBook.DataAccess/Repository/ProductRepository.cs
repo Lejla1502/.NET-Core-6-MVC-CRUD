@@ -18,12 +18,13 @@ namespace BulkyBook.DataAccess.Repository
         //creating MLContext to be shared accross the model creation workflow objects
         //this is neccessary so we know that the model has not been trined yet
         static MLContext mlContext = null;
+        static ITransformer model = null;
         public ProductRepository(ApplicationDbContext db):base(db)
         {
             _db = db;
         }
 
-        public IEnumerable<Product> GetRecommended(int id)
+        public IEnumerable<Product> GetRecommended(int productId)
         {
             if (mlContext == null)
             {
@@ -69,7 +70,7 @@ namespace BulkyBook.DataAccess.Repository
 
                 //STEP 5: Train the model fitting to the DataSet
                 Console.WriteLine("=============== Training the model ===============");
-                ITransformer model = trainingPipeLine.Fit(trainingDataView);
+                model = trainingPipeLine.Fit(trainingDataView);
 
 
                 var testData = new List<ProductRating>()
@@ -99,7 +100,45 @@ namespace BulkyBook.DataAccess.Repository
             }
             // ITransformer model = null;
 
+            //STEP 7:  Try/test a single prediction by predicting a single movie rating for a specific user
+            var predictionengine = mlContext.Model.CreatePredictionEngine<ProductRating, ProductRatingPrediction>(model);
+            /* Make a single movie rating prediction, the scores are for a particular user and will range from 1 - 5. 
+               The higher the score the higher the likelyhood of a user liking a particular movie.
+               You can recommend a movie to a user if say rating > 3.5.*/
 
+
+            //NEED TO FIGURE OUT THIS PART
+            //in my example on github it seems like its taking users that have added the product
+            //here we need all buyers, not admins
+            //   |
+            //   |
+            //   |
+            //  \|/
+
+            /*var allItems = _db.Products.Where(p => p.Id != productId).ToList();
+
+            var listRecommendedProducts = new List<Tuple<Product, float>>();
+
+            foreach (var x in allItems)
+            {
+                var productRatingPrediction = predictionengine.Predict(
+                    new ProductRating()
+                    {
+                        //Example rating prediction for userId = 6, movieId = 10 (GoldenEye)
+                        userId = ,
+                        productId = x.Id
+                    }
+                );
+
+                listRecommendedProducts.Add(new Tuple<Product, float>(x, productRatingPrediction.Score));
+
+            }
+
+            var finalResult = listRecommendedProducts.OrderByDescending(o => o.Item2).Select(s => s.Item1).Take(3).ToList();
+
+
+            return finalResult; // _mapper.Map<List<Model.Proizvod>>(finalResult);
+            */
             return null;
         }
 
