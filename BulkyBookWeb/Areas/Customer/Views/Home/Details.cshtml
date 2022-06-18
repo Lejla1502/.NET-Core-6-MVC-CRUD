@@ -85,62 +85,35 @@
 @*@await Component.InvokeAsync("Review", @Model.ProductId)
 *@
 
+
+<div id="loadRecommendedProductsComponent">
+
+</div>
+
 <div id="loadReviewComponent">
 
 </div>
 
 @*<partial name="_Review" />*@
-@*
-<div class="container review">
-    <h1>Reviews</h1>
-    <div class="what-people-think-about-book-div">What people think about <strong>"@Model.Product.Title"</strong></div>
-    <div class="rating-number">
-        4.0
-    </div>
-    <div class="star-container mb-2">
-         <img class="icon-star" src="~/icons/star.png" width="20" height="20">
-         <img class="icon-star" src="~/icons/star.png" width="20" height="20">
-         <img class="icon-star" src="~/icons/star.png" width="20" height="20">
-         <img class="icon-star" src="~/icons/star.png" width="20" height="20">
-         <img class="icon-star" src="~/icons/star.png" width="20" height="20">
-    </div>
-    <div>
-        <p>145 ratings / 8 reviews</p>
-    </div>
-    <form class="mt-5 left-side col-xxl-9">
-        <div class="what-did-you-think">What did you think?</div>
-        <div class="py-1 px-1">
-             <img class="icon-star mx-1" src="~/icons/star.png" width="30" height="30">
-             <img class="icon-star mx-1" src="~/icons/star.png" width="30" height="30">
-             <img class="icon-star mx-1" src="~/icons/star.png" width="30" height="30">
-             <img class="icon-star mx-1" src="~/icons/star.png" width="30" height="30">
-             <img class="icon-star mx-1" src="~/icons/star.png" width="30" height="30">
-        </div>
-        <div class="write-review my-1"><strong>Write a review</strong> (optional)</div>
-        <textarea class="form-control textarea-review" placeholder="Tell others what you thought of @Model.Product.Title"></textarea>
-    </form>
-    <h4>Readers reviews</h4>
-    @foreach()
-    {
-        <div class="row">
-            <div class="col-xxl-3">
-                <p>Lejla Spahic</p>
-            </div>
-            <div class="col-xxl-8">
-                <p>A short story that kept my attention. I liked Finn as the main character. An unlucky fellow who it seemed like his luck was about to run out. This was a short read but a good one.</p>
-            </div>
-        </div>
-    }
-</div>
-
-//PUT ALL OF THIS INTO SEPARATE PARTIAL VIEW!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-*@
 
 @section Scripts{
 <script>
 
     $(document).ready(function() {
         var id = @Model.ProductId;
+
+        //load recommend products component
+        var urlRecommended='@Url.Action("GetRecommendProductsComponent", "Home")';
+        $.ajax({
+            type: "GET",
+            url: urlRecommended,
+            data: { id: id },
+            success: function(result) {
+                $("#loadRecommendedProductsComponent").html(result);
+            },
+        });
+
+        //load review component
         var _url = '@Url.Action("GetReviewComponent", "Home")';
         $.ajax({
             type: "GET",

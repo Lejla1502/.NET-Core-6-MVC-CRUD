@@ -111,6 +111,11 @@ namespace BulkyBookWeb.Customer.Controllers
             return ViewComponent("Review", new {bookID=id});
         }
 
+        public IActionResult GetRecommendProductsComponent(int id)
+        {
+            return ViewComponent("RecommendProducts", new { bookID = id });
+        }
+
         [HttpPost]
         public IActionResult PostReviews(Review review)
         {

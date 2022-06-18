@@ -24,7 +24,7 @@ namespace BulkyBook.DataAccess.Repository
             _db = db;
         }
 
-        public IEnumerable<Product> GetRecommended(string appUserId, int productId)
+        public Product[] GetRecommended(string appUserId, int productId)
         {
             if (mlContext == null)
             {
@@ -37,7 +37,7 @@ namespace BulkyBook.DataAccess.Repository
                 var trainData = _db.Reviews.ToList().Select(s => new { userId = s.ApplicationUserId, productId = s.ProductId, rating = (float)s.Rating });
                 foreach (var x in trainData)
                 {
-                    data.Add(new ProductRating()
+                    data.Add(new ProductRating() 
                     {
                         userId = x.userId,
                         productId = x.productId,
@@ -45,7 +45,6 @@ namespace BulkyBook.DataAccess.Repository
                     });
 
                 }
-
 
                 //STEP 2: Read the training data which will be used to train the movie recommendation model
                 //The schema for training data is defined by type 'TInput' in LoadFromTextFile<TInput>() method.
@@ -88,8 +87,6 @@ namespace BulkyBook.DataAccess.Repository
 
             };
 
-
-
                 //STEP 6: Evaluate the model performance 
                 Console.WriteLine("=============== Evaluating the model ===============");
                 IDataView testDataView = mlContext.Data.LoadFromEnumerable(testData);
@@ -115,7 +112,7 @@ namespace BulkyBook.DataAccess.Repository
             //   |
             //  \|/
 
-            /*var allItems = _db.Products.Where(p => p.Id != productId).ToList();
+            var allItems = _db.Products.Where(p => p.Id != productId).ToList();
 
             var listRecommendedProducts = new List<Tuple<Product, float>>();
 
@@ -125,7 +122,7 @@ namespace BulkyBook.DataAccess.Repository
                     new ProductRating()
                     {
                         //Example rating prediction for userId = 6, movieId = 10 (GoldenEye)
-                        userId = ,
+                        userId = appUserId,
                         productId = x.Id
                     }
                 );
@@ -134,12 +131,12 @@ namespace BulkyBook.DataAccess.Repository
 
             }
 
-            var finalResult = listRecommendedProducts.OrderByDescending(o => o.Item2).Select(s => s.Item1).Take(3).ToList();
+            var finalResult = listRecommendedProducts.OrderByDescending(o => o.Item2).Select(s => s.Item1).Take(6).ToList();
 
-
-            return finalResult; // _mapper.Map<List<Model.Proizvod>>(finalResult);
-            */
-            return null;
+            var arrProducts = finalResult.ToArray();
+            return arrProducts; // _mapper.Map<List<Model.Proizvod>>(finalResult);
+            
+            //return null;
         }
 
         public void Update(Product obj)
