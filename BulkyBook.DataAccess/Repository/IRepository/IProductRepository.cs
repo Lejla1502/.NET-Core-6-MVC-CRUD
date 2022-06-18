@@ -11,5 +11,7 @@ namespace BulkyBook.DataAccess.Repository.IRepository
     {
         void Update(Product product);
         void UpdateStatus(int id);
+
+        IEnumerable<Product> GetRecommended(int id);  
     }
 }

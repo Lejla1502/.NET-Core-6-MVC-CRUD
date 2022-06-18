@@ -1,5 +1,6 @@
 ﻿using BulkyBook.DataAccess.Repository.IRepository;
 using BulkyBook.Models;
+using Microsoft.ML;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,6 +16,16 @@ namespace BulkyBook.DataAccess.Repository
         {
             _db = db;
         }
+
+        public IEnumerable<Product> GetRecommended(int id)
+        {
+            MLContext mlContext = null;
+            ITransformer model = null;
+            mlContext = new MLContext();
+
+            return null;
+        }
+
         public void Update(Product obj)
         {
             //here we use a better practice
