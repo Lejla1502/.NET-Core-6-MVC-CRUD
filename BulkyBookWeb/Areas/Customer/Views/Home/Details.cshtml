@@ -103,6 +103,7 @@
         var id = @Model.ProductId;
 
         //load recommend products component
+        
         var urlRecommended='@Url.Action("GetRecommendProductsComponent", "Home")';
         $.ajax({
             type: "GET",
