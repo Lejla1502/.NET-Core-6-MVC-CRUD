@@ -24,7 +24,7 @@ namespace BulkyBook.DataAccess.Repository
             _db = db;
         }
 
-        public IEnumerable<Product> GetRecommended(int productId)
+        public IEnumerable<Product> GetRecommended(string appUserId, int productId)
         {
             if (mlContext == null)
             {
