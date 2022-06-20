@@ -34,6 +34,19 @@
 }
 
 </style>
+<div class="my-3">
+    <form>
+        <div class="col-xxl-12 d-flex justify-content-between">
+            <div class="col-xxl-3">Please select : </div>
+            <select class="col-xxl-3" asp-for="@Model.CategoryId" asp-items="@Model.CategoryList"
+              class="form-select">
+                  <option disabled selected>--Select Category--</option>
+              </select>
+            <input class="col-xxl-3" asp-for="@Model.BookName" placeholer="Name of the book" />
+            <input class="col-xxl-3" asp-for="@Model.AuthorName" placeholder="Name of author" />
+        </div>
+    </form>
+</div>
 <div class="row pb-3" style="z-index:-900;">
     @foreach (var product in Model.Products)
     {
