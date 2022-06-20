@@ -75,9 +75,14 @@
     }
     else
     {
-        <div class="container review">
-             <h1>No reviews for this book</h1>
-        </div>
+      <div class="container-fluid sides">
+          <div class="row d-flex justify-content-center mb-5">
+            <div class="col-xxl-12 d-flex">
+              <h1 class="titles mb-2" id="titles3">No reviews for this book</h1>
+            </div>
+          </div>
+      </div>
+     
     }
     @*************************************   FORM    **********************************************************@
 
@@ -108,6 +113,7 @@
     {
         <h4 class="mt-5">Readers reviews</h4>
 
+        <div class="mb-5">
         @foreach (var r in @Model.Reviews)
         {
             <hr />
@@ -129,7 +135,7 @@
                 </div>
             </div>
         }
-
+        </div>
     }
 </div>
 

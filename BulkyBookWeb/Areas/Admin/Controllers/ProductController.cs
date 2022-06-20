@@ -46,6 +46,8 @@ namespace BulkyBookWeb.Areas.Admin.Controllers
                })
             };
 
+            productVM.Product.Reviews = new();
+
             if (id == 0 | id == null)
             {
                 
@@ -71,6 +73,7 @@ namespace BulkyBookWeb.Areas.Admin.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult Upsert(ProductVM obj, IFormFile? file)
         {
+            Console.WriteLine(ModelState.Values);
             if (ModelState.IsValid)
             {
                 //getting wwwroot path
