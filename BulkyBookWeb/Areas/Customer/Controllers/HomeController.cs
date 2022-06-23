@@ -6,6 +6,7 @@ using BulkyBookWeb.Areas.Customer.Controllers;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
@@ -26,7 +27,7 @@ namespace BulkyBookWeb.Customer.Controllers
             _unitOfWork = unitOfWork;
         }
 
-        public IActionResult Index()
+        public IActionResult Index(int? catID)
         {
             //IEnumerable<Product> listOfProducts = _unitOfWork.Product.GetAll(includeProperties:"Category,CoverType");
 
@@ -48,7 +49,14 @@ namespace BulkyBookWeb.Customer.Controllers
                     AvgRating =(_unitOfWork.Review.GetAll(y => y.ProductId == x.Id).Count()>0)? (_unitOfWork.Review.GetAll(y=>y.ProductId==x.Id).Select(s=>s.Rating).Sum()/_unitOfWork.Review.GetAll(y => y.ProductId == x.Id).Count()):0
                 }).ToList()
             };
-        
+
+            productReviewVM.CategoryList = _unitOfWork.Category.GetAll().Select(
+                u => new SelectListItem
+                {
+                    Text = u.Name,
+                    Value = u.Id.ToString()
+                }
+            );
 
             return View(productReviewVM);
         }
@@ -75,6 +83,7 @@ namespace BulkyBookWeb.Customer.Controllers
             };
 
             return View(cartObj);
+
         }
 
         [HttpPost]

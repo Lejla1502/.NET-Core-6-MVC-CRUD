@@ -1,4 +1,4 @@
-﻿@model Product[]
+﻿@model BulkyBook.Models.ViewModels.ProductRecommendVM.ProductInfo[]
 
     <style>
  
@@ -14,7 +14,6 @@
     padding: .75rem;
     font-weight: 300;
 }
-
 
 .card-footer-event {
     border: none;
@@ -117,12 +116,21 @@
                             <div class=" justify-content-between align-items-center"> 
                                 <h5 class="card-title-event text-center px-2">@Model[i].Title</h5>
                                 <div class="d-flex justify-content-between">
-                                    <p class="card-text-event px-2">
-                                        rating
-                                    </p>
-                                    <p class="card-text-event">
-                                        @Model[i].Price
-                                    </p>
+                                       <div class="star-container mb-2">
+                                            @for (int j = 0; j < @Model[i].AvgRating; j++)
+                                            {
+                                                <i class="ratingStar bi bi-star-fill colored mx-1"></i>
+                                            }
+                                            @for (int j = Model[i].AvgRating; j < 5; j++)
+                                            {
+
+                                                <i class="ratingStar bi bi-star colored mx-1"></i>
+                                            }
+                                        </div>
+                                   
+                                    <div class="card-text-event">
+                                        $@Model[i].Price.ToString("0.00")
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -151,18 +159,24 @@
                             </div>
                             <div class=" justify-content-between align-items-center"> 
                                 <h5 class="card-title-event text-center px-2">@Model[i].Title</h5>
-                                <div class="d-flex justify-content-between">
-                                    <p class="card-text-event px-2">
-                                        rating
-                                    </p>
-                                    <p class="card-text-event">
-                                        @Model[i].Price
-                                    </p>
+                                <div class="star-container mb-2">
+                                    @for (int j = 0; j < @Model[i].AvgRating; j++)
+                                    {
+                                        <i class="ratingStar bi bi-star-fill colored mx-1"></i>
+                                    }
+                                    @for (int j = Model[i].AvgRating; j < 5; j++)
+                                    {
+
+                                        <i class="ratingStar bi bi-star colored mx-1"></i>
+                                    }
+                                </div>
+                                   
+                                <div class="card-text-event">
+                                    $@Model[i].Price.ToString("0.00")
                                 </div>
                               </div>
                         </div>
                         <div class="card-footer card-footer-event">
-                         
                             <a href="#" class="text-white bg-black btn">Details</a>            
                       </div>
                     </div>

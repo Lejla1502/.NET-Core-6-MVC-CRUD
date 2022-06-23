@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Mvc.ModelBinding.Validation;
+using Microsoft.AspNetCore.Mvc.Rendering;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -37,5 +39,11 @@ namespace BulkyBook.Models.ViewModels
 
             public int AvgRating { get; set; }
         }
+
+        public int CategoryId { get; set; }
+        [ValidateNever]
+        public IEnumerable<SelectListItem> CategoryList { get; set; }
+        public string BookName { get; set; }
+        public string AuthorName { get; set; }
     }
 }
