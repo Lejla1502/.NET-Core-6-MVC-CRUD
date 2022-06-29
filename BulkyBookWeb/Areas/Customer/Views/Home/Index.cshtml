@@ -36,15 +36,17 @@
 </style>
 <div class="my-3">
      <form asp-action="Index">
-        <div class="col-xxl-12 d-flex justify-content-between">
-            <div class="">Please select : </div>
-            <select id="selectCategory" class="col-xxl-3" asp-for="@Model.CategoryId" asp-items="@Model.CategoryList"
-              class="form-select">
-                  <option disabled selected>--Select Category--</option>
-              </select>
-            <input class="" asp-for="@Model.BookOrAuthorName" placeholer="Name of the book or author" />
+        <div class="row d-flex">
+            <div class="col-xxl-6 d-flex flex-row justify-content-between">
+                <div class="">Please select : </div>
+             <select id="selectCategory" class="" asp-for="@Model.CategoryId" asp-items="@Model.CategoryList"
+                     class="form-select">
+                <option >--Select Category--</option>
+            </select>
+             <input placeholder="book or author" class="" asp-for="@Model.BookOrAuthorName" placeholer="Name of the book or author" />
+            <button type="submit">Search</button>
+            </div>
         </div>
-        <button type="submit">Search</button>
     </form>
 </div>
 <div id="productsTable" class="row pb-3" style="z-index:-900;">
@@ -66,6 +68,8 @@
                                 </h5>
                                 <p class="card-subtitle mb-2 text-info">by <b>@product.Author</b></p>
                             </div>
+                            
+
                             <div class="pl-1">
                                 <p>List Price: <strike><b>$@product.ListPrice.ToString("0.00")</b></strike></p>
                             </div>
