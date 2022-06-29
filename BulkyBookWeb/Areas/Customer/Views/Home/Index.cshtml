@@ -129,25 +129,25 @@
            
        //   });
 
-$(document).ready(()=>{
-    var selected = $("#selectCategory").change(()=>
-    {
-         var catID = $('#selectCategory').val();
+//$(document).ready(()=>{
+//    var selected = $("#selectCategory").change(()=>
+//    {
+//         var catID = $('#selectCategory').val();
 
-          event.preventDefault();
-                var urlZaPoziv = '@Url.Action("Index", "Home")';
+//          event.preventDefault();
+//                var urlZaPoziv = '';
                 
 
-                $.ajax({
-                    type: "POST",
-                    url: urlZaPoziv,
-                    data: { catID: catID },
-                    success: function(data) {
-                        $("#loadReviewComponent").html(data);
-                    }
-                });
-    });
-});
+//                $.ajax({
+//                    type: "POST",
+//                    url: urlZaPoziv,
+//                    data: { catID: catID },
+//                    success: function(data) {
+//                        $("#loadReviewComponent").html(data);
+//                    }
+//                });
+//    });
+//});
 
 function change_Icon(id) {
     //try to figure it out later
