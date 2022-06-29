@@ -35,16 +35,16 @@
 
 </style>
 <div class="my-3">
-    <form>
+     <form asp-action="Index">
         <div class="col-xxl-12 d-flex justify-content-between">
-            <div class="col-xxl-3">Please select : </div>
+            <div class="">Please select : </div>
             <select id="selectCategory" class="col-xxl-3" asp-for="@Model.CategoryId" asp-items="@Model.CategoryList"
               class="form-select">
                   <option disabled selected>--Select Category--</option>
               </select>
-            <input class="col-xxl-3" asp-for="@Model.BookName" placeholer="Name of the book" />
-            <input class="col-xxl-3" asp-for="@Model.AuthorName" placeholder="Name of author" />
+            <input class="" asp-for="@Model.BookOrAuthorName" placeholer="Name of the book or author" />
         </div>
+        <button type="submit">Search</button>
     </form>
 </div>
 <div id="productsTable" class="row pb-3" style="z-index:-900;">

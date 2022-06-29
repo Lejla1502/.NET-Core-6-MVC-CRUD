@@ -43,7 +43,7 @@ namespace BulkyBook.Models.ViewModels
         public int CategoryId { get; set; }
         [ValidateNever]
         public IEnumerable<SelectListItem> CategoryList { get; set; }
-        public string BookName { get; set; }
-        public string AuthorName { get; set; }
+        public string BookOrAuthorName { get; set; }
+        //public string AuthorName { get; set; }
     }
 }
