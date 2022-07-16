@@ -117,6 +117,8 @@ namespace BulkyBookWeb.Areas.Identity.Pages.Account
             public string? City { get; set; }
             public string? State { get; set; }
             public string? PostalCode { get; set; }
+            [RegularExpression(@"\+3876[0-3][-]?\d{3}[-]?\d{3}\d?",
+            ErrorMessage = "Phone number needs to be in the format : +387/61-111-111")]
             public string? PhoneNumber { get; set; }
             public string? Role { get; set; }
             [ValidateNever]
