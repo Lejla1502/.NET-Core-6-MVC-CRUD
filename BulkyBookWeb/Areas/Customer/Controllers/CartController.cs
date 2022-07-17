@@ -94,13 +94,6 @@ namespace BulkyBookWeb.Areas.Customer.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult SummaryPOST(ShoppingCartVM shoppingCartVM)
         {
-            if (String.IsNullOrEmpty(ShoppingCartVM.OrderHeader.Name) ||
-                String.IsNullOrEmpty(ShoppingCartVM.OrderHeader.StreetAddress) ||
-                String.IsNullOrEmpty(ShoppingCartVM.OrderHeader.City) ||
-                String.IsNullOrEmpty(ShoppingCartVM.OrderHeader.State) ||
-                String.IsNullOrEmpty(ShoppingCartVM.OrderHeader.PhoneNumber) ||
-                String.IsNullOrEmpty(ShoppingCartVM.OrderHeader.PostalCode))
-                return RedirectToAction("Summary");
             //if (ModelState.IsValid)
             //{
             var claimsIdentity = (ClaimsIdentity)User.Identity;
@@ -140,14 +133,14 @@ namespace BulkyBookWeb.Areas.Customer.Controllers
                 _unitOfWork.Save();
 
                 //------------>>>>>>>>>
-                appUser.Name = ShoppingCartVM.OrderHeader.Name;
-                appUser.StreetAddress = ShoppingCartVM.OrderHeader.StreetAddress;
-                appUser.City = ShoppingCartVM.OrderHeader.City;
-                appUser.State = ShoppingCartVM.OrderHeader.State;
-                appUser.PhoneNumber = ShoppingCartVM.OrderHeader.PhoneNumber;
-                appUser.PostalCode = ShoppingCartVM.OrderHeader.PostalCode;
-                _unitOfWork.ApplicationUser.Update(appUser);
-                _unitOfWork.Save();
+                //appUser.Name = ShoppingCartVM.OrderHeader.Name;
+                //appUser.StreetAddress = ShoppingCartVM.OrderHeader.StreetAddress;
+                //appUser.City = ShoppingCartVM.OrderHeader.City;
+                //appUser.State = ShoppingCartVM.OrderHeader.State;
+                //appUser.PhoneNumber = ShoppingCartVM.OrderHeader.PhoneNumber;
+                //appUser.PostalCode = ShoppingCartVM.OrderHeader.PostalCode;
+                //_unitOfWork.ApplicationUser.Update(appUser);
+                //_unitOfWork.Save();
 
                 //------->>>>>>> is it neccessary to also update data for ApplicationUser if Admin decides 
                 //to change it (because like this, parameters like Name, Street, etc. will be "updated" 
@@ -155,6 +148,13 @@ namespace BulkyBookWeb.Areas.Customer.Controllers
                 //and we will deal with inconsistrency
                 //because user will be able to change personal data for every order, but originnal personal
                 //data will remain the same
+                // |
+                // | 
+                // |
+                // |
+                //\|/
+                //order header might have different address (for individual order) -that is normal
+                //if user wants to change their daata they will do so through Profile->Edit
 
 
                 //preparing OrderDetails object to DB
