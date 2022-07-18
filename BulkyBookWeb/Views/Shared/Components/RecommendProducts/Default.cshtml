@@ -136,7 +136,7 @@
                         </div>
                         <div class="card-footer card-footer-event">
                           
-                          <a href="#" class="text-white bg-black btn">Details</a>
+                          <a asp-controller="Home" asp-action="Details" asp-route-productId="@Model[i].Id" class="text-white bg-black btn">Details</a>
                         </div>
                       </div>
                     </div>
@@ -177,7 +177,7 @@
                               </div>
                         </div>
                         <div class="card-footer card-footer-event">
-                            <a href="#" class="text-white bg-black btn">Details</a>            
+                            <a asp-controller="Home" asp-action="Details" asp-route-productId="@Model[i].Id" class="text-white bg-black btn">Details</a>            
                       </div>
                     </div>
                   </div>

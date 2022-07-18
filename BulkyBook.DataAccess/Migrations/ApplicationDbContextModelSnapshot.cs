@@ -22,6 +22,46 @@ namespace BulkyBookWeb.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder, 1L, 1);
 
+            modelBuilder.Entity("BulkyBook.Models.Author", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<string>("Bio")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("FirstName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("LastName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Author");
+                });
+
+            modelBuilder.Entity("BulkyBook.Models.AuthorProduct", b =>
+                {
+                    b.Property<int>("AuthorId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("ProductId")
+                        .HasColumnType("int");
+
+                    b.HasKey("AuthorId", "ProductId");
+
+                    b.HasIndex("ProductId");
+
+                    b.ToTable("AuthorProducts");
+                });
+
             modelBuilder.Entity("BulkyBook.Models.Category", b =>
                 {
                     b.Property<int>("Id")
@@ -581,6 +621,25 @@ namespace BulkyBookWeb.Migrations
                     b.HasDiscriminator().HasValue("ApplicationUser");
                 });
 
+            modelBuilder.Entity("BulkyBook.Models.AuthorProduct", b =>
+                {
+                    b.HasOne("BulkyBook.Models.Author", "Author")
+                        .WithMany("AuthorProducts")
+                        .HasForeignKey("AuthorId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("BulkyBook.Models.Product", "Product")
+                        .WithMany("AuthorProducts")
+                        .HasForeignKey("ProductId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Author");
+
+                    b.Navigation("Product");
+                });
+
             modelBuilder.Entity("BulkyBook.Models.NotificationApplicationUser", b =>
                 {
                     b.HasOne("BulkyBook.Models.ApplicationUser", "ApplicationUser")
@@ -749,6 +808,11 @@ namespace BulkyBookWeb.Migrations
                     b.Navigation("Company");
                 });
 
+            modelBuilder.Entity("BulkyBook.Models.Author", b =>
+                {
+                    b.Navigation("AuthorProducts");
+                });
+
             modelBuilder.Entity("BulkyBook.Models.Notification", b =>
                 {
                     b.Navigation("NotificationApplicationUsers");
@@ -756,6 +820,8 @@ namespace BulkyBookWeb.Migrations
 
             modelBuilder.Entity("BulkyBook.Models.Product", b =>
                 {
+                    b.Navigation("AuthorProducts");
+
                     b.Navigation("Reviews");
                 });
 

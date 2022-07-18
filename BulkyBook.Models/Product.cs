@@ -57,5 +57,7 @@ namespace BulkyBook.Models
         [ValidateNever]
         public List<Review> Reviews { get; set; }
 
+        public List<AuthorProduct> AuthorProducts { get; set; }
+
     }
 }

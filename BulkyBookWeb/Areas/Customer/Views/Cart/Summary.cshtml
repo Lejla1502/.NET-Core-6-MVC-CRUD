@@ -2,7 +2,7 @@
 @using Microsoft.Extensions.Options
 @inject IOptions<BulkyBook.Utility.StripeSettings> Stripe
 
-<form method="post">
+<form id="summaryForm" method="post" asp-action="Summary" enctype="multipart/form-data">
 	<br />
 	<div class="container">
 		<div class="card">
@@ -17,6 +17,7 @@
 					</div>
 				</div>
 			</div>
+			<div asp-validation-summary="All"></div>
 			<div class="card-body">
 				<div class="container rounded p-2">
 					<div class="row">
@@ -123,3 +124,36 @@
 		</div>
 	</div>
 </form>
+
+
+@section Scripts
+{
+    @{
+						<partial name="_ValidationScriptsPartial"></partial>
+     }
+
+	 <script>
+ 		var form = $("#summaryForm").value;
+		 
+		 $("input").change(function(){
+			 form.addClass('form-dirty');
+             if (form).hasClass('form-dirty'){
+                 alert("The text has been changed.");
+             }
+			 else
+			 alert("The text has been changed.");
+		  
+		});
+//$('form input, form select, form textarea').each(function(){ this.backup = this.value; });
+//$('form').on('change keyup', 'input,select,textarea', function(){
+//   if (this.value !== this.backup)
+//   {
+//	    alert("The text has been changed.");
+//      this.backup = this.value;
+//      this.form.isDirty = true;
+//      $(this).addClass('field-dirty');
+//      $(this.form).addClass('form-dirty');
+//   }
+//});
+	 </script>
+}

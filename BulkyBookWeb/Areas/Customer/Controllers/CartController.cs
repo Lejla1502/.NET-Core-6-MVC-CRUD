@@ -71,6 +71,7 @@ namespace BulkyBookWeb.Areas.Customer.Controllers
 
             ShoppingCartVM.OrderHeader.ApplicationUser = _unitOfWork.ApplicationUser.GetFirstOrDefault(a => a.Id == claim.Value);
 
+            //ShoppingCartVM.OrderHeader.Id = ShoppingCartVM.OrderHeader.Id;
             ShoppingCartVM.OrderHeader.Name = ShoppingCartVM.OrderHeader.ApplicationUser.Name;
             ShoppingCartVM.OrderHeader.PhoneNumber = ShoppingCartVM.OrderHeader.ApplicationUser.PhoneNumber;
             ShoppingCartVM.OrderHeader.StreetAddress = ShoppingCartVM.OrderHeader.ApplicationUser.StreetAddress;
@@ -91,127 +92,140 @@ namespace BulkyBookWeb.Areas.Customer.Controllers
         [HttpPost]
         [ActionName("Summary")]
         [ValidateAntiForgeryToken]
-        public IActionResult SummaryPOST()
+        public IActionResult SummaryPOST(ShoppingCartVM shoppingCartVM)
         {
+            //if (ModelState.IsValid)
+            //{
             var claimsIdentity = (ClaimsIdentity)User.Identity;
-            var claim = claimsIdentity.FindFirst(ClaimTypes.NameIdentifier);
+                var claim = claimsIdentity.FindFirst(ClaimTypes.NameIdentifier);
 
-            var appUser = _unitOfWork.ApplicationUser.GetFirstOrDefault(x => x.Id == claim.Value);
+                var appUser = _unitOfWork.ApplicationUser.GetFirstOrDefault(x => x.Id == claim.Value);
 
-            //preparing OrderHeader object for DB
-            ShoppingCartVM.ListCart = _unitOfWork.ShoppingCart.GetAll(u => u.ApplicationUserId == claim.Value, includeProperties: "Product");
+                //preparing OrderHeader object for DB
+                ShoppingCartVM.ListCart = _unitOfWork.ShoppingCart.GetAll(u => u.ApplicationUserId == claim.Value, includeProperties: "Product");
 
-            if (ShoppingCartVM.ListCart.Count() < 1)
-                return RedirectToAction("Index", "Home");
-
-            foreach (var item in ShoppingCartVM.ListCart)
-            {
-                item.Price = GetPriceByQuantity(item.Count, item.Product.Price, item.Product.Price50, item.Product.Price100);
-                ShoppingCartVM.OrderHeader.OrderTotal += item.Price * item.Count;
-            }
-
-            if (appUser.CompanyId == 0 || appUser.CompanyId == null)
-            {
-                ShoppingCartVM.OrderHeader.PaymentStatus = StaticDetails.PaymentStatusPending;
-                ShoppingCartVM.OrderHeader.OrderStatus = StaticDetails.StatusPending;
-            }
-            else
-            {
-                ShoppingCartVM.OrderHeader.PaymentStatus = StaticDetails.PaymentStatusDelayedPayment;
-                ShoppingCartVM.OrderHeader.OrderStatus = StaticDetails.StatusApproved;
-            }
-
-            ShoppingCartVM.OrderHeader.OrderDate = DateTime.Now;
-            ShoppingCartVM.OrderHeader.ApplicationUserId = _unitOfWork.ApplicationUser.GetFirstOrDefault(a => a.Id == claim.Value).Id;
-
-
-            //pushing OrderHeader object to DB
-            _unitOfWork.OrderHeader.Add(ShoppingCartVM.OrderHeader);
-            _unitOfWork.Save();
-            
-            //------------>>>>>>>>>
-            appUser.Name = ShoppingCartVM.OrderHeader.Name;
-            appUser.StreetAddress = ShoppingCartVM.OrderHeader.StreetAddress;
-            appUser.City = ShoppingCartVM.OrderHeader.City;
-            appUser.State = ShoppingCartVM.OrderHeader.State;
-            appUser.PhoneNumber = ShoppingCartVM.OrderHeader.PhoneNumber;
-            appUser.PostalCode = ShoppingCartVM.OrderHeader.PostalCode;
-            _unitOfWork.ApplicationUser.Update(appUser);
-            _unitOfWork.Save();
-
-            //------->>>>>>> is it neccessary to also update data for ApplicationUser if Admin decides 
-            //to change it (because like this, parameters like Name, Street, etc. will be "updated" 
-            //only for OrderHeader
-            //and we will deal with inconsistrency
-            //because user will be able to change personal data for every order, but originnal personal
-            //data will remain the same
-
-
-            //preparing OrderDetails object to DB
-            foreach (var item in ShoppingCartVM.ListCart)
-            {
-                OrderDetail od = new OrderDetail()
-                {
-                    OrderId = ShoppingCartVM.OrderHeader.Id,
-                    ProductId = item.Product.Id,
-                    Count = item.Count,
-                    Price = item.Price
-                };
-
-                //pushing OrderDetail object to DB
-                _unitOfWork.OrderDetail.Add(od);
-                _unitOfWork.Save();
-            }
-
-            if (appUser.CompanyId == 0 || appUser.CompanyId == null)
-            {
-                //stripe settings
-                var domain = "https://localhost:44311/";
-                var options = new SessionCreateOptions
-                {
-                    PaymentMethodTypes = new List<string> { "card" },
-                    LineItems = new List<SessionLineItemOptions>(),
-                    Mode = "payment",
-                    SuccessUrl = domain + $"customer/cart/OrderConfirmation?id={ShoppingCartVM.OrderHeader.Id}",
-                    CancelUrl = domain + $"customer/cart/index",
-                };
+                if (ShoppingCartVM.ListCart.Count() < 1)
+                    return RedirectToAction("Index", "Home");
 
                 foreach (var item in ShoppingCartVM.ListCart)
                 {
-                    options.LineItems.Add(
-                     new SessionLineItemOptions
-                     {
-                         PriceData = new SessionLineItemPriceDataOptions
-                         {
-                             UnitAmount = (long)(item.Price * 100), //20.00 - > 2000,
-                             Currency = "usd",
-                             ProductData = new SessionLineItemPriceDataProductDataOptions
-                             {
-                                 Name = item.Product.Title
-                             },
-
-                         },
-                         Quantity = item.Count
-                     }
-
-                    );
+                    item.Price = GetPriceByQuantity(item.Count, item.Product.Price, item.Product.Price50, item.Product.Price100);
+                    ShoppingCartVM.OrderHeader.OrderTotal += item.Price * item.Count;
                 }
 
-                var service = new SessionService();
-                Session session = service.Create(options);  //creating a session for Stripe payment
+                if (appUser.CompanyId == 0 || appUser.CompanyId == null)
+                {
+                    ShoppingCartVM.OrderHeader.PaymentStatus = StaticDetails.PaymentStatusPending;
+                    ShoppingCartVM.OrderHeader.OrderStatus = StaticDetails.StatusPending;
+                }
+                else
+                {
+                    ShoppingCartVM.OrderHeader.PaymentStatus = StaticDetails.PaymentStatusDelayedPayment;
+                    ShoppingCartVM.OrderHeader.OrderStatus = StaticDetails.StatusApproved;
+                }
 
-                //when the session is created, we have sessionId and PaymentIntentId, so we update
-                //OrderHeader based on those parameters
-                //so that in OrderConfirmation we retrieve them and check if payment was successful
-                _unitOfWork.OrderHeader.UpdateStripePaymentID(ShoppingCartVM.OrderHeader.Id, session.Id, session.PaymentIntentId);
+                ShoppingCartVM.OrderHeader.OrderDate = DateTime.Now;
+                ShoppingCartVM.OrderHeader.ApplicationUserId = _unitOfWork.ApplicationUser.GetFirstOrDefault(a => a.Id == claim.Value).Id;
+
+
+                //pushing OrderHeader object to DB
+                _unitOfWork.OrderHeader.Add(ShoppingCartVM.OrderHeader);
                 _unitOfWork.Save();
 
-                Response.Headers.Add("Location", session.Url);
-                return new StatusCodeResult(303);   //redirecting to Stripe portal
-            }
-            else
-                return RedirectToAction("OrderConfirmation", new { id = ShoppingCartVM.OrderHeader.Id });
+                //------------>>>>>>>>>
+                //appUser.Name = ShoppingCartVM.OrderHeader.Name;
+                //appUser.StreetAddress = ShoppingCartVM.OrderHeader.StreetAddress;
+                //appUser.City = ShoppingCartVM.OrderHeader.City;
+                //appUser.State = ShoppingCartVM.OrderHeader.State;
+                //appUser.PhoneNumber = ShoppingCartVM.OrderHeader.PhoneNumber;
+                //appUser.PostalCode = ShoppingCartVM.OrderHeader.PostalCode;
+                //_unitOfWork.ApplicationUser.Update(appUser);
+                //_unitOfWork.Save();
 
+                //------->>>>>>> is it neccessary to also update data for ApplicationUser if Admin decides 
+                //to change it (because like this, parameters like Name, Street, etc. will be "updated" 
+                //only for OrderHeader
+                //and we will deal with inconsistrency
+                //because user will be able to change personal data for every order, but originnal personal
+                //data will remain the same
+                // |
+                // | 
+                // |
+                // |
+                //\|/
+                //order header might have different address (for individual order) -that is normal
+                //if user wants to change their daata they will do so through Profile->Edit
+
+
+                //preparing OrderDetails object to DB
+                foreach (var item in ShoppingCartVM.ListCart)
+                {
+                    OrderDetail od = new OrderDetail()
+                    {
+                        OrderId = ShoppingCartVM.OrderHeader.Id,
+                        ProductId = item.Product.Id,
+                        Count = item.Count,
+                        Price = item.Price
+                    };
+
+                    //pushing OrderDetail object to DB
+                    _unitOfWork.OrderDetail.Add(od);
+                    _unitOfWork.Save();
+                }
+
+                if (appUser.CompanyId == 0 || appUser.CompanyId == null)
+                {
+                    //stripe settings
+                    var domain = "https://localhost:44311/";
+                    var options = new SessionCreateOptions
+                    {
+                        PaymentMethodTypes = new List<string> { "card" },
+                        LineItems = new List<SessionLineItemOptions>(),
+                        Mode = "payment",
+                        SuccessUrl = domain + $"customer/cart/OrderConfirmation?id={ShoppingCartVM.OrderHeader.Id}",
+                        CancelUrl = domain + $"customer/cart/index",
+                    };
+
+                    foreach (var item in ShoppingCartVM.ListCart)
+                    {
+                        options.LineItems.Add(
+                         new SessionLineItemOptions
+                         {
+                             PriceData = new SessionLineItemPriceDataOptions
+                             {
+                                 UnitAmount = (long)(item.Price * 100), //20.00 - > 2000,
+                                 Currency = "usd",
+                                 ProductData = new SessionLineItemPriceDataProductDataOptions
+                                 {
+                                     Name = item.Product.Title
+                                 },
+
+                             },
+                             Quantity = item.Count
+                         }
+
+                        );
+                    }
+
+                    var service = new SessionService();
+                    Session session = service.Create(options);  //creating a session for Stripe payment
+
+                    //when the session is created, we have sessionId and PaymentIntentId, so we update
+                    //OrderHeader based on those parameters
+                    //so that in OrderConfirmation we retrieve them and check if payment was successful
+                    _unitOfWork.OrderHeader.UpdateStripePaymentID(ShoppingCartVM.OrderHeader.Id, session.Id, session.PaymentIntentId);
+                    _unitOfWork.Save();
+
+                    Response.Headers.Add("Location", session.Url);
+                    return new StatusCodeResult(303);   //redirecting to Stripe portal
+                }
+                else
+                    return RedirectToAction("OrderConfirmation", new { id = ShoppingCartVM.OrderHeader.Id });
+            //}
+            //else
+            //{
+            //    return RedirectToAction("OrderConfirmation", new { id = ShoppingCartVM.OrderHeader.Id });
+            //}
         }
 
         public IActionResult OrderConfirmation(int id)

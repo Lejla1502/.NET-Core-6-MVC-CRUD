@@ -13,6 +13,7 @@ namespace BulkyBook.DataAccess
 
         }
 
+        public DbSet<Author> Author { get; set; }
         public DbSet<Category> Categories { get; set; }
         public DbSet<CoverType> CoverTypes { get; set; }
         public DbSet<Product> Products { get; set; }
@@ -24,6 +25,7 @@ namespace BulkyBook.DataAccess
         public DbSet<Notification> Notifications { get; set; }
         public DbSet<NotificationApplicationUser> NotificationApplicationUsers { get; set; }
         public DbSet<Review> Reviews { get; set; }
+        public DbSet<AuthorProduct> AuthorProducts { get; set; }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<NotificationApplicationUser>()
@@ -51,6 +53,19 @@ namespace BulkyBook.DataAccess
                 .HasOne(ra => ra.ApplicationUser)
                 .WithMany(r => r.Reviews)
                 .HasForeignKey(ra => ra.ApplicationUserId);
+
+            modelBuilder.Entity<AuthorProduct>()
+                .HasKey(ap => new { ap.AuthorId, ap.ProductId });
+
+            modelBuilder.Entity<AuthorProduct>()
+                 .HasOne(ap => ap.Product)
+                .WithMany(p => p.AuthorProducts)
+                .HasForeignKey(ap => ap.ProductId);
+
+            modelBuilder.Entity<AuthorProduct>()
+                .HasOne(ap => ap.Author)
+                .WithMany(a => a.AuthorProducts)
+                .HasForeignKey(ap => ap.AuthorId); 
 
             base.OnModelCreating(modelBuilder);
         }
