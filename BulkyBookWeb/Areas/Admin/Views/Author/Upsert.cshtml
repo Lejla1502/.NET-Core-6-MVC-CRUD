@@ -1,5 +1,72 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
+﻿@model BulkyBook.Models.Author
 @{
+    
+    ViewData["Title"] = "Create";
+}
+ 
+<form method="post" asp-controller="Author" asp-action="Upsert" enctype="multipart/form-data">
+    <input asp-for="Id" type="hidden" />
+        
+
+    <div class="row">
+        <div class="col-10">
+			<div class="border p-3 mt-4 row">
+		<div class="col-12 pb-2">
+			<h2 class="text-primary">@(Model.Id!=0?"Update": "Create")  Author</h2>
+			<hr />
+		</div>
+    
+        @*<div asp-validation-summary="All"></div>*@
+        <div class="mb-3">
+          <label asp-for="FirstName" class="form-label mt-4">Authors First Name</label>
+          <input asp-for="FirstName" type="text" class="form-control" placeholder="Enter First Name">
+          <span asp-validation-for="FirstName" class="text-danger"></span>
+        </div>
+         <div class="mb-3">
+          <label asp-for="LastName" class="form-label mt-4">Authors Last Name</label>
+          <input asp-for="LastName" type="text" class="form-control" placeholder="Enter Last Name">
+          <span asp-validation-for="LastName" class="text-danger"></span>
+        </div>
+         <div class="mb-3">
+          <label asp-for="Bio" class="form-label mt-4">Short Bio</label>
+          <textarea asp-for="Bio" type="text" rows="3" class="form-control" placeholder="Enter Bio"></textarea>
+          <span asp-validation-for="Bio" class="text-danger"></span>
+        </div>
+           <br />
+        <div class="col-12">
+            @if(Model.Id!=0)
+            {
+                 <button type="submit" class="btn btn-primary" style="width:150px">Update</button>
+            }
+            else
+            {
+                 <button type="submit"  class="btn btn-primary" style="width:150px">Create</button>
+            }
+
+            <a asp-controller="Author" asp-action="Index" class="btn btn-secondary" style="width:150px">Back to List</a>
+        </div>
+        </div>
+		</div>
+		
+	</div>
+</form>
+
+@section Scripts
+{
+    @{
+        <partial name="_ValidationScriptsPartial"></partial>
+
+     }
+     <script>
+          tinymce.init({
+          selector: 'textarea',
+          plugins: 'a11ychecker advcode casechange export formatpainter image editimage linkchecker autolink lists checklist media mediaembed pageembed permanentpen powerpaste table advtable tableofcontents tinycomments tinymcespellchecker',
+          toolbar: 'a11ycheck addcomment showcomments casechange checklist code export formatpainter image editimage pageembed permanentpen table tableofcontents',
+          toolbar_mode: 'floating',
+          tinycomments_mode: 'embedded',
+          tinycomments_author: 'Author name',
+    });
+
+        
+     </script>
 }

@@ -23,6 +23,30 @@ namespace BulkyBookWeb.Areas.Admin.Controllers
             return View();
         }
 
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult Upsert(Author obj)
+        {
+            if (ModelState.IsValid)
+            {
+                if (obj.Id == 0)
+                {
+                    _unitOfWork.Author.Add(obj);
+                    _unitOfWork.Save();
+                    TempData["success"] = "Product created successfully";
+                    return RedirectToAction("Index");
+                }
+                else
+                {
+                    _unitOfWork.Author.Update(obj);
+                    _unitOfWork.Save();
+                    TempData["success"] = "Product edited successfully";
+                    return RedirectToAction("Index");
+                }
+
+            }
+            return View(obj);
+        }
 
 
         #region API CALLS
