@@ -1,5 +1,6 @@
 ﻿using BulkyBook.DataAccess.Repository.IRepository;
 using BulkyBook.Models;
+using BulkyBook.Models.ViewModels;
 using BulkyBook.Utility;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -17,9 +18,9 @@ namespace BulkyBookWeb.Areas.Admin.Controllers
         }
         public IActionResult Index()
         {
-            IEnumerable<Author> authors = _unitOfWork.Author.GetAll();
+            //IEnumerable<Author> authors = _unitOfWork.Author.GetAll();
 
-            return View(authors);
+            return View();
         }
 
 
@@ -28,10 +29,17 @@ namespace BulkyBookWeb.Areas.Admin.Controllers
         [HttpGet]
         public IActionResult GetAll()
         {
-            var authorsList = _unitOfWork.Author.GetAll();
-            
+            var authorsList = new AuthorVM { 
+                Authors=_unitOfWork.Author.GetAll().Select(x=>new AuthorVM.AuthorInfo
+                {
+                    Id=x.Id,
+                    FirstName = x.FirstName,
+                    LastName = x.LastName,
+                    NumOfBooks =2
+                }).ToList()
+            };
 
-            return Json(new { data = authorsList });
+            return Json(new { data = authorsList.Authors });
         }
 
         [HttpDelete]

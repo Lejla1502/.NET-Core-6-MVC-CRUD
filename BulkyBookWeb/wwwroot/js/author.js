@@ -6,13 +6,14 @@ $(document).ready(function () {
 
 
 function loadDataTable() {
-    dataTable = $('#companyTable').DataTable({
+    dataTable = $('#authorTable').DataTable({
         "ajax": {
             "url": "/Admin/Author/GetAll"
         },
         "columns": [
             { "data": "firstName", "width": "15%" },
             { "data": "lastName", "width": "15%" },
+            { "data": "numOfBooks", "width": "15%" },
             {
                 "data": "id",
                 "render": function (data) {
