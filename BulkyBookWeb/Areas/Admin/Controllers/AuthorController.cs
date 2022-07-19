@@ -23,12 +23,33 @@ namespace BulkyBookWeb.Areas.Admin.Controllers
             return View();
         }
 
+        public IActionResult Upsert(int? id)
+        {
+            Author obj = new Author();
+            if (id == 0 | id == null)
+            { 
+                //ViewBag.CategoryList = CategoryList;
+                ////same thing as above, just different approach
+                //ViewData["CoverTypeList"] = CoverTypeList;
+
+                return View(obj);
+            }
+            else
+            {
+                obj = _unitOfWork.Author.GetFirstOrDefault(x => x.Id == id);
+                if (obj == null)
+                    return NotFound();
+
+                return View(obj);
+            }
+        }
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         public IActionResult Upsert(Author obj)
         {
-            if (ModelState.IsValid)
-            {
+            //if (ModelState.IsValid)
+            //{
                 if (obj.Id == 0)
                 {
                     _unitOfWork.Author.Add(obj);
@@ -44,8 +65,8 @@ namespace BulkyBookWeb.Areas.Admin.Controllers
                     return RedirectToAction("Index");
                 }
 
-            }
-            return View(obj);
+           // }
+           // return View(obj);
         }
 
 
