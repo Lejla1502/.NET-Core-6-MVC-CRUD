@@ -21,5 +21,32 @@ namespace BulkyBookWeb.Areas.Admin.Controllers
 
             return View(authors);
         }
+
+
+
+        #region API CALLS
+        [HttpGet]
+        public IActionResult GetAll()
+        {
+            var authorsList = _unitOfWork.Author.GetAll();
+            
+
+            return Json(new { data = authorsList });
+        }
+
+        [HttpDelete]
+        public IActionResult Delete(int? id)
+        {
+            var objFromDB = _unitOfWork.Company.GetFirstOrDefault(x => x.Id == id);
+            if (objFromDB == null)
+                return Json(new { success = false, message = "Error while deleting" });
+
+            _unitOfWork.Company.Remove(objFromDB);
+            _unitOfWork.Save();
+
+            return Json(new { success = true, message = "Successfully deleted company" });
+        }
+
+        #endregion
     }
 }
