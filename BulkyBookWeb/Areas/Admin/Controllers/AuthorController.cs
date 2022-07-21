@@ -75,6 +75,7 @@ namespace BulkyBookWeb.Areas.Admin.Controllers
         [HttpGet]
         public IActionResult GetAll()
         {
+            //see if we can add more fileds/properties to Authors
             var authorsList = new AuthorVM { 
                 Authors=_unitOfWork.Author.GetAll().Select(x=>new AuthorVM.AuthorInfo
                 {
