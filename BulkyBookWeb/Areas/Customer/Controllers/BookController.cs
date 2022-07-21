@@ -1,4 +1,5 @@
 ﻿using BulkyBook.DataAccess.Repository.IRepository;
+using BulkyBook.Models;
 using BulkyBook.Models.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -103,6 +104,28 @@ namespace BulkyBookWeb.Areas.Customer.Controllers
             );
 
             return View(productReviewVM);
+        }
+
+        //public IActionResult GetBestseller()
+        //{
+        //    //returns id 
+        //    var something= _unitOfWork.OrderDetail.GetAll().GroupBy(x => x.ProductId).Select(s => new { Bestseller_PrdouctID = s.Key, Count = s.Count() }).OrderByDescending(y=>y.Count).First();
+            
+        //    return View(something.Bestseller_PrdouctID);
+        //}
+
+        [HttpGet()]
+        public async Task<ActionResult<int>> GetBestseller()
+        {
+            var something=  _unitOfWork.OrderDetail.GetAll().GroupBy(x => x.ProductId).Select(s => new { Bestseller_PrdouctID = s.Key, Count = s.Count() }).OrderByDescending(y=>y.Count).First();
+
+
+            if (something == null)
+            {
+                return NotFound();
+            }
+
+            return something.Bestseller_PrdouctID;
         }
 
     }
