@@ -48,6 +48,7 @@ namespace BulkyBookWeb.Areas.Admin.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult Upsert(Author obj)
         {
+            //to check whether the model is valid or not
             //if (ModelState.IsValid)
             //{
                 if (obj.Id == 0)
@@ -90,11 +91,11 @@ namespace BulkyBookWeb.Areas.Admin.Controllers
         [HttpDelete]
         public IActionResult Delete(int? id)
         {
-            var objFromDB = _unitOfWork.Company.GetFirstOrDefault(x => x.Id == id);
+            var objFromDB = _unitOfWork.Author.GetFirstOrDefault(x => x.Id == id);
             if (objFromDB == null)
                 return Json(new { success = false, message = "Error while deleting" });
 
-            _unitOfWork.Company.Remove(objFromDB);
+            _unitOfWork.Author.Remove(objFromDB);
             _unitOfWork.Save();
 
             return Json(new { success = true, message = "Successfully deleted company" });
