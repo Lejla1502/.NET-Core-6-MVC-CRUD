@@ -40,10 +40,10 @@ builder.Services.AddCors(options =>
     options.AddDefaultPolicy(
         builder =>
         {
-            builder.WithOrigins("https://localhost:4200", "http://localhost:4200")
+            builder.AllowAnyOrigin()
                 .AllowAnyHeader()
-                .WithMethods("GET", "POST")
-                .AllowCredentials();
+                .AllowAnyMethod();
+                //.AllowCredentials();
         });
 });
 
@@ -101,7 +101,7 @@ app.UseHttpsRedirection();
 app.UseStaticFiles();
 
 app.UseRouting();
-app.UseCors();
+app.UseCors(options=>options.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
 
 StripeConfiguration.ApiKey = builder.Configuration.GetSection("Stripe:SecretKey").Get<string>();
 

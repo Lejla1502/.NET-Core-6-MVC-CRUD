@@ -1,6 +1,7 @@
 ﻿using BulkyBook.DataAccess.Repository.IRepository;
 using BulkyBook.Models;
 using BulkyBook.Models.ViewModels;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 
@@ -115,6 +116,7 @@ namespace BulkyBookWeb.Areas.Customer.Controllers
         //}
 
         [HttpGet()]
+        [AllowAnonymous]
         public async Task<ActionResult<int>> GetBestseller()
         {
             var something=  _unitOfWork.OrderDetail.GetAll().GroupBy(x => x.ProductId).Select(s => new { Bestseller_PrdouctID = s.Key, Count = s.Count() }).OrderByDescending(y=>y.Count).First();
