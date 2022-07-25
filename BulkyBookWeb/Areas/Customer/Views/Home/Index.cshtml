@@ -1,8 +1,93 @@
-﻿<section id="header-discover" class="responsive-bg d-flex justify-content-start">
-    <div class="header-title text-white d-flex align-items-start justify-content-start">
-      {{'Događaji u Travniku' }}
+﻿@model BulkyBook.Models.ViewModels.ProductReviewVM
+
+<style>
+    .carousel{
+        width:100%;
+    }
+    .carousel-item {
+    height: 80vh;
+    min-height: 350px;
+    width:100%;
+    /*background: no-repeat  center center scroll;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;*/
+  
+  background-size: cover !important;
+ 
+    
+    
+  }
+
+  #header-slider{
+      margin:0px !important;
+      padding:0px !important;
+  }
+
+  .round{
+      border-radius:10px;
+  }
+</style>
+
+
+<section id="header-slider" class="p-0 m-0">
+    <div class="container-fluid">
+    <div id="carouselExampleCaptions" class="carousel m-0 p-0 slide" data-bs-ride="carousel">
+      <div class="carousel-indicators">
+        <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+        <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="1" aria-label="Slide 2"></button>
+        <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="2" aria-label="Slide 3"></button>
+      </div>
+      <div class="carousel-inner">
+        <div class="carousel-item active" style="background-image: url('/images/homepage/header1.jpg')">
+          <div class="carousel-caption">
+            <h5>Keep reading</h5>
+            <p>“Reading is dreaming with open eyes.”</p>
+          </div>
+        </div>
+        <div class="carousel-item" style="background-image: url('/images/homepage/header2.jpg')">
+          <div class="carousel-caption">
+            <h5>Visit our library</h5>
+            <p>“In principle and reality, libraries are life-enhancing palaces of wonder.”</p>
+          </div>
+        </div>
+        <div class="carousel-item" style="background-image: url('/images/homepage/header3.jpg')">
+          <div class="carousel-caption">
+            <h5>Take a journey within yourselves</h5>
+            <p>“Books are wisest of counselors, and the most patient of teachers.”</p>
+          </div>
+        </div>
+      </div>
+      <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="prev">
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Previous</span>
+      </button>
+      <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="next">
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Next</span>
+      </button>
     </div>
-</section>
+    </div>
+  </section>
+
+
+  <div class="my-3">
+     <form asp-action="Index">
+        <div class="row d-flex">
+            <div class="col-xxl-7 d-flex flex-row justify-content-between">
+             <input  class="round" asp-for="@Model.BookOrAuthorName" placeholder="Book title" />
+             <select id="selectCategory" class="round" asp-for="@Model.CategoryId" asp-items="@Model.CategoryList"
+                     class="form-select">
+                <option >--Book Category--</option>
+            </select>
+            <select id="selectCategory" class="round" asp-for="@Model.CategoryId" asp-items="@Model.CategoryList"
+                     class="form-select">
+                <option >--Book Author--</option>
+            </select>            <button class="btn btn-info" type="submit">Search</button>
+            </div>
+        </div>
+    </form>
+</div>
 
 
 
