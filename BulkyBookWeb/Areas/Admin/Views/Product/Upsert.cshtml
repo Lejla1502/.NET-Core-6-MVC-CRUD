@@ -4,6 +4,7 @@
     ViewData["Title"] = "Create";
 }
  
+<div class="container">
 <form method="post" asp-controller="Product" asp-action="Upsert" enctype="multipart/form-data">
     <input asp-for="Product.Id" type="hidden" />
         <input asp-for="Product.ImageUrl" type="hidden" />
@@ -97,6 +98,7 @@
 		</div>
 	</div>
 </form>
+</div>
 
 @section Scripts
 {

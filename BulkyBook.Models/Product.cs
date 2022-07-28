@@ -54,6 +54,9 @@ namespace BulkyBook.Models
         public CoverType CoverType { get; set; }
 
         public bool IsFavourite { get; set; }
+
+        public DateTime CreatedAt { get; set; }
+
         [ValidateNever]
         public List<Review> Reviews { get; set; }
 

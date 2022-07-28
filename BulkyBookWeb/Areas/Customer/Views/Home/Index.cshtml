@@ -152,44 +152,138 @@
 </div>
 
 
+@*****************************************************POPULAR BOOKS***************@
 <div class="container-fluid blue-bg">
     <div class="container">
        <div class="row d-flex justify-content-center align-items-center">  
             <div class="col-xxl-12 justify-content-center text-center">
                 <h3 class="title mt-3 mb-5" id="titles1">Popularne knjige</h3>    
             </div>
-             <div class="col-xxl-3 col-xl-3 col-lg-6 col-md-6 col-sm-12 d-flex justify-content-center my-3">
-            <div class="card">
+            <div id="productsTable" class="row pb-3">
+    @foreach (var product in Model.Bestsellers)
+    {
+        <div class="col-xxl-3 col-xl-3 col-lg-3 col-sm-6">
+            <div class="row p-2">
+                <div class="col-12 p-1" style="border:1px solid #008cba; border-radius: 5px; ">
+                    <div class="card">
                          <div class="img-container mx-auto">
                               <a>
-                                   <img src="/images/products/04eb22b6-901d-4fec-8068-72e4859d0d68.jpg" class="card-img-top"/>
+                                   <img src="@product.ImageUrl" class="card-img-top"/>
                               </a> 
                         </div>
                         <div class="card-body d-flex flex-column">
                             <div class="pl-1 justify-content-between align-items-center">
                                 <h5 class="card-title">
-                                    Some title
+                                    @product.Title
                                 </h5>
-                                <p class="card-subtitle mb-2 text-info">by <b>Some name</b></p>
+                                <p class="card-subtitle mb-2 text-info">by <b>@product.Author</b></p>
                             </div>
                             
                             <div class="pl-1">
-                                <p>List Price: <strike><b>$2.90</b></strike></p>
+                                <p>List Price: <strike><b>$@product.ListPrice.ToString("0.00")</b></strike></p>
                             </div>
                              <div class="pl-1">
-                                <p>As low as: <b>$22.90</b></p>
+                                <p>As low as: <b>$@product.Price100.ToString("0.00")</b></p>
                             </div>
-                            
+                           
                         </div>
                     </div>
                     <div>
-                        <a asp-action="Details" asp-route-productId="" class="btn btn-primary form-control">Details</a>
+                        <a asp-action="Details" asp-route-productId="@product.Id" class="btn btn-primary form-control">Details</a>
                     </div>
+                </div>
+            </div>
         </div>
+    }
+</div>
+
          </div>
     </div>
 </div>
 
+
+@**********************************LAST ADDED BOOKS********************************@
+@*<div class="container-fluid blue-bg">
+    <div class="container">
+       <div class="row d-flex justify-content-center align-items-center">  
+            <div class="col-xxl-12 justify-content-center text-center">
+                <h3 class="title mt-3 mb-5" id="titles1">Nove knjige</h3>    
+            </div>
+            <div id="productsTable" class="row pb-3">
+    @foreach (var product in Model.Products.OrderBy(x=>x.CreatedAt).Take(4))
+    {
+        <div class="col-xxl-3 col-xl-3 col-lg-3 col-sm-6">
+            <div class="row p-2">
+                <div class="col-12 p-1" style="border:1px solid #008cba; border-radius: 5px; ">
+                    <div class="card">
+                         <div class="img-container mx-auto">
+                              <a>
+                                   <img src="@product.ImageUrl" class="card-img-top"/>
+                              </a> 
+                        </div>
+                        <div class="card-body d-flex flex-column">
+                            <div class="pl-1 justify-content-between align-items-center">
+                                <h5 class="card-title">
+                                    @product.Title
+                                </h5>
+                                <p class="card-subtitle mb-2 text-info">by <b>@product.Author</b></p>
+                            </div>
+                            
+                            <div class="pl-1">
+                                <p>List Price: <strike><b>$@product.ListPrice.ToString("0.00")</b></strike></p>
+                            </div>
+                             <div class="pl-1">
+                                <p>As low as: <b>$@product.Price100.ToString("0.00")</b></p>
+                            </div>
+                            <div class="d-flex justify-content-between">
+                                <div class="star-container mb-2">
+                                    @if(product.AvgRating==0)
+                                    {
+                                        <h6 class="colored">Not rated yet</h6>
+                                    }
+                                    else
+                                    {
+                                        @for (int i = 0; i < product.AvgRating; i++)
+                                        {
+                                            <i class="ratingStar bi bi-star-fill colored mx-1"></i>
+                                        }
+                                        @for (int i = product.AvgRating; i < 5; i++)
+                                        {
+                                            <i class="ratingStar bi bi-star colored mx-1"></i>
+                                        }
+                                    }
+                                </div>
+                                @if(User.Identity.IsAuthenticated)
+                                {
+                                    @if(product.IsFavourite)
+                                    {
+                                         <a asp-action="RemoveFromFavourite" asp-route-id="@product.Id" asp-route-isFromFavouritesPage="false">
+                                            <i id="icon" class="bi bi-bookmark-heart-fill"></i>
+                                        </a>
+                                    }
+                                    else
+                                    {
+                                        <a asp-action="AddToFavourite" asp-route-id="@product.Id" asp-route-isFromFavouritesPage="false">
+                                            <i id="icon" class="bi bi-bookmark-heart"></i>
+                                        </a>
+                                    }
+                                }
+                            </div>
+                        </div>
+                    </div>
+                    <div>
+                        <a asp-action="Details" asp-route-productId="@product.Id" class="btn btn-primary form-control">Details</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+</div>
+
+         </div>
+    </div>
+</div>
+*@
 
 
 

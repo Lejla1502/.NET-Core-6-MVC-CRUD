@@ -15,6 +15,8 @@ namespace BulkyBook.Models.ViewModels
         //public int Rating { get; set; }
 
         public IEnumerable<ProductInfo> Products { get; set; }
+        public List<Product> Bestsellers { get; set; }
+        public List<Product> NewBooks { get; set; }
 
         public class ProductInfo
         {
@@ -36,6 +38,8 @@ namespace BulkyBook.Models.ViewModels
 
             public bool IsFavourite { get; set; }
             public string ImageUrl { get; set; }
+
+            public DateTime CreatedAt { get; set; }
 
             public int AvgRating { get; set; }
         }

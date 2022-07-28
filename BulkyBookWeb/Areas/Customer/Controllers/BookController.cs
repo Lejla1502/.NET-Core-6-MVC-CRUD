@@ -130,5 +130,26 @@ namespace BulkyBookWeb.Areas.Customer.Controllers
             return something.Bestseller_PrdouctID;
         }
 
+        [HttpGet()]
+        [AllowAnonymous]
+        public async Task<List<Product>> GetListOfBestsellers()
+        {
+            var something = _unitOfWork.OrderDetail.GetAll().GroupBy(x => x.ProductId).Select(s => new { Bestseller_PrdouctID = s.Key, Count = s.Count() }).OrderByDescending(y => y.Count).Take(4);
+
+            List<Product> bestsellers = new();
+
+            foreach(var p in something)
+            {
+                bestsellers.Add(_unitOfWork.Product.GetFirstOrDefault(x=>x.Id==p.Bestseller_PrdouctID));
+            } 
+
+            if (bestsellers.Count()<1)
+            {
+                return null;
+            }
+
+            return bestsellers;
+        }
+
     }
 }

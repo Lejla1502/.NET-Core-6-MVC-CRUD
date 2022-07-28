@@ -74,8 +74,8 @@ namespace BulkyBookWeb.Areas.Admin.Controllers
         public IActionResult Upsert(ProductVM obj, IFormFile? file)
         {
             Console.WriteLine(ModelState.Values);
-            if (ModelState.IsValid)
-            {
+            //if (ModelState.IsValid)
+            //{
                 //getting wwwroot path
                 string wwwRootPath = _hostEnvironment.WebRootPath;
                 if (file != null)
@@ -114,6 +114,7 @@ namespace BulkyBookWeb.Areas.Admin.Controllers
 
                 if (obj.Product.Id == 0)
                 {
+                    obj.Product.CreatedAt=DateTime.Now;
                     _unitOfWork.Product.Add(obj.Product);
                     _unitOfWork.Save();
                     TempData["success"] = "Product created successfully";
@@ -127,7 +128,8 @@ namespace BulkyBookWeb.Areas.Admin.Controllers
                     return RedirectToAction("Index");
                 }
                 
-            }
+            //}
+            
             return View(obj);
         }
 

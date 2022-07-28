@@ -296,6 +296,9 @@ namespace BulkyBookWeb.Migrations
                     b.Property<int>("CoverTypeId")
                         .HasColumnType("int");
 
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime2");
+
                     b.Property<string>("Description")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
