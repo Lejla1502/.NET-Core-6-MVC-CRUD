@@ -50,7 +50,9 @@
     line-height: 20px;
 }
 
-.books-search .btn, .card-featured .btn {border-color: #2C3639 !important;
+.books-search .btn, .card-featured .btn
+{
+    border-color: #2C3639 !important;
     color: #ffffff !important;
    background:#0D2323;
     font-size: 12px;
@@ -117,6 +119,21 @@
 
 .card-featured img{
     height:500px;
+    width:100%;
+}
+
+/*CATEGORIES*/
+ .cat{
+    height:110px !important;
+    background:rgba(56, 56, 54,.64);
+    
+}
+
+ .browse-btn
+{
+    border-color: #2C3639 !important;
+    color: #ffffff !important;
+    background:#0D2323;
     width:100%;
 }
 
@@ -300,8 +317,8 @@
                 </div>
                 <div class="col-xxl-4 col-xl-3 col-lg-3 col-sm-6">
                     <div class="row p-2">
-                        <div class="col-12 p-1" style=" border-radius: 5px; ">
-                            <div class="card card-featured">
+                        <div class="col-12 p-1" >
+                            <div class="card card-featured" style="border:none;">
                                     <div class="mx-auto">
                                         <a>
                                             <img src="~/images/products/04eb22b6-901d-4fec-8068-72e4859d0d68.jpg" class="" 
@@ -315,12 +332,12 @@
                 </div>
                 <div class="col-xxl-4 col-xl-3 col-lg-3 col-sm-6">
                     <div class="row p-2">
-                        <div class="col-12 p-1" style=" border-radius: 5px; ">
-                            <div class="card card-featured">
-                                    <div class="mx-auto">
+                        <div class="col-12 p-1" >
+                            <div class="card card-featured" style="border:none;">
+                                    <div class="">
                                         <a>
                                             <img src="~/images/products/12622e2e-9986-45bd-a65d-0740b4b02609.jpg" class=""
-                                            style="border-radius:5px;/>
+                                            style="border-radius:5px;"/>
                                         </a> 
                                 </div>
                        
@@ -348,18 +365,18 @@
                 <div class="col-xxl-3 col-xl-3 col-lg-3 col-sm-6">
                     <div class="row p-2">
                         <div class="col-12 p-1" style=" border-radius: 5px; ">
-                            <div class="card">
-                                    <div class="img-container mx-auto">
+                            <div class="card cat">
+                                    <div class="img-container-cat mx-auto">
                                         @*<a>
                                             <img src="@product.ImageUrl" class="card-img-top"/>
                                         </a> *@
                                 </div>
                                 <div class="card-body d-flex flex-column">
                                     <div class="pl-1 justify-content-between align-items-center">
-                                        <h5 class="card-title">
+                                        <h5 class="card-title text-center" style="height:2rem;">
                                             @product.Title
                                         </h5>
-                                        <button class="btn more">MORE -></button>
+                                        <button class="btn browse-btn">BROWSE -></button>
                                     </div>
                             
                            
@@ -377,7 +394,7 @@
 </div>
 
 @************************************************BROWSE*********************************@
-<div id="browse">
+<div id="browse" class="m-0 p-0">
     <div class="container-fluid">
         <div class="container d-flex justify-content-center align-items-center h-100">
            <div class="row d-flex justify-content-center align-items-center text-center">
