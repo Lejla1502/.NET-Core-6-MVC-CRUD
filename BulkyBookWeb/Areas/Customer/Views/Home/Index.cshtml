@@ -50,7 +50,7 @@
     line-height: 20px;
 }
 
-.books-search .btn {border-color: #2C3639 !important;
+.books-search .btn, .card-featured .btn {border-color: #2C3639 !important;
     color: #ffffff !important;
    background:#0D2323;
     font-size: 12px;
@@ -62,11 +62,17 @@
 }
 
 .more{
-     background:#0D2323;
+    border-color: #2C3639 !important;
+    color: #ffffff !important;
+   background:#0D2323;
+    font-size: 12px;
+    line-height: 20px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
 }
 
 .blue-bg{
-    background-color:rgba(56, 100, 109,.28);;
+    background-color:rgba(56, 100, 109,.28);
 }
 
 .dark-blue-bg{
@@ -83,6 +89,36 @@
      display:flex;
 }
 
+.img-container{
+    height:330px;
+    width:250px;
+}
+
+.img-container img{
+    width:100%;
+    height:auto;
+}
+
+.card{
+    height:500px;
+}
+
+.card-body{
+    /*position: relative;
+    padding: 20px 30px 10px;*/
+    
+}
+
+/*FEATURED IMG*/
+
+.card.card-featured{
+    height:500px;
+}
+
+.card-featured img{
+    height:500px;
+    width:100%;
+}
 
 </style>
 
@@ -159,7 +195,7 @@
             <div class="col-sm-6 col-md-3">
 					<div class="form-group">
 						<input type="hidden" name="post_type" value="product">
-						<button type="submit" class="btn btn-primary btn-block">
+						<button type="submit" class="btn btn-block">
 							<i class="fa fa-search"></i> &nbsp; 
 							Find Book						
                         </button>
@@ -171,7 +207,7 @@
 </div>
 
 
-@*****************************************************POPULAR BOOKS***************@
+@*****************************************************BESTSELLERS***************@
 <div class="container-fluid blue-bg">
     <div class="container">
        <div class="row d-flex justify-content-center align-items-center mb-5">  
@@ -183,32 +219,39 @@
             {
                 <div class="col-xxl-3 col-xl-3 col-lg-3 col-sm-6">
                     <div class="row p-2">
-                        <div class="col-12 p-1" style="border:1px solid #008cba; border-radius: 5px; ">
-                            <div class="card">
-                                    <div class="img-container mx-auto">
-                                        <a>
-                                            <img src="@product.ImageUrl" class="card-img-top"/>
-                                        </a> 
+                        <div class="col-12 p-1" style=" border-radius: 5px; ">
+                            <div class="card d-flex flex-column justify-content-between">
+                                <div class="img-container mx-auto">
+                                    <a>
+                                        <img src="@product.ImageUrl" class=""/>
+                                    </a> 
                                 </div>
-                                <div class="card-body d-flex flex-column">
-                                    <div class="pl-1 justify-content-between align-items-center">
-                                        <h5 class="card-title">
+                                <div class="card-body d-flex flex-column mt-5 mx-auto" style="font-size:.8rem;">
+                                    <div class=" justify-content-between align-items-center">
+                                        <h5 class="card-title px-auto" style="width:250px;height:2rem; font-size:.8rem;">
                                             @product.Title
                                         </h5>
                                         <p class="card-subtitle mb-2 text-info">by <b>@product.Author</b></p>
                                     </div>
-                            
-                                    <div class="pl-1">
+                                    <div class="d-flex flex-row justify-content-between">
+                                        <div>
+                                            <strike><b>$@product.ListPrice.ToString("0.00")</b></strike>
+                                        </div>
+                                        <div>
+                                            <b>$@product.Price100.ToString("0.00")</b>
+                                        </div>
+                                    </div>
+                                    @*<div class="pl-1">
                                         <p>List Price: <strike><b>$@product.ListPrice.ToString("0.00")</b></strike></p>
                                     </div>
                                         <div class="pl-1">
                                         <p>As low as: <b>$@product.Price100.ToString("0.00")</b></p>
-                                    </div>
+                                    </div>*@
                            
                                 </div>
                             </div>
                             <div>
-                                <a asp-action="Details" asp-route-productId="@product.Id" class="btn btn-primary form-control">Details</a>
+                                <a asp-action="Details" asp-route-productId="@product.Id" class="btn more form-control">Details</a>
                             </div>
                         </div>
                     </div>
@@ -231,32 +274,38 @@
             <div id="productsTable" class="row pb-3">
                 <div class="col-xxl-4 col-xl-3 col-lg-3 col-sm-6">
                     <div class="row p-2">
-                        <div class="col-12 p-1" style="border:1px solid #008cba; border-radius: 5px; ">
-                            <div class="card">
-                                   <div class="card-body d-flex flex-column">
+                        <div class="col-12 p-1">
+                            <div class="card card-featured" style="border:none;">
+                                   <div class="card-body d-flex flex-column justify-content-center">
                                        <div>Featured book</div>
-                                        <div class="pl-1 justify-content-between align-items-center">
+                                        <div class="pl-1 my-3 justify-content-between align-items-center">
                                             <h5 class="card-title">
                                                 Title of the book
                                             </h5>
                                             <p class="card-subtitle mb-2 text-info">by <b>Author of the boook</b></p>
                                         </div>
                             
-                                         <div>Descrition</div>
+                                         <div>
+                                             From advanced selectors to generated content to web fonts, and from 
+                                             gradients, shadows, and rounded corners to elegant animations, CSS3 hold a 
+                                             universe of creative possibilities.
+                                             No one can better guide you through these galaxies than Dan Cederholm.
+                                         </div>
                                         
                                     </div>
-                                    <button>Get this book</button>
+                                    <button class="btn more">Get this book</button>
                             </div>
                         </div>
                     </div>
                 </div>
                 <div class="col-xxl-4 col-xl-3 col-lg-3 col-sm-6">
                     <div class="row p-2">
-                        <div class="col-12 p-1" style="border:1px solid #008cba; border-radius: 5px; ">
-                            <div class="card">
-                                    <div class="img-container mx-auto">
+                        <div class="col-12 p-1" style=" border-radius: 5px; ">
+                            <div class="card card-featured">
+                                    <div class="mx-auto">
                                         <a>
-                                            <img src="~/images//products/04eb22b6-901d-4fec-8068-72e4859d0d68.jpg" class="card-img-top"/>
+                                            <img src="~/images/products/04eb22b6-901d-4fec-8068-72e4859d0d68.jpg" class="" 
+                                            style="border-radius:5px;"/>
                                         </a> 
                                 </div>
                        
@@ -266,11 +315,12 @@
                 </div>
                 <div class="col-xxl-4 col-xl-3 col-lg-3 col-sm-6">
                     <div class="row p-2">
-                        <div class="col-12 p-1" style="border:1px solid #008cba; border-radius: 5px; ">
-                            <div class="card">
-                                    <div class="img-container mx-auto">
+                        <div class="col-12 p-1" style=" border-radius: 5px; ">
+                            <div class="card card-featured">
+                                    <div class="mx-auto">
                                         <a>
-                                            <img src="~/images/products/12622e2e-9986-45bd-a65d-0740b4b02609.jpg" class="card-img-top"/>
+                                            <img src="~/images/products/12622e2e-9986-45bd-a65d-0740b4b02609.jpg" class=""
+                                            style="border-radius:5px;/>
                                         </a> 
                                 </div>
                        
