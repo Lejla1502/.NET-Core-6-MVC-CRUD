@@ -125,6 +125,7 @@ namespace BulkyBookWeb.Customer.Controllers
 
             productReviewVM.Bestsellers = _unitOfWork.Product.GetBestsellers();
             productReviewVM.PopularCategories = _unitOfWork.Category.GetFourPopularCategories();
+            productReviewVM.NewBooks = _unitOfWork.Product.GetAll().OrderByDescending(x => x.CreatedAt).Take(4).ToList();
 
            // ProductHomePageVM products= new ProductHomePageVM
 
