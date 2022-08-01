@@ -114,16 +114,16 @@ namespace BulkyBookWeb.Customer.Controllers
                 }
             );
 
-            var something = _unitOfWork.OrderDetail.GetAll().GroupBy(x => x.ProductId).Select(s => new { Bestseller_PrdouctID = s.Key, Count = s.Count() }).OrderByDescending(y => y.Count).Take(4);
+            //var something = _unitOfWork.OrderDetail.GetAll().GroupBy(x => x.ProductId).Select(s => new { Bestseller_PrdouctID = s.Key, Count = s.Count() }).OrderByDescending(y => y.Count).Take(4);
 
-            productReviewVM.Bestsellers = new();
+            //productReviewVM.Bestsellers = new();
 
-            foreach (var p in something)
-            {
-                productReviewVM.Bestsellers.Add(_unitOfWork.Product.GetFirstOrDefault(x => x.Id == p.Bestseller_PrdouctID));
-            }
+            //foreach (var p in something)
+            //{
+            //    productReviewVM.Bestsellers.Add(_unitOfWork.Product.GetFirstOrDefault(x => x.Id == p.Bestseller_PrdouctID));
+            //}
 
-
+            productReviewVM.Bestsellers = _unitOfWork.Product.GetBestsellers();
             productReviewVM.PopularCategories = _unitOfWork.Category.GetFourPopularCategories();
 
            // ProductHomePageVM products= new ProductHomePageVM

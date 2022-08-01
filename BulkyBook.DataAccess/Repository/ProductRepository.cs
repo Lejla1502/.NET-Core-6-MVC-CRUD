@@ -24,6 +24,8 @@ namespace BulkyBook.DataAccess.Repository
             _db = db;
         }
 
+
+
         public Product[] GetRecommended(string appUserId, int productId)
         {
             if (mlContext == null)
@@ -180,6 +182,20 @@ namespace BulkyBook.DataAccess.Repository
             }
             //_db.OrderHeaders.Update(orderFromDb);
             
+        }
+
+        public List<Product> GetBestsellers()
+        {
+            List<Product> bestsellers = new();
+
+            var newType= _db.OrderDetails.GroupBy(x => x.ProductId).Select(s => new { Bestseller_PrdouctID = s.Key, Count = s.Count() }).OrderByDescending(y => y.Count).Take(4);
+       
+            foreach(var n in newType)
+            {
+                bestsellers.Add(_db.Products.Find(n.Bestseller_PrdouctID));
+            }
+
+            return bestsellers;
         }
     }
 }
