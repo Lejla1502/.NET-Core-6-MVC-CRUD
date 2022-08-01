@@ -122,9 +122,9 @@ namespace BulkyBookWeb.Customer.Controllers
             {
                 productReviewVM.Bestsellers.Add(_unitOfWork.Product.GetFirstOrDefault(x => x.Id == p.Bestseller_PrdouctID));
             }
-            
 
-            
+
+            productReviewVM.PopularCategories = _unitOfWork.Category.GetFourPopularCategories();
 
            // ProductHomePageVM products= new ProductHomePageVM
 
