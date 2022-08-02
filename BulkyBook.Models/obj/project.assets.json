@@ -7321,19 +7321,19 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\Administrator\\.nuget\\packages\\": {}
+    "C:\\Users\\User\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Administrator\\Desktop\\BulkyBook\\BulkyBook.Models\\BulkyBook.Models.csproj",
+      "projectUniqueName": "C:\\Users\\User\\source\\repos\\BulkyBook\\BulkyBook.Models\\BulkyBook.Models.csproj",
       "projectName": "BulkyBook.Models",
-      "projectPath": "C:\\Users\\Administrator\\Desktop\\BulkyBook\\BulkyBook.Models\\BulkyBook.Models.csproj",
-      "packagesPath": "C:\\Users\\Administrator\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Administrator\\Desktop\\BulkyBook\\BulkyBook.Models\\obj\\",
+      "projectPath": "C:\\Users\\User\\source\\repos\\BulkyBook\\BulkyBook.Models\\BulkyBook.Models.csproj",
+      "packagesPath": "C:\\Users\\User\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\User\\source\\repos\\BulkyBook\\BulkyBook.Models\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\Administrator\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\User\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [

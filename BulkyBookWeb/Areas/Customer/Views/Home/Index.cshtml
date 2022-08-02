@@ -13,7 +13,7 @@
     -moz-background-size: cover;
     -o-background-size: cover;*/
   
-  background-size: cover !important;
+    background-size: cover !important;
  
     
     
@@ -44,15 +44,17 @@
     position: relative;
     border: none;
     border-radius: 4px;
-    background: #DCD7C9;
+    background: rgba(26, 66, 71,.2);;
     box-shadow: none;
     font-size: 12px;
     line-height: 20px;
 }
 
-.books-search .btn {border-color: #2C3639 !important;
+.books-search .btn, .card-featured .btn
+{
+    border-color: #2C3639 !important;
     color: #ffffff !important;
-   
+   background:#162729;
     font-size: 12px;
     line-height: 20px;
     letter-spacing: 2px;
@@ -61,26 +63,110 @@
     width:14rem;
 }
 
+.more{
+    border-color: #2C3639 !important;
+    color: #ffffff !important;
+   background:#0D2323;
+    font-size: 12px;
+    line-height: 20px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+}
+
 .blue-bg{
-    background-color:#DCD7C9;
+    background-color:rgba(26, 66, 71,.2);
+         box-shadow: rgba(56, 56, 54,.6) 0 0 1000px 1000px inset;
+
 }
 
 .dark-blue-bg{
-    background-color:#3F4E4F;
+    background-color:rgb(22, 39, 41);
 }
 
 #browse{
-        background-image: url("/images/homepage/library_header.png") !important;
+    background-image: url("/images/homepage/header4.jpg") !important;
     background-position: center !important;
     background-repeat: no-repeat !important;
     background-size: cover !important;
     height:40vh;
-     box-shadow: rgba(63, 78, 79, .5) 0 0 1000px 1000px inset;
+     box-shadow: rgba(56, 56, 54,.6) 0 0 1000px 1000px inset;
+     display:flex;
 }
 
+.card .img-container{
+    height:340px;
+    width:270px;
+    padding: 10px 10px 0 10px;
+    border-top-left-radius: 8px;
+    border-top-right-radius: 8px;
+    margin-block-start: 1em;
+    margin-block-end: 1em;
+    margin-inline-start: 40px;
+    margin-inline-end: 40px;
+    border-radius: 2px;
+    box-shadow: 2px 2px 7px rgb(0 0 0 / 30%);
+}
+
+.img-container img{ 
+    width:100%;
+    height:100%;
+    margin: 0;
+    /*border-radius: 2px;
+    box-shadow: 2px 2px 7px rgb(0 0 0 / 30%);*/
+    
+}
+
+.bestseller-details{
+   /*  border-bottom-left-radius: 8px;
+     border-bottom-right-radius:8px;*/
+    border: 1px solid #bfc7c8;
+    border-radius: 10px;
+    width:60%;
+    background:#bfc7c8;
+}
+
+.card{
+    height:auto;
+       border-radius: 8px;
+    background: #ffffff;
+    box-shadow: 0 0 5px 0 rgb(0 0 0 / 10%);
+
+}
+
+.card-body{
+    /*position: relative;
+    padding: 20px 30px 10px;*/
+    
+}
+
+/*FEATURED IMG*/
+
+.card.card-featured{
+    height:500px;
+}
+
+.card-featured img{
+    height:500px;
+    width:100%;
+}
+
+/*CATEGORIES*/
+ .cat{
+    height:110px !important;
+    background:rgba(56, 56, 54,.64);
+    
+}
+
+ .browse-btn
+{
+    border-color: #2C3639 !important;
+    color: #ffffff !important;
+    background:#0D2323;
+    width:100%;
+}
 
 </style>
-
+  <div style="background-color:rgb(25,42,44)">
 
 <section id="header-slider border border-primary" class="p-0 m-0">
     <div class="container-fluid">
@@ -91,7 +177,7 @@
         <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="2" aria-label="Slide 3"></button>
       </div>
       <div class="carousel-inner">
-        <div class="carousel-item active" style="background-image: url('/images/homepage/header1.jpg')">
+        <div class="carousel-item active" style="background-image: url('/images/homepage/header2.jpg')">
           <div class="carousel-caption">
             <h5>Keep reading</h5>
             <p>“Reading is dreaming with open eyes.”</p>
@@ -103,7 +189,7 @@
             <p>“In principle and reality, libraries are life-enhancing palaces of wonder.”</p>
           </div>
         </div>
-        <div class="carousel-item" style="background-image: url('/images/homepage/header3.jpg')">
+        <div class="carousel-item" style="background-image: url('/images/homepage/header2.jpg')">
           <div class="carousel-caption">
             <h5>Take a journey within yourselves</h5>
             <p>“Books are wisest of counselors, and the most patient of teachers.”</p>
@@ -121,6 +207,7 @@
     </div>
     </div>
   </section>
+
 
 
   <div class="container books-search my-3">
@@ -154,7 +241,7 @@
             <div class="col-sm-6 col-md-3">
 					<div class="form-group">
 						<input type="hidden" name="post_type" value="product">
-						<button type="submit" class="btn btn-primary btn-block">
+						<button type="submit" class="btn btn-block">
 							<i class="fa fa-search"></i> &nbsp; 
 							Find Book						
                         </button>
@@ -166,45 +253,53 @@
 </div>
 
 
-@*****************************************************POPULAR BOOKS***************@
+@*****************************************************BESTSELLERS***************@
 <div class="container-fluid blue-bg">
     <div class="container">
        <div class="row d-flex justify-content-center align-items-center mb-5">  
             <div class="col-xxl-12 justify-content-center text-center">
-                <h3 class="title mt-3 mb-5" id="titles1">Popularne knjige</h3>    
+                <h3 class="title mt-3 mb-5" id="titles1">Bestsellers</h3>    
             </div>
             <div id="productsTable" class="row pb-5 mb-5">
             @foreach (var product in Model.Bestsellers)
             {
                 <div class="col-xxl-3 col-xl-3 col-lg-3 col-sm-6">
                     <div class="row p-2">
-                        <div class="col-12 p-1" style="border:1px solid #008cba; border-radius: 5px; ">
-                            <div class="card">
-                                    <div class="img-container mx-auto">
-                                        <a>
-                                            <img src="@product.ImageUrl" class="card-img-top"/>
-                                        </a> 
+                        <div class="col-12 p-1" style=" border-radius: 5px; ">
+                            <div class="card d-flex flex-column justify-content-between">
+                                <div class="img-container mx-auto border">
+                                    <a>
+                                        <img src="@product.ImageUrl" class=""/>
+                                    </a> 
                                 </div>
-                                <div class="card-body d-flex flex-column">
-                                    <div class="pl-1 justify-content-between align-items-center">
-                                        <h5 class="card-title">
+                                <div class="card-body d-flex flex-column  mx-auto" style="font-size:.8rem;">
+                                    <div class=" justify-content-between align-items-center">
+                                        <h5 class="card-title px-auto" style="width:250px;height:2rem; font-size:.8rem;">
                                             @product.Title
                                         </h5>
                                         <p class="card-subtitle mb-2 text-info">by <b>@product.Author</b></p>
                                     </div>
-                            
-                                    <div class="pl-1">
+                                    <div class="d-flex flex-row justify-content-between">
+                                        <div>
+                                            <strike><b>$@product.ListPrice.ToString("0.00")</b></strike>
+                                        </div>
+                                        <div>
+                                            <b>$@product.Price100.ToString("0.00")</b>
+                                        </div>
+                                    </div>
+                                    @*<div class="pl-1">
                                         <p>List Price: <strike><b>$@product.ListPrice.ToString("0.00")</b></strike></p>
                                     </div>
                                         <div class="pl-1">
                                         <p>As low as: <b>$@product.Price100.ToString("0.00")</b></p>
-                                    </div>
+                                    </div>*@
                            
                                 </div>
+                                 <div class="text-center">
+                                <a asp-action="Details" asp-route-productId="@product.Id" class="btn mb-3 border bestseller-details form-control">Details</a>
                             </div>
-                            <div>
-                                <a asp-action="Details" asp-route-productId="@product.Id" class="btn btn-primary form-control">Details</a>
                             </div>
+                           
                         </div>
                     </div>
                 </div>
@@ -217,7 +312,7 @@
 
 
 @****************************************FEATURED***************************@
-<div class="container-fluid  mb-3">
+<div class="container-fluid bg-white mb-3">
     <div class="container">
        <div class="row d-flex justify-content-center align-items-center">  
             <div class="col-xxl-12 justify-content-center text-center">
@@ -226,32 +321,38 @@
             <div id="productsTable" class="row pb-3">
                 <div class="col-xxl-4 col-xl-3 col-lg-3 col-sm-6">
                     <div class="row p-2">
-                        <div class="col-12 p-1" style="border:1px solid #008cba; border-radius: 5px; ">
-                            <div class="card">
-                                   <div class="card-body d-flex flex-column">
+                        <div class="col-12 p-1">
+                            <div class="card card-featured border border-danger" style="border:none;">
+                                   <div class="card-body d-flex flex-column justify-content-center">
                                        <div>Featured book</div>
-                                        <div class="pl-1 justify-content-between align-items-center">
+                                        <div class="pl-1 my-3 justify-content-between align-items-center">
                                             <h5 class="card-title">
                                                 Title of the book
                                             </h5>
                                             <p class="card-subtitle mb-2 text-info">by <b>Author of the boook</b></p>
                                         </div>
                             
-                                         <div>Descrition</div>
-                                        
+                                         <div>
+                                             From advanced selectors to generated content to web fonts, and from 
+                                             gradients, shadows, and rounded corners to elegant animations, CSS3 hold a 
+                                             universe of creative possibilities.
+                                             No one can better guide you through these galaxies than Dan Cederholm.
+                                         </div>
+                                         <button class="btn more">Get this book</button>
                                     </div>
-                                    <button>Get this book</button>
+                                   
                             </div>
                         </div>
                     </div>
                 </div>
                 <div class="col-xxl-4 col-xl-3 col-lg-3 col-sm-6">
                     <div class="row p-2">
-                        <div class="col-12 p-1" style="border:1px solid #008cba; border-radius: 5px; ">
-                            <div class="card">
-                                    <div class="img-container mx-auto">
+                        <div class="col-12 p-1" >
+                            <div class="card card-featured" style="border:none;">
+                                    <div class="mx-auto">
                                         <a>
-                                            <img src="~/images//products/04eb22b6-901d-4fec-8068-72e4859d0d68.jpg" class="card-img-top"/>
+                                            <img src="~/images/products/04eb22b6-901d-4fec-8068-72e4859d0d68.jpg" class="" 
+                                            style="border-radius:5px;"/>
                                         </a> 
                                 </div>
                        
@@ -261,11 +362,12 @@
                 </div>
                 <div class="col-xxl-4 col-xl-3 col-lg-3 col-sm-6">
                     <div class="row p-2">
-                        <div class="col-12 p-1" style="border:1px solid #008cba; border-radius: 5px; ">
-                            <div class="card">
-                                    <div class="img-container mx-auto">
+                        <div class="col-12 p-1" >
+                            <div class="card card-featured" style="border:none;">
+                                    <div class="">
                                         <a>
-                                            <img src="~/images/products/12622e2e-9986-45bd-a65d-0740b4b02609.jpg" class="card-img-top"/>
+                                            <img src="~/images/products/12622e2e-9986-45bd-a65d-0740b4b02609.jpg" class=""
+                                            style="border-radius:5px;"/>
                                         </a> 
                                 </div>
                        
@@ -285,26 +387,26 @@
     <div class="container">
        <div class="row d-flex justify-content-center align-items-center">  
             <div class="col-xxl-12 justify-content-center text-center">
-                <h3 class="title mt-3 mb-5" id="titles1">Popularne knjige</h3>    
+                <h3 class="title mt-3 mb-5 text-white" id="titles1">Popular categories</h3>    
             </div>
             <div id="productsTable" class="row pb-5 mb-5">
-            @foreach (var product in Model.Bestsellers)
+            @foreach (var category in Model.PopularCategories)
             {
                 <div class="col-xxl-3 col-xl-3 col-lg-3 col-sm-6">
                     <div class="row p-2">
-                        <div class="col-12 p-1" style="border:1px solid #008cba; border-radius: 5px; ">
-                            <div class="card">
-                                    <div class="img-container mx-auto">
-                                        <a>
+                        <div class="col-12 p-1" style=" border-radius: 5px; ">
+                            <div class="card cat">
+                                    <div class="img-container-cat mx-auto">
+                                        @*<a>
                                             <img src="@product.ImageUrl" class="card-img-top"/>
-                                        </a> 
+                                        </a> *@
                                 </div>
                                 <div class="card-body d-flex flex-column">
                                     <div class="pl-1 justify-content-between align-items-center">
-                                        <h5 class="card-title">
-                                            @product.Title
+                                        <h5 class="card-title text-center" style="height:2rem;">
+                                            @category.Name
                                         </h5>
-                                        <button>MORE</button>
+                                        <button class="btn browse-btn">BROWSE -></button>
                                     </div>
                             
                            
@@ -322,15 +424,74 @@
 </div>
 
 @************************************************BROWSE*********************************@
-<div id="browse">
+<div id="browse" class="m-0 p-0">
     <div class="container-fluid">
-        <div class="container">
-           <div class="row d-flex flex-column justify-content-center align-items-center text-center">
+        <div class="container d-flex justify-content-center align-items-center h-100">
+           <div class="row d-flex justify-content-center align-items-center text-center">
                 <h3 class="text-white">Browse Through Our Complete Library</h3>
                 <a class="text-white">Browse collection -></a>
            </div>
         </div>
      </div>
+</div>
+
+@*****************************************************NEW BOOKS***************@
+<div class="container-fluid blue-bg">
+    <div class="container">
+       <div class="row d-flex justify-content-center align-items-center mb-5">  
+            <div class="col-xxl-12 justify-content-center text-center">
+                <h3 class="title mt-3 mb-5" id="titles1">New arrivals</h3>    
+            </div>
+            <div id="productsTable" class="row pb-5 mb-5">
+            @foreach (var product in Model.NewBooks)
+            {
+                <div class="col-xxl-3 col-xl-3 col-lg-3 col-sm-6">
+                    <div class="row p-2">
+                        <div class="col-12 p-1" style=" border-radius: 5px; ">
+                            <div class="card d-flex flex-column justify-content-between">
+                                <div class="img-container mx-auto">
+                                    <a>
+                                        <img src="@product.ImageUrl" class=""/>
+                                    </a> 
+                                </div>
+                                <div class="card-body d-flex flex-column mx-auto" style="font-size:.8rem;">
+                                    <div class=" justify-content-between align-items-center">
+                                        <h5 class="card-title px-auto" style="width:250px;height:2rem; font-size:.8rem;">
+                                            @product.Title
+                                        </h5>
+                                        <p class="card-subtitle mb-2 text-info">by <b>@product.Author</b></p>
+                                    </div>
+                                    <div class="d-flex flex-row justify-content-between">
+                                        <div>
+                                            <strike><b>$@product.ListPrice.ToString("0.00")</b></strike>
+                                        </div>
+                                        <div>
+                                            <b>$@product.Price100.ToString("0.00")</b>
+                                        </div>
+                                    </div>
+                                    @*<div class="pl-1">
+                                        <p>List Price: <strike><b>$@product.ListPrice.ToString("0.00")</b></strike></p>
+                                    </div>
+                                        <div class="pl-1">
+                                        <p>As low as: <b>$@product.Price100.ToString("0.00")</b></p>
+                                    </div>*@
+                           
+                                </div>
+                                <div>
+                                <a asp-action="Details" asp-route-productId="@product.Id" class="btn more form-control">Details</a>
+                            </div>
+                            </div>
+                            
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+
+         </div>
+    </div>
+</div>
+
 </div>
 
 

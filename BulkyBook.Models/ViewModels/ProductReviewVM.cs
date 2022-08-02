@@ -16,6 +16,7 @@ namespace BulkyBook.Models.ViewModels
 
         public IEnumerable<ProductInfo> Products { get; set; }
         public List<Product> Bestsellers { get; set; }
+        public List<Category> PopularCategories { get; set; }
         public List<Product> NewBooks { get; set; }
 
         public class ProductInfo
