@@ -4,6 +4,8 @@
 @{
     ViewData["Title"] = "Register";
 }
+
+<div class="container">
 @if(User.IsInRole(StaticDetails.Role_Admin))
 {
         <h1 class="pt-4">Register - ADMIN PORTAL</h1>
@@ -114,6 +116,7 @@ else
             </section>
         </div>
     }
+</div>
 </div>
 
 @section Scripts {

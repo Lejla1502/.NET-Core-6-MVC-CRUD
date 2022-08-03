@@ -28,7 +28,7 @@ namespace BulkyBook.Utility
                 emailClient.CheckCertificateRevocation = false;
                 //establishing the connection to SMTP server, 587 is default port for gmail
                 emailClient.Connect("smtp.gmail.com", 587, MailKit.Security.SecureSocketOptions.StartTls);
-                emailClient.Authenticate("bulkybookof2022@gmail.com", "Bukly1234!");
+                emailClient.Authenticate("bulkybookof2022@gmail.com", "fsuwsltggpclivxi");
                 emailClient.Send(emailToSend);
                 emailClient.Disconnect(true);
 			}
