@@ -3,7 +3,7 @@
     ViewData["Title"] = "Home Page";
 }
 <style>
-    .card{
+/*    .card{
         height: 570px;
     } 
     .img-container{
@@ -16,7 +16,136 @@
     height: 100%;
     
 
+}*/
+
+
+ .find-book{
+       height:3px !important;
+  }
+
+  .btn-find{
+      width:18rem;
+      border-radius:10px;
+/*      heigth:1rem !important;
+*/      height:6px;
+  }
+
+  .books-search .form-control {
+/*       font-family: 'Cinzel Decorative', cursive;
+*/    position: relative;
+    border:1px solid #2f4c54;
+    
+    border-radius: 4px;
+    background:white;
+    /*/*background: #b49c96;*/
+    box-shadow: none;
+    font-size: 12px;
+    line-height: 20px;
+    color:rgb(25,42,44);
+    font-weight:bold;
+    font-size:.9rem;
 }
+
+.form-control::placeholder{
+    /* font-family: 'Cinzel Decorative';*/
+    color:black;
+    font-weight:bold;
+    opacity:1;
+    font-size:.9;
+}
+
+.books-search .btn, .card-featured .btn
+{
+    font-family: 'Cinzel Decorative', cursive;
+    border-color: #2C3639 !important;
+    color: #ffffff !important;
+   background:	#2f4c54;
+    font-size: 12px;
+    line-height: 20px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    border-radius:22px !important;
+    width:14rem;
+}
+
+.more{
+    border-color: #2C3639 !important;
+    color: #ffffff !important;
+   background:#0D2323;
+    font-size: 12px;
+    line-height: 20px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+}
+
+.blue-bg{
+    background-color:rgba(26, 66, 71,.2);
+/*     box-shadow: rgba(56, 56, 54,.6) 0 0 1000px 1000px inset;
+*/
+}
+
+.dark-blue-bg{
+    background-color:rgb(22, 39, 41);
+}
+
+#browse{
+    background-image: url("/images/homepage/header4.jpg") !important;
+    background-position: center !important;
+    background-repeat: no-repeat !important;
+    background-size: cover !important;
+    height:40vh;
+     box-shadow: rgba(56, 56, 54,.6) 0 0 1000px 1000px inset;
+     display:flex;
+}
+
+#browse h3,a{
+    font-family: 'Cinzel Decorative', cursive;
+}
+
+.card .img-container{
+    height:330px;
+    width:230px;
+    padding: 8px 8px 0 8px;
+    border-top-left-radius: 8px;
+    border-top-right-radius: 8px;
+   /* margin-block-start: 1em;
+    margin-block-end: 1em;
+    margin-inline-start: 40px;
+    margin-inline-end: 40px;*/
+    border-radius: 2px;
+    box-shadow: 2px 2px 7px rgb(0 0 0 / 30%);
+}
+
+.img-container img{ 
+    width:100%;
+    height:100%;
+    margin: 0;
+    /*border-radius: 2px;
+    box-shadow: 2px 2px 7px rgb(0 0 0 / 30%);*/
+    
+}
+
+.bestseller-details{
+   /*  border-bottom-left-radius: 8px;
+     border-bottom-right-radius:8px;*/
+    border: 1px solid #bfc7c8;
+    border-radius: 10px;
+    width:60%;
+    background:#2f4c54;
+    color:white;
+}
+
+.card{
+/*    font-family: 'Cinzel Decorative', cursive;
+*/    height:auto;
+    border-radius: 8px;
+    background: #ffffff;
+    box-shadow: 0 0 5px 0 rgb(0 0 0 / 10%);
+    border:36px solid transparent;
+    border-image: url(images/golden-border.png) 10% round;
+  
+}
+
 /*
 #icon{
     height:40px;
@@ -39,7 +168,9 @@
 }
 
 </style>
-<div class="my-3">
+
+
+@*<div class="my-3">
      <form asp-action="Index">
         <div class="row d-flex">
             <div class="col-xxl-7 d-flex flex-row justify-content-between">
@@ -53,13 +184,57 @@
             </div>
         </div>
     </form>
+</div>*@
+
+<div class="container books-search my-3">
+     <form asp-action="Index">
+        <div class="row d-flex flex-row justify-content-between">
+            <div class=" d-flex flex-row ">
+            <div class="col-sm-6 col-md-3 me-4">
+			    <div class="form-group">
+				    <input name="s" value="" type="text" class="form-control" id="keyword" placeholder="Book Title">
+			    </div>
+		    </div>        
+            <div class="col-sm-6 col-md-3 me-4">
+			    <div class="form-group">
+                    <select  id="selectCategory" class="form-control" asp-for="@Model.CategoryId" asp-items="@Model.CategoryList"
+                     >
+                        <option >--Book Category--</option>
+                    </select>
+                    <i class="select-arrow fa fa-angle-down"></i>
+			    </div>
+		    </div>
+             <div class="col-sm-6 col-md-3 me-4">
+			    <div class="form-group">
+                    <select  id="selectAuthor" class="form-control" asp-for="@Model.CategoryId" asp-items="@Model.CategoryList"
+                  >
+                        <option >--Book Author--</option>
+                    </select>
+                    <i class="select-arrow fa fa-angle-down"></i>
+			    </div>
+		    </div>
+                
+            <div class="col-sm-6 col-md-3">
+					<div class="form-group">
+						<input type="hidden" name="post_type" value="product">
+						<button type="submit" class="btn btn-block">
+							<i class="fa fa-search"></i> &nbsp; 
+							Find Book						
+                        </button>
+					</div>
+				</div>
+            </div>
+        </div>
+    </form>
 </div>
+
+<div class="container">
 <div id="productsTable" class="row pb-3" style="z-index:-900;">
     @foreach (var product in Model.Products)
     {
         <div class="col-xxl-3 col-xl-3 col-lg-3 col-sm-6">
             <div class="row p-2">
-                <div class="col-12 p-1" style="border:1px solid #008cba; border-radius: 5px; ">
+                <div class="col-12 p-1 border" style=" border-radius: 5px; ">
                     <div class="card">
                          <div class="img-container mx-auto">
                               <a>
@@ -115,14 +290,17 @@
                                 }
                             </div>
                         </div>
-                    </div>
-                    <div>
+                        <div>
                         <a asp-action="Details" asp-route-productId="@product.Id" class="btn btn-primary form-control">Details</a>
                     </div>
+                    </div>
+                    
                 </div>
             </div>
         </div>
     }
+</div>
+
 </div>
 
 

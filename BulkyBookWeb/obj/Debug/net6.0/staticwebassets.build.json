@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "LKAwiEyJ2KjIEAI8EKtUmazmMDqy6juT2r6dV/7g0fM=",
+  "Hash": "JcQXzthzyNCpe0oAbfhO8udNhpl/gmbz9XEsyhbXo2s=",
   "Source": "BulkyBookWeb",
   "BasePath": "_content/BulkyBookWeb",
   "Mode": "Default",
@@ -1222,6 +1222,23 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\icons\\star.png"
+    },
+    {
+      "Identity": "C:\\Users\\Administrator\\Desktop\\BulkyBook\\BulkyBookWeb\\wwwroot\\images\\golden-border.png",
+      "SourceId": "BulkyBookWeb",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\Administrator\\Desktop\\BulkyBook\\BulkyBookWeb\\wwwroot\\",
+      "BasePath": "_content/BulkyBookWeb",
+      "RelativePath": "images/golden-border.png",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\images\\golden-border.png"
     },
     {
       "Identity": "C:\\Users\\Administrator\\Desktop\\BulkyBook\\BulkyBookWeb\\wwwroot\\images\\homepage\\header1.jpg",
