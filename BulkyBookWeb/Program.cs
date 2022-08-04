@@ -19,16 +19,16 @@ builder.Services.AddIdentity<IdentityUser, IdentityRole>().AddDefaultUI().AddDef
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+//builder.Services.AddSwaggerGen();
 
 
 builder.Services.AddDbContext<ApplicationDbContext>(options=>options.UseSqlServer(
     builder.Configuration.GetConnectionString("DefaultConnection")));
 
-//builder.Services.AddSwaggerGen();
-builder.Services.AddSwaggerGen(c =>
-{
-    c.SwaggerDoc("v1", new() { Title = "TodoApi", Version = "v1" });
-});
+//builder.Services.AddSwaggerGen(c =>
+//{
+//    c.SwaggerDoc("v1", new() { Title = "TodoApi", Version = "v1" });
+//});
 
 builder.Services.Configure<StripeSettings>(builder.Configuration.GetSection("Stripe"));
 
@@ -79,6 +79,7 @@ builder.Services.AddSingleton<IEmailSender, EmailSender>();
 builder.Services.AddControllers().AddJsonOptions(x =>
                 x.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles);
 
+builder.Services.AddSwaggerGen();
 
 var app = builder.Build();
 
@@ -95,6 +96,10 @@ if (!app.Environment.IsDevelopment())
         options.RoutePrefix = string.Empty;
     });
 }
+
+app.UseSwagger();
+app.UseSwaggerUI();
+//app.UseSwaggerUI();
 
 
 app.UseHttpsRedirection();
@@ -115,6 +120,8 @@ app.MapRazorPages();
 app.MapControllerRoute(
     name: "default",
     pattern: "{area=Customer}/{controller=Home}/{action=Index}/{id?}");
+
+//app.MapControllers();
 
 //app.UseEndpoints(endpoints =>
 //{

@@ -16,6 +16,8 @@ namespace BulkyBookWeb.Customer.Controllers
 {
     [Area("Customer")]
 
+    //[Route("api/[controller]")]
+    //[ApiController]
     public class HomeController : Controller
     {
         private readonly IUnitOfWork _unitOfWork;
