@@ -56,8 +56,8 @@
 
 .books-search .btn, .card-featured .btn
 {
-    font-family: 'Cinzel Decorative', cursive;
-    border-color: #2C3639 !important;
+/*    font-family: 'Cinzel Decorative', cursive;
+*/    border-color: #2C3639 !important;
     color: #ffffff !important;
    background:	#2f4c54;
     font-size: 12px;
@@ -99,8 +99,8 @@
 }
 
 #browse h3,a{
-    font-family: 'Cinzel Decorative', cursive;
-}
+/*    font-family: 'Cinzel Decorative', cursive;
+*/}
 
 .card .img-container{
     height:330px;
@@ -277,13 +277,13 @@
                                 {
                                     @if(product.IsFavourite)
                                     {
-                                         <a asp-action="RemoveFromFavourite" asp-route-id="@product.Id" asp-route-isFromFavouritesPage="false">
+                                         <a asp-controller="Home" asp-action="RemoveFromFavourite" asp-route-id="@product.Id" asp-route-isFromFavouritesPage="false">
                                             <i id="icon" class="bi bi-bookmark-heart-fill"></i>
                                         </a>
                                     }
                                     else
                                     {
-                                        <a asp-action="AddToFavourite" asp-route-id="@product.Id" asp-route-isFromFavouritesPage="false">
+                                        <a asp-controller="Home" asp-action="AddToFavourite" asp-route-id="@product.Id" asp-route-isFromFavouritesPage="false">
                                             <i id="icon" class="bi bi-bookmark-heart"></i>
                                         </a>
                                     }

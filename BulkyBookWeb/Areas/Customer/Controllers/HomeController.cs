@@ -237,7 +237,7 @@ namespace BulkyBookWeb.Customer.Controllers
             _unitOfWork.Save();
 
             if (!isFromFavouritesPage)
-                return RedirectToAction("Index");
+                return RedirectToAction("Index","Book");
             else
                 return RedirectToAction("DisplayFavourites");
         }
@@ -247,7 +247,7 @@ namespace BulkyBookWeb.Customer.Controllers
             _unitOfWork.Save();
 
             if (!isFromFavouritesPage)
-                return RedirectToAction("Index");
+                return RedirectToAction("Index", "Book");
             else
                 return RedirectToAction("DisplayFavourites");
         }

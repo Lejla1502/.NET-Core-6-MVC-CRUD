@@ -79,7 +79,7 @@ builder.Services.AddSingleton<IEmailSender, EmailSender>();
 builder.Services.AddControllers().AddJsonOptions(x =>
                 x.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles);
 
-builder.Services.AddSwaggerGen();
+//builder.Services.AddSwaggerGen();
 
 var app = builder.Build();
 
@@ -97,8 +97,9 @@ if (!app.Environment.IsDevelopment())
     });
 }
 
-app.UseSwagger();
-app.UseSwaggerUI();
+//here we enable swagger
+//app.UseSwagger();
+//app.UseSwaggerUI();
 //app.UseSwaggerUI();
 
 
