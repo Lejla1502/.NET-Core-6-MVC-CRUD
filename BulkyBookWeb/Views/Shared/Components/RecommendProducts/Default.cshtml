@@ -8,6 +8,10 @@
    
 }
 
+.card-title-event{
+    height:2rem;
+}
+
 .card-text-event{
     font-size: 1rem;
     margin: 0rem;
@@ -63,22 +67,22 @@
   }
 
     .img-container{
-    object-fit:cover;
-    width: 100%;
-    height: 300px;
+/*    object-fit:cover;
+*/      height:230px;
+    width:150px;
 }
 
    .img-container img{
-    width: 90%;
+    width: 100%;
     height: 100%;
-    margin-left:1rem;
+   
 
 }
     </style>
 
 @if(Model!=null)
 {
-     <div class="container-fluid sides">
+     <div class="container sides">
       <div class="row d-flex justify-content-center mb-5">
         <div class="col-xxl-12 d-flex">
           <h1 class="titles mt-5 mb-2" id="titles3">Recommended for you</h1>
@@ -105,8 +109,9 @@
                 <div class="row d-flex align-items-center justify-content-center">
                 @for(int i=0; i<Model.Length-3;i++)
                 {
-                   <div class="col-xxl-4 col-xl-4 col-lg-4 col-md-8 col-sm-12 card-1" > 
-                      <div class="card event-card mx-auto">
+                 <div class="col-xxl-4 col-xl-4 col-lg-4 col-md-8 col-sm-12 card-1">
+                    <div class="card event-card mx-auto">
+            
                         <div class="card-body">
                             <div class="img-container mx-auto">
                               <a>
@@ -115,31 +120,28 @@
                             </div>
                             <div class=" justify-content-between align-items-center"> 
                                 <h5 class="card-title-event text-center px-2">@Model[i].Title</h5>
-                                <div class="d-flex justify-content-between">
-                                       <div class="star-container mb-2">
-                                            @for (int j = 0; j < @Model[i].AvgRating; j++)
-                                            {
-                                                <i class="ratingStar bi bi-star-fill colored mx-1"></i>
-                                            }
-                                            @for (int j = Model[i].AvgRating; j < 5; j++)
-                                            {
+                                <div class="star-container mb-2 text-center">
+                                    @for (int j = 0; j < @Model[i].AvgRating; j++)
+                                    {
+                                        <i class="ratingStar bi bi-star-fill colored mx-1"></i>
+                                    }
+                                    @for (int j = Model[i].AvgRating; j < 5; j++)
+                                    {
 
-                                                <i class="ratingStar bi bi-star colored mx-1"></i>
-                                            }
-                                        </div>
-                                   
-                                    <div class="card-text-event">
-                                        $@Model[i].Price.ToString("0.00")
-                                    </div>
+                                        <i class="ratingStar bi bi-star colored mx-1"></i>
+                                    }
                                 </div>
-                            </div>
+                                   
+                                <div class="card-text-event text-center">
+                                   <strike>$@Model[i].Price.ToString("0.00")</strike> $@Model[i].Price.ToString("0.00")
+                                </div>
+                              </div>
                         </div>
                         <div class="card-footer card-footer-event">
-                          
-                          <a asp-controller="Home" asp-action="Details" asp-route-productId="@Model[i].Id" class="text-white bg-black btn">Details</a>
-                        </div>
+                            <a asp-controller="Home" asp-action="Details" asp-route-productId="@Model[i].Id" class="text-white bg-black btn">Details</a>            
                       </div>
                     </div>
+                  </div>
                 }
               </div>
             </div>
@@ -159,7 +161,7 @@
                             </div>
                             <div class=" justify-content-between align-items-center"> 
                                 <h5 class="card-title-event text-center px-2">@Model[i].Title</h5>
-                                <div class="star-container mb-2">
+                                <div class="star-container mb-2 text-center">
                                     @for (int j = 0; j < @Model[i].AvgRating; j++)
                                     {
                                         <i class="ratingStar bi bi-star-fill colored mx-1"></i>
@@ -171,8 +173,8 @@
                                     }
                                 </div>
                                    
-                                <div class="card-text-event">
-                                    $@Model[i].Price.ToString("0.00")
+                                <div class="card-text-event text-center">
+                                   <strike>$@Model[i].Price.ToString("0.00")</strike> $@Model[i].Price.ToString("0.00")
                                 </div>
                               </div>
                         </div>

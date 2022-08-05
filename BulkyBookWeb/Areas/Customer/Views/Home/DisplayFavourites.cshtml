@@ -3,7 +3,7 @@
     ViewData["Title"] = "Home Page";
 }
 <style>
-    .img-container{
+/*    .img-container{
     width: 100%;
     height: 450px;
 }
@@ -16,7 +16,50 @@
 
 .card-title{
     height:45px;
+}*/
+
+
+.card .img-container{
+    height:330px;
+    width:230px;
+    padding: 8px 8px 0 8px;
+    border-top-left-radius: 8px;
+    border-top-right-radius: 8px;
+   /* margin-block-start: 1em;
+    margin-block-end: 1em;
+    margin-inline-start: 40px;
+    margin-inline-end: 40px;*/
+    border-radius: 2px;
+    box-shadow: 2px 2px 7px rgb(0 0 0 / 30%);
 }
+
+.img-container img{ 
+    width:100%;
+    height:100%;
+    margin: 0;
+    /*border-radius: 2px;
+    box-shadow: 2px 2px 7px rgb(0 0 0 / 30%);*/
+    
+}
+
+
+
+.card{
+/*    font-family: 'Cinzel Decorative', cursive;
+*/    height:auto;
+    border-radius: 8px;
+    background: #ffffff;
+    box-shadow: 0 0 5px 0 rgb(0 0 0 / 10%);
+    border:36px solid transparent;
+    border-image: url(images/golden-border.png) 10% round;
+  
+}
+
+
+.card-title{
+    height:45px;
+}
+
 
 
 </style>
@@ -24,9 +67,75 @@
 <div class="row pb-3" style="z-index:-900;">
     @foreach (var product in Model)
     {
-        <div class="col-lg-3 col-sm-6">
+          <div class="col-xxl-3 col-xl-3 col-lg-3 col-sm-6">
             <div class="row p-2">
-                <div class="col-12 p-1" style="border:1px solid #008cba; border-radius: 5px; ">
+                <div class="col-12 p-1 border" style=" border-radius: 5px; ">
+                    <div class="card">
+                         <div class="img-container mx-auto">
+                              <a>
+                                   <img src="@product.ImageUrl" class="card-img-top"/>
+                              </a> 
+                        </div>
+                        <div class="card-body d-flex flex-column">
+                            <div class="pl-1 justify-content-between align-items-center">
+                                <h5 class="card-title">
+                                    @product.Title
+                                </h5>
+                                <p class="card-subtitle mb-2 text-info">by <b>@product.Author</b></p>
+                            </div>
+                            
+                            <div class="pl-1">
+                                <p>List Price: <strike><b>$@product.ListPrice.ToString("0.00")</b></strike></p>
+                            </div>
+                             <div class="pl-1">
+                                <p>As low as: <b>$@product.Price100.ToString("0.00")</b></p>
+                            </div>
+                            <div class="d-flex justify-content-between">
+                               @* <div class="star-container mb-2">
+                                    @if(product.AvgRating==0)
+                                    {
+                                        <h6 class="colored">Not rated yet</h6>
+                                    }
+                                    else
+                                    {
+                                        @for (int i = 0; i < product.AvgRating; i++)
+                                        {
+                                            <i class="ratingStar bi bi-star-fill colored mx-1"></i>
+                                        }
+                                        @for (int i = product.AvgRating; i < 5; i++)
+                                        {
+                                            <i class="ratingStar bi bi-star colored mx-1"></i>
+                                        }
+                                    }
+                                </div>*@
+                                @if(User.Identity.IsAuthenticated)
+                                {
+                                    @if(product.IsFavourite)
+                                    {
+                                         <a asp-controller="Home" asp-action="RemoveFromFavourite" asp-route-id="@product.Id" asp-route-isFromFavouritesPage="false">
+                                            <i id="icon" class="bi bi-bookmark-heart-fill"></i>
+                                        </a>
+                                    }
+                                    else
+                                    {
+                                        <a asp-controller="Home" asp-action="AddToFavourite" asp-route-id="@product.Id" asp-route-isFromFavouritesPage="false">
+                                            <i id="icon" class="bi bi-bookmark-heart"></i>
+                                        </a>
+                                    }
+                                }
+                            </div>
+                        </div>
+                        <div>
+                        <a asp-controller="Home" asp-action="Details" asp-route-productId="@product.Id" class="btn btn-primary form-control">Details</a>
+                    </div>
+                    </div>
+                    
+                </div>
+            </div>
+        </div>
+      @*  <div class="col-lg-3 col-sm-6">
+            <div class="row p-2">
+                <div class="col-12 p-1 border" style=" border-radius: 5px; ">
                     <div class="card">
                          <div class="img-container mx-auto my-2">
                               <a>
@@ -73,7 +182,7 @@
                     </div>
                 </div>
             </div>
-        </div>
+        </div>*@
     }
 </div>
 </div>
