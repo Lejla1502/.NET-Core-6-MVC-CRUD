@@ -33,7 +33,7 @@
   .books-search .form-control {
 /*       font-family: 'Cinzel Decorative', cursive;
 */    position: relative;
-    border:1px solid #2f4c54;
+  /*  border:1px solid #2f4c54;*/
     
     border-radius: 4px;
     background:white;
@@ -57,14 +57,14 @@
 .books-search .btn, .card-featured .btn
 {
 /*    font-family: 'Cinzel Decorative', cursive;
-*/    border-color: #2C3639 !important;
+*/    /*border-color: #2C3639 !important;*/
     color: #ffffff !important;
-   background:	#2f4c54;
+/*   background:	#2f4c54;*/
     font-size: 12px;
     line-height: 20px;
     letter-spacing: 2px;
     text-transform: uppercase;
-    border-radius:22px !important;
+  /*  border-radius:22px !important;*/
     width:14rem;
 }
 
@@ -192,32 +192,32 @@
             <div class=" d-flex flex-row ">
             <div class="col-sm-6 col-md-3 me-4">
 			    <div class="form-group">
-				    <input name="s" value="" type="text" class="form-control" id="keyword" placeholder="Book Title">
+				    <input name="s" value="" type="text" class="form-control border" id="keyword" placeholder="Book Title">
 			    </div>
 		    </div>        
             <div class="col-sm-6 col-md-3 me-4">
 			    <div class="form-group">
-                    <select  id="selectCategory" class="form-control" asp-for="@Model.CategoryId" asp-items="@Model.CategoryList"
+                    <select  id="selectCategory" class="form-control border" asp-for="@Model.CategoryId" asp-items="@Model.CategoryList"
                      >
                         <option >--Book Category--</option>
                     </select>
-                    <i class="select-arrow fa fa-angle-down"></i>
+                  @*  <i class="select-arrow fa fa-angle-down"></i>*@
 			    </div>
 		    </div>
              <div class="col-sm-6 col-md-3 me-4">
 			    <div class="form-group">
-                    <select  id="selectAuthor" class="form-control" asp-for="@Model.CategoryId" asp-items="@Model.CategoryList"
+                    <select  id="selectAuthor" class="form-control border" asp-for="@Model.CategoryId" asp-items="@Model.CategoryList"
                   >
                         <option >--Book Author--</option>
                     </select>
-                    <i class="select-arrow fa fa-angle-down"></i>
+                   @* <i class="select-arrow fa fa-angle-down"></i>*@
 			    </div>
 		    </div>
                 
             <div class="col-sm-6 col-md-3">
 					<div class="form-group">
 						<input type="hidden" name="post_type" value="product">
-						<button type="submit" class="btn btn-block">
+						<button type="submit" class="btn btn-block btn-primary">
 							<i class="fa fa-search"></i> &nbsp; 
 							Find Book						
                         </button>
