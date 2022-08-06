@@ -3,7 +3,8 @@
     
     ViewData["Title"] = "Create";
 }
- 
+
+<div class="container">
 <form method="post" asp-controller="Author" asp-action="Upsert" enctype="multipart/form-data">
     <input asp-for="Id" type="hidden" />
         
@@ -50,6 +51,7 @@
 		
 	</div>
 </form>
+</div>
 
 @section Scripts
 {
