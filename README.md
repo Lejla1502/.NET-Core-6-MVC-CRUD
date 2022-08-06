@@ -35,13 +35,13 @@ purchase.
 ### Built With
 
 * [C#](https://docs.microsoft.com/en-us/dotnet/csharp/)
-* [.NET 6 (Core)]
+* [.NET 6 (Core)](https://dotnet.microsoft.com/en-us/download/dotnet/6.0)
 * [MVC](https://developer.mozilla.org/en-US/docs/Glossary/MVC)
 * [Bootstrap](https://getbootstrap.com)
 * [Html](https://html.com/)
 * [CSS](https://developer.mozilla.org/en-US/docs/Web/CSS)
 * [JQuery](https://jquery.com)
-* [SignalR]([https://getbootstrap.com](https://dotnet.microsoft.com/en-us/apps/aspnet/signalr))
+* [SignalR](https://dotnet.microsoft.com/en-us/apps/aspnet/signalr))
 * [.ML NET - Matrix Factorization](https://jquery.com)
 
 <p align="right">(<a href="#top">back to top</a>)</p>
