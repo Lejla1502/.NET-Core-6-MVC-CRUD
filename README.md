@@ -1,4 +1,4 @@
-# .NET-Core-6-MVC-CRUD
+## About The Project
 
 BulkyBook is web book store application built in **Asp.Net Core 6 (C#)**. For backend data storage and retrieving was used **MSSQL**.
 
@@ -34,14 +34,41 @@ purchase.
 
 ### Built With
 
-* [C#](https://nextjs.org/)
-* [.NET 6 (Core)](https://reactjs.org/)
-* [Bootstrap](https://vuejs.org/)
-* [Html](https://angular.io/)
-* [CSS](https://svelte.dev/)
-* [JQuery](https://laravel.com)
-* [SignalR](https://getbootstrap.com)
+* [C#](https://docs.microsoft.com/en-us/dotnet/csharp/)
+* [.NET 6 (Core)]
+* [MVC](https://developer.mozilla.org/en-US/docs/Glossary/MVC)
+* [Bootstrap](https://getbootstrap.com)
+* [Html](https://html.com/)
+* [CSS](https://developer.mozilla.org/en-US/docs/Web/CSS)
+* [JQuery](https://jquery.com)
+* [SignalR]([https://getbootstrap.com](https://dotnet.microsoft.com/en-us/apps/aspnet/signalr))
 * [.ML NET - Matrix Factorization](https://jquery.com)
 
 <p align="right">(<a href="#top">back to top</a>)</p>
+
+<!-- GETTING STARTED -->
+## Getting Started
+
+This is an example of how you may give instructions on setting up your project locally.
+To get a local copy up and running follow these simple example steps.
+
+### Prerequisites
+
+This is an example of how to list things you need to use the software and how to install them.
+* Visual Studio 2022
+* SQL Management Studio
+
+
+### Installation
+
+1. Clone the repo
+   ```sh
+   git clone https://github.com/github_username/repo_name.git
+   ```
+2. Change appsettings sql connection string if needed
+   
+3. Run the app and register
+
+<p align="right">(<a href="#top">back to top</a>)</p>
+
 
