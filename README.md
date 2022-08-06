@@ -1,6 +1,6 @@
 ## About The Project
 
-BulkyBook is web book store application built in **Asp.Net Core 6 (C#)**. For backend data storage and retrieving was used **MSSQL**.
+BulkyBook is web book store application built in **Asp.Net Core 6 (C#)** using **repository pattern**. For backend data storage and retrieving was used **MSSQL**.
 
 Web application enables different roles on the system: Admin, Individual, Company and Employee.
 Responsabilities for admin:
