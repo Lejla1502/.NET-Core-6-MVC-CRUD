@@ -32,6 +32,8 @@ Display of recommended products is done with ML .NET applying MatrixFactorizatio
 preferences have liked and based off of that, products are shown to specific user. The goal is to offer a buyer products that he would most likely
 purchase.
 
+<p align="right">(<a href="#top">back to top</a>)</p>
+
 ### Built With
 
 * [C#](https://docs.microsoft.com/en-us/dotnet/csharp/)
