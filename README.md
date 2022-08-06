@@ -32,6 +32,10 @@ Display of recommended products is done with ML .NET applying MatrixFactorizatio
 preferences have liked and based off of that, products are shown to specific user. The goal is to offer a buyer products that he would most likely
 purchase.
 
+MAin difference between "Idividual" and "Company" user is that individual is redirected to stripe immediately after placing the order and is required of them
+to pay for the product right after placing the order, while "company" user can first place the order and pay later. The limit for paying is one month after 
+placing the order.
+
 <p align="right">(<a href="#top">back to top</a>)</p>
 
 ### Built With
