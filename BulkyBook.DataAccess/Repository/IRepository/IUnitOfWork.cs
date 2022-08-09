@@ -21,6 +21,7 @@ namespace BulkyBook.DataAccess.Repository.IRepository
         INotificationRepository Notification { get; }
         IReviewRepository Review { get; }
         IAuthorRepository Author { get; }
+        IAuthorProductRepository AuthorProduct { get; }
         public void Save();
     }
 }

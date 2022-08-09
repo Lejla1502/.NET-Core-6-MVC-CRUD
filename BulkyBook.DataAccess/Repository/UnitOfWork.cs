@@ -21,6 +21,8 @@ namespace BulkyBook.DataAccess.Repository
         public IReviewRepository Review { get; private set; }
         public IAuthorRepository Author { get; private set; }
 
+        public IAuthorProductRepository AuthorProduct { get; private set; }
+
         //here we create global db context for our repositories, so we don't have to create in ever
         private readonly ApplicationDbContext _db;
         public UnitOfWork(ApplicationDbContext db)
@@ -37,6 +39,7 @@ namespace BulkyBook.DataAccess.Repository
             Notification = new NotificationRepository(_db);
             Review = new ReviewRepository(_db);
             Author = new AuthorRepository(_db);
+            AuthorProduct = new AuthorProductRepository(_db);
         }
 
         public void Save()

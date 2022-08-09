@@ -192,7 +192,7 @@
             <div class=" d-flex flex-row ">
             <div class="col-sm-6 col-md-3 me-4">
 			    <div class="form-group">
-				    <input name="s" value="" type="text" class="form-control border" id="keyword" placeholder="Book Title">
+				    <input asp-for="@Model.BookTitle" type="text" class="form-control border" id="keyword" placeholder="Book Title">
 			    </div>
 		    </div>        
             <div class="col-sm-6 col-md-3 me-4">
@@ -206,7 +206,7 @@
 		    </div>
              <div class="col-sm-6 col-md-3 me-4">
 			    <div class="form-group">
-                    <select  id="selectAuthor" class="form-control border" asp-for="@Model.CategoryId" asp-items="@Model.CategoryList"
+                    <select  id="selectAuthor" class="form-control border" asp-for="@Model.AuthorId" asp-items="@Model.AuthorList"
                   >
                         <option >--Book Author--</option>
                     </select>

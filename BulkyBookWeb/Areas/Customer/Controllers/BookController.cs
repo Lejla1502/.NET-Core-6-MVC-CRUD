@@ -17,13 +17,13 @@ namespace BulkyBookWeb.Areas.Customer.Controllers
         {
             _unitOfWork = unitOfWork;
         }
-        public IActionResult Index(int? CategoryId, string BookOrAuthorName)
+        public IActionResult Index(int? CategoryId, int? AuthorId, string BookTitle)
         {
             //IEnumerable<Product> listOfProducts = _unitOfWork.Product.GetAll(includeProperties:"Category,CoverType");
 
             ProductReviewVM productReviewVM = new ProductReviewVM();
 
-            if (CategoryId == null && String.IsNullOrEmpty(BookOrAuthorName))
+            if (CategoryId == null && String.IsNullOrEmpty(BookTitle))
             {
                 productReviewVM.Products = _unitOfWork.Product.GetAll(includeProperties: "Category,CoverType").Select(x => new ProductReviewVM.ProductInfo
                 {
@@ -31,7 +31,7 @@ namespace BulkyBookWeb.Areas.Customer.Controllers
                     Title = x.Title,
                     Description = x.Description,
                     ISBN = x.ISBN,
-                    Author = x.Author,
+                    Author = _unitOfWork.AuthorProduct.GetAll(ap => ap.ProductId == x.Id, includeProperties: "Product,Author").Select(s => s.Author.FirstName + ' ' + s.Author.LastName).First(),//.First().Author.FirstName+' '+ _unitOfWork.AuthorProduct.GetAll(ap => ap.ProductId == x.Id, includeProperties: "Product,Author").First().Author.LastName,
                     ListPrice = x.ListPrice,
                     Price = x.Price,
                     Price50 = x.Price50,
@@ -41,7 +41,7 @@ namespace BulkyBookWeb.Areas.Customer.Controllers
                     AvgRating = (_unitOfWork.Review.GetAll(y => y.ProductId == x.Id).Count() > 0) ? (_unitOfWork.Review.GetAll(y => y.ProductId == x.Id).Select(s => s.Rating).Sum() / _unitOfWork.Review.GetAll(y => y.ProductId == x.Id).Count()) : 0
                 }).ToList();
             }
-            else if (CategoryId != null && String.IsNullOrEmpty(BookOrAuthorName))
+            else if (CategoryId != null && String.IsNullOrEmpty(BookTitle))
             {
                 productReviewVM.Products = _unitOfWork.Product.GetAll(p => p.CategoryId == CategoryId, includeProperties: "Category,CoverType").Select(x => new ProductReviewVM.ProductInfo
                 {
@@ -59,9 +59,9 @@ namespace BulkyBookWeb.Areas.Customer.Controllers
                     AvgRating = (_unitOfWork.Review.GetAll(y => y.ProductId == x.Id).Count() > 0) ? (_unitOfWork.Review.GetAll(y => y.ProductId == x.Id).Select(s => s.Rating).Sum() / _unitOfWork.Review.GetAll(y => y.ProductId == x.Id).Count()) : 0
                 }).ToList();
             }
-            else if (CategoryId == null && !String.IsNullOrEmpty(BookOrAuthorName))
+            else if (CategoryId == null && !String.IsNullOrEmpty(BookTitle))
             {
-                productReviewVM.Products = _unitOfWork.Product.GetAll(p => p.Author.Contains(BookOrAuthorName) == true || p.Title.Contains(BookOrAuthorName) == true, includeProperties: "Category,CoverType").Select(x => new ProductReviewVM.ProductInfo
+                productReviewVM.Products = _unitOfWork.Product.GetAll(p => p.Author.Contains(BookTitle) == true || p.Title.Contains(BookTitle) == true, includeProperties: "Category,CoverType").Select(x => new ProductReviewVM.ProductInfo
                 {
                     Id = x.Id,
                     Title = x.Title,
@@ -79,7 +79,7 @@ namespace BulkyBookWeb.Areas.Customer.Controllers
             }
             else
             {
-                productReviewVM.Products = _unitOfWork.Product.GetAll(p => p.CategoryId == CategoryId && ((p.Author.Contains(BookOrAuthorName) == true) || (p.Title.Contains(BookOrAuthorName) == true)), includeProperties: "Category,CoverType").Select(x => new ProductReviewVM.ProductInfo
+                productReviewVM.Products = _unitOfWork.Product.GetAll(p => p.CategoryId == CategoryId && ((p.Author.Contains(BookTitle) == true) || (p.Title.Contains(BookTitle) == true)), includeProperties: "Category,CoverType").Select(x => new ProductReviewVM.ProductInfo
                 {
                     Id = x.Id,
                     Title = x.Title,
@@ -104,6 +104,14 @@ namespace BulkyBookWeb.Areas.Customer.Controllers
                 }
             );
 
+            productReviewVM.AuthorList = _unitOfWork.Author.GetAll().Select(
+               u => new SelectListItem
+               {
+                   Text = u.FirstName + ' ' + u.LastName,
+                   Value = u.Id.ToString()
+               }
+           );
+
             return View(productReviewVM);
         }
 
@@ -111,7 +119,7 @@ namespace BulkyBookWeb.Areas.Customer.Controllers
         //{
         //    //returns id 
         //    var something= _unitOfWork.OrderDetail.GetAll().GroupBy(x => x.ProductId).Select(s => new { Bestseller_PrdouctID = s.Key, Count = s.Count() }).OrderByDescending(y=>y.Count).First();
-            
+
         //    return View(something.Bestseller_PrdouctID);
         //}
 
