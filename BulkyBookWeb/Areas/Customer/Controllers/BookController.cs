@@ -23,15 +23,15 @@ namespace BulkyBookWeb.Areas.Customer.Controllers
 
             ProductReviewVM productReviewVM = new ProductReviewVM();
 
-            if (CategoryId == null && String.IsNullOrEmpty(BookTitle))
+            if (CategoryId == null && String.IsNullOrEmpty(BookTitle) && AuthorId==null)
             {
-                productReviewVM.Products = _unitOfWork.Product.GetAll(includeProperties: "Category,CoverType").Select(x => new ProductReviewVM.ProductInfo
+                productReviewVM.Products = _unitOfWork.Product.GetAll(includeProperties: "Category,CoverType").Select(x =>  new ProductReviewVM.ProductInfo
                 {
                     Id = x.Id,
                     Title = x.Title,
                     Description = x.Description,
                     ISBN = x.ISBN,
-                    Author = _unitOfWork.AuthorProduct.GetAll(ap => ap.ProductId == x.Id, includeProperties: "Product,Author").Select(s => s.Author.FirstName + ' ' + s.Author.LastName).First(),//.First().Author.FirstName+' '+ _unitOfWork.AuthorProduct.GetAll(ap => ap.ProductId == x.Id, includeProperties: "Product,Author").First().Author.LastName,
+                    Author = string.Join(", ",_unitOfWork.AuthorProduct.GetAll(ap => ap.ProductId == x.Id, includeProperties: "Product,Author").Select(s => s.Author.FirstName + ' ' + s.Author.LastName).ToArray()),//.First().Author.FirstName+' '+ _unitOfWork.AuthorProduct.GetAll(ap => ap.ProductId == x.Id, includeProperties: "Product,Author").First().Author.LastName,
                     ListPrice = x.ListPrice,
                     Price = x.Price,
                     Price50 = x.Price50,
@@ -40,24 +40,69 @@ namespace BulkyBookWeb.Areas.Customer.Controllers
                     ImageUrl = x.ImageUrl,
                     AvgRating = (_unitOfWork.Review.GetAll(y => y.ProductId == x.Id).Count() > 0) ? (_unitOfWork.Review.GetAll(y => y.ProductId == x.Id).Select(s => s.Rating).Sum() / _unitOfWork.Review.GetAll(y => y.ProductId == x.Id).Count()) : 0
                 }).ToList();
+
+               
             }
-            else if (CategoryId != null && String.IsNullOrEmpty(BookTitle))
+            else if (CategoryId != null)
             {
-                productReviewVM.Products = _unitOfWork.Product.GetAll(p => p.CategoryId == CategoryId, includeProperties: "Category,CoverType").Select(x => new ProductReviewVM.ProductInfo
+                if (String.IsNullOrEmpty(BookTitle) && AuthorId == null)
                 {
-                    Id = x.Id,
-                    Title = x.Title,
-                    Description = x.Description,
-                    ISBN = x.ISBN,
-                    Author = x.Author,
-                    ListPrice = x.ListPrice,
-                    Price = x.Price,
-                    Price50 = x.Price50,
-                    Price100 = x.Price100,
-                    IsFavourite = x.IsFavourite,
-                    ImageUrl = x.ImageUrl,
-                    AvgRating = (_unitOfWork.Review.GetAll(y => y.ProductId == x.Id).Count() > 0) ? (_unitOfWork.Review.GetAll(y => y.ProductId == x.Id).Select(s => s.Rating).Sum() / _unitOfWork.Review.GetAll(y => y.ProductId == x.Id).Count()) : 0
-                }).ToList();
+                    productReviewVM.Products = _unitOfWork.Product.GetAll(p => p.CategoryId == CategoryId, includeProperties: "Category,CoverType").Select(x => new ProductReviewVM.ProductInfo
+                    {
+                        Id = x.Id,
+                        Title = x.Title,
+                        Description = x.Description,
+                        ISBN = x.ISBN,
+                        Author = _unitOfWork.AuthorProduct.GetAll(ap => ap.ProductId == x.Id, includeProperties: "Product,Author").Select(s => s.Author.FirstName + ' ' + s.Author.LastName).First(),//.First().Author.FirstName+' '+ _unitOfWork.AuthorProduct.GetAll(ap => ap.ProductId == x.Id, includeProperties: "Product,Author").First().Author.LastName,
+                        ListPrice = x.ListPrice,
+                        Price = x.Price,
+                        Price50 = x.Price50,
+                        Price100 = x.Price100,
+                        IsFavourite = x.IsFavourite,
+                        ImageUrl = x.ImageUrl,
+                        AvgRating = (_unitOfWork.Review.GetAll(y => y.ProductId == x.Id).Count() > 0) ? (_unitOfWork.Review.GetAll(y => y.ProductId == x.Id).Select(s => s.Rating).Sum() / _unitOfWork.Review.GetAll(y => y.ProductId == x.Id).Count()) : 0
+                    }).ToList();
+                }
+                if(!String.IsNullOrEmpty(BookTitle)  && AuthorId==null)
+                {
+                    productReviewVM.Products = _unitOfWork.Product.GetAll(p => p.CategoryId == CategoryId && p.Title.Contains(BookTitle), includeProperties: "Category,CoverType").Select(x => new ProductReviewVM.ProductInfo
+                    {
+                        Id = x.Id,
+                        Title = x.Title,
+                        Description = x.Description,
+                        ISBN = x.ISBN,
+                        Author = _unitOfWork.AuthorProduct.GetAll(ap => ap.ProductId == x.Id, includeProperties: "Product,Author").Select(s => s.Author.FirstName + ' ' + s.Author.LastName).First(),//.First().Author.FirstName+' '+ _unitOfWork.AuthorProduct.GetAll(ap => ap.ProductId == x.Id, includeProperties: "Product,Author").First().Author.LastName,
+                        ListPrice = x.ListPrice,
+                        Price = x.Price,
+                        Price50 = x.Price50,
+                        Price100 = x.Price100,
+                        IsFavourite = x.IsFavourite,
+                        ImageUrl = x.ImageUrl,
+                        AvgRating = (_unitOfWork.Review.GetAll(y => y.ProductId == x.Id).Count() > 0) ? (_unitOfWork.Review.GetAll(y => y.ProductId == x.Id).Select(s => s.Rating).Sum() / _unitOfWork.Review.GetAll(y => y.ProductId == x.Id).Count()) : 0
+                    }).ToList();
+                }
+                if(String.IsNullOrEmpty(BookTitle) && AuthorId!= null)
+                {
+                    productReviewVM.Products = _unitOfWork.AuthorProduct.GetAll(p => p.AuthorId == AuthorId && p.Product.CategoryId==CategoryId, includeProperties: "Product,Author").Select(x => new ProductReviewVM.ProductInfo
+                    {
+                        Id = x.Product.Id,
+                        Title = x.Product.Title,
+                        Description = x.Product.Description,
+                        ISBN = x.Product.ISBN,
+                        Author = x.Author.FirstName + ' ' + x.Author.LastName,
+                        ListPrice = x.Product.ListPrice,
+                        Price = x.Product.Price,
+                        Price50 = x.Product.Price50,
+                        Price100 = x.Product.Price100,
+                        IsFavourite = x.Product.IsFavourite,
+                        ImageUrl = x.Product.ImageUrl,
+                        AvgRating = (_unitOfWork.Review.GetAll(y => y.ProductId == x.Product.Id).Count() > 0) ? (_unitOfWork.Review.GetAll(y => y.ProductId == x.Product.Id).Select(s => s.Rating).Sum() / _unitOfWork.Review.GetAll(y => y.ProductId == x.Product.Id).Count()) : 0
+                    }).ToList();
+                }
+                if(!String.IsNullOrEmpty(BookTitle) && AuthorId!=null)
+                {
+
+                }
             }
             else if (CategoryId == null && !String.IsNullOrEmpty(BookTitle))
             {
