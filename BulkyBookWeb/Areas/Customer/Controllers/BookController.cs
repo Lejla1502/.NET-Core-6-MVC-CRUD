@@ -101,7 +101,21 @@ namespace BulkyBookWeb.Areas.Customer.Controllers
                 }
                 if(!String.IsNullOrEmpty(BookTitle) && AuthorId!=null)
                 {
-
+                    productReviewVM.Products = _unitOfWork.AuthorProduct.GetAll(p => p.AuthorId == AuthorId && p.Product.CategoryId == CategoryId && p.Product.Title.Contains(BookTitle), includeProperties: "Product,Author").Select(x => new ProductReviewVM.ProductInfo
+                    {
+                        Id = x.Product.Id,
+                        Title = x.Product.Title,
+                        Description = x.Product.Description,
+                        ISBN = x.Product.ISBN,
+                        Author = x.Author.FirstName + ' ' + x.Author.LastName,
+                        ListPrice = x.Product.ListPrice,
+                        Price = x.Product.Price,
+                        Price50 = x.Product.Price50,
+                        Price100 = x.Product.Price100,
+                        IsFavourite = x.Product.IsFavourite,
+                        ImageUrl = x.Product.ImageUrl,
+                        AvgRating = (_unitOfWork.Review.GetAll(y => y.ProductId == x.Product.Id).Count() > 0) ? (_unitOfWork.Review.GetAll(y => y.ProductId == x.Product.Id).Select(s => s.Rating).Sum() / _unitOfWork.Review.GetAll(y => y.ProductId == x.Product.Id).Count()) : 0
+                    }).ToList();
                 }
             }
             else if (CategoryId == null && !String.IsNullOrEmpty(BookTitle))
