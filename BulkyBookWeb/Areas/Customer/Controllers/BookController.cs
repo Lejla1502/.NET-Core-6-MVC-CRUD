@@ -1,5 +1,6 @@
 ﻿using BulkyBook.DataAccess.Repository.IRepository;
 using BulkyBook.Models;
+using BulkyBook.Models.Pagination;
 using BulkyBook.Models.ViewModels;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -17,7 +18,7 @@ namespace BulkyBookWeb.Areas.Customer.Controllers
         {
             _unitOfWork = unitOfWork;
         }
-        public IActionResult Index(int? CategoryId, int? AuthorId, string BookTitle)
+        public IActionResult Index( int? CategoryId, int? AuthorId, string BookTitle, int pg = 1)
         {
             //IEnumerable<Product> listOfProducts = _unitOfWork.Product.GetAll(includeProperties:"Category,CoverType");
 
@@ -243,6 +244,20 @@ namespace BulkyBookWeb.Areas.Customer.Controllers
                    Value = u.Id.ToString()
                }
            );
+
+            const int pgSize = 8;
+
+            if (pg < 1)
+                pg = 1;
+
+            int recsCount = productReviewVM.Products.Count();
+            var pager = new Pager(recsCount, pg, pgSize);
+
+            int recSkip = (pg - 1) * pgSize;
+
+            productReviewVM.Products=productReviewVM.Products.Skip(recSkip).Take(pager.PageSize).ToList();  
+
+            this.ViewBag.Pager=pager;
 
             return View(productReviewVM);
         }
