@@ -38,6 +38,14 @@
           <input asp-for="Product.Author" type="text" class="form-control" placeholder="Enter Author">
           <span asp-validation-for="Product.Author" class="text-danger"></span>
         </div>
+        @*<div class="mb-3 col-6">
+          <label asp-for="Product.CoverTypeId" class="form-label mt-4">Author</label>
+          <select asp-for="Product.CoverTypeId" asp-items="@Model.CoverTypeList"
+          class="form-select">
+              <option disabled selected>--Select Cover Type--</option>
+          </select>
+          <span asp-validation-for="Product.CoverTypeId" class="text-danger"></span>
+        </div>*@
         <div class="mb-3 col-6">
           <label asp-for="Product.ListPrice" class="form-label mt-4">ListPrice</label>
           <input asp-for="Product.ListPrice" type="text" class="form-control" placeholder="Enter ListPrice">
@@ -60,7 +68,10 @@
         </div>
          <div class="mb-3">
           <label asp-for="Product.ImageUrl" class="form-label mt-4">ImageUrl</label>
-          <input asp-for="Product.ImageUrl" id="uploadBox" name="file" type="file" class="form-control" />
+          <input asp-for="Product.ImageUrl" id="uploadBox" name="file" type="file"  onchange="showFile(this)" class="form-control" />
+        </div>
+         <div class="col-md-4 offset-4 text-center">
+            <img width="100%" id="ImageUrlPreview" />
         </div>
         <div class="mb-3 col-6">
           <label asp-for="Product.CategoryId" class="form-label mt-4">Category</label>
@@ -103,9 +114,32 @@
 @section Scripts
 {
     @{
-        <partial name="_ValidationScriptsPartial"></partial>
+       <partial name="_ValidationScriptsPartial"></partial>
      }
      <script>
+         function showFile(input) {
+          let file = input.files[0];
+          let reader = new FileReader();
+
+  
+
+          reader.onload = function() {
+              var output = document.getElementById("ImageUrlPreview");
+          output.src = reader.result;
+           alert(reader.result);
+          };
+
+          reader.onerror = function() {
+            console.log(reader.error);
+          };
+
+
+          reader.readAsDataURL(file);
+  
+
+          }
+      
+
           tinymce.init({
           selector: 'textarea',
           toolbar: 'a11ycheck addcomment showcomments casechange checklist code export formatpainter image editimage pageembed permanentpen table tableofcontents',

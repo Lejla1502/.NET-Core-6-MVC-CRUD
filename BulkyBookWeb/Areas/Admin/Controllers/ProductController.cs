@@ -43,7 +43,13 @@ namespace BulkyBookWeb.Areas.Admin.Controllers
                {
                    Text = u.Name,
                    Value = u.Id.ToString()
-               })
+               }),
+                AuthorList=_unitOfWork.Author.GetAll().Select(
+                    u=> new SelectListItem
+                    {
+                       Text = u.FirstName + ' ' + u.LastName,
+                       Value = u.Id.ToString()
+                    })
             };
 
             productVM.Product.Reviews = new();

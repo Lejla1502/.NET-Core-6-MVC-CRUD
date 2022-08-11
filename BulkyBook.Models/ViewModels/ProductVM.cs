@@ -16,5 +16,8 @@ namespace BulkyBook.Models.ViewModels
         [ValidateNever]
          
         public IEnumerable<SelectListItem> CoverTypeList { get; set; }
+        [ValidateNever]
+
+        public IEnumerable<SelectListItem> AuthorList { get; set; }
     }
 }
