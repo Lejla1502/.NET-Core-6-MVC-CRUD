@@ -49,6 +49,12 @@ namespace BulkyBookWeb.Areas.Admin.Controllers
                     {
                        Text = u.FirstName + ' ' + u.LastName,
                        Value = u.Id.ToString()
+                    }),
+                Author2List = _unitOfWork.Author.GetAll().Select(
+                    u => new SelectListItem
+                    {
+                        Text = u.FirstName + ' ' + u.LastName,
+                        Value = u.Id.ToString()
                     })
             };
 
@@ -118,11 +124,35 @@ namespace BulkyBookWeb.Areas.Admin.Controllers
                     obj.Product.ImageUrl = @"\images\products\" + fileName + extension;
                 }
 
+            obj.Product.Author = "";
+
                 if (obj.Product.Id == 0)
                 {
                     obj.Product.CreatedAt=DateTime.Now;
                     _unitOfWork.Product.Add(obj.Product);
                     _unitOfWork.Save();
+
+                var productAuthor = new AuthorProduct
+                {
+                    Product = obj.Product,
+                    AuthorId = obj.AuthorId
+                };
+
+                    _unitOfWork.AuthorProduct.Add(productAuthor);
+                _unitOfWork.Save();
+
+                if (obj.Author2Id!=null)
+                    {
+                    var productAuthor2 = new AuthorProduct
+                    {
+                        Product = obj.Product,
+                        AuthorId = obj.Author2Id
+                    };
+                        _unitOfWork.AuthorProduct.Add(productAuthor2);
+                    _unitOfWork.Save();
+                }
+                    
+
                     TempData["success"] = "Product created successfully";
                     return RedirectToAction("Index");
                 }
@@ -145,7 +175,15 @@ namespace BulkyBookWeb.Areas.Admin.Controllers
         [HttpGet]
         public IActionResult GetAll()
         {
-            var productList = _unitOfWork.Product.GetAll(includeProperties:"Category,CoverType");
+            var productList = _unitOfWork.Product.GetAll(includeProperties:"Category,CoverType").Select(s=>new ProductAdminVM
+            {
+                Id=s.Id,
+                Title=s.Title,
+                ISBN=s.ISBN,
+                Price=s.Price,
+                Author= string.Join(", ", _unitOfWork.AuthorProduct.GetAll(ap => ap.ProductId == s.Id, includeProperties: "Product,Author").Select(sl => sl.Author.FirstName + ' ' + sl.Author.LastName).ToArray()),
+                Category=s.Category.Name
+            });
             return Json(new { data = productList });
         }
 
