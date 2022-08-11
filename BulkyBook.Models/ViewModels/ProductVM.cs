@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc.Rendering;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -16,6 +17,7 @@ namespace BulkyBook.Models.ViewModels
         [ValidateNever]
          
         public IEnumerable<SelectListItem> CoverTypeList { get; set; }
+        [Required]
         public int AuthorId { get; set; }
         [ValidateNever]
         public IEnumerable<SelectListItem> AuthorList { get; set; }

@@ -85,6 +85,7 @@ namespace BulkyBookWeb.Areas.Admin.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult Upsert(ProductVM obj, IFormFile? file)
         {
+           
             Console.WriteLine(ModelState.Values);
             //if (ModelState.IsValid)
             //{
@@ -128,6 +129,12 @@ namespace BulkyBookWeb.Areas.Admin.Controllers
 
                 if (obj.Product.Id == 0)
                 {
+                    obj.Product.Author = _unitOfWork.Author.GetFirstOrDefault(x => x.Id == obj.AuthorId).FirstName + " " + _unitOfWork.Author.GetFirstOrDefault(x => x.Id == obj.AuthorId).LastName;
+
+                    if(obj.Author2Id!=0 && obj.Author2Id != null)
+                {
+                    obj.Product.Author += ", " + _unitOfWork.Author.GetFirstOrDefault(x => x.Id == obj.AuthorId).FirstName + " " + _unitOfWork.Author.GetFirstOrDefault(x => x.Id == obj.AuthorId).LastName;
+                }
                     obj.Product.CreatedAt=DateTime.Now;
                     _unitOfWork.Product.Add(obj.Product);
                     _unitOfWork.Save();
@@ -141,7 +148,7 @@ namespace BulkyBookWeb.Areas.Admin.Controllers
                     _unitOfWork.AuthorProduct.Add(productAuthor);
                 _unitOfWork.Save();
 
-                if (obj.Author2Id!=null)
+                if (obj.Author2Id!=null && obj.Author2Id!=0)
                     {
                     var productAuthor2 = new AuthorProduct
                     {
@@ -166,7 +173,7 @@ namespace BulkyBookWeb.Areas.Admin.Controllers
                 
             //}
             
-            return View(obj);
+            //return View(obj);
         }
 
         

@@ -3,9 +3,10 @@
 <style>
 
     .title{
-        color:#2f4c54;
+        /*color:#2f4c54;*/
 /*          font-family: 'Cinzel Decorative', cursive;
 */          font-size:4rem !important;
+color:black;
     }
 
     .carousel{
@@ -29,15 +30,23 @@
   .carousel-caption{
 /*           font-family: 'Cinzel Decorative', cursive;
 */color:white;
+    position:absolute;
+    top:44%;
+    left:15%;
+    text-align:start !important;
   }
 
   .carousel-caption a{
-      background:rgba(255,255,255,.1);
+      background:rgba(0,0,0,.3);
       width:auto;
       padding:1rem;
       text-decoration:none;
       color:white;
+      font-size:2rem;
+  }
 
+  .carousel-caption p{
+      font-size:1.8rem;
   }
 
   #header-slider{
@@ -49,24 +58,27 @@
   .slider-text-1{
 /*     font-family: 'Cinzel Decorative', cursive;
 */     color:white;
-    bottom:14%;
-    left:31%;
+    top:26%;
+    /*bottom:14%;*/
+    left:15%;
      font-size:8rem;
   }
 
     .slider-text-2{
 /*     font-family: 'Cinzel Decorative', cursive;
 */     color:white;
-    bottom:14%;
-    left:44%;
+     top:26%;
+    /*bottom:14%;*/
+    left:15%;
      font-size:8rem;
   }
 
     .slider-text-3{
 /*     font-family: 'Cinzel Decorative', cursive;
 */     color:white;
-    bottom:14%;
-    left:25%;
+     top:26%;
+    /*bottom:14%;*/
+    left:15%;
      font-size:8rem;
   }
 
@@ -113,15 +125,16 @@
 .books-search .btn, .card-featured .btn
 {
 /*    font-family: 'Cinzel Decorative', cursive;
-*/    border-color: #2C3639 !important;
-    color: #ffffff !important;
-   background:	#2f4c54;
+*/    
+/*border-color: #2C3639 !important;
+*/    color: #ffffff !important;
+ /*  background:	#2f4c54;*/
     font-size: 12px;
     line-height: 20px;
     letter-spacing: 2px;
     text-transform: uppercase;
-    border-radius:22px !important;
-    width:14rem;
+/*    border-radius:22px !important;
+*/    width:14rem;
 }
 
 .more{
@@ -252,30 +265,31 @@
       <div class="carousel-inner">
         <div class="carousel-item active position-relative" style="background-image: url('/images/homepage/slider-01.jpg')">
             <div class="">
-                <div class="slider-text-1 position-absolute">WELCOME</div>
+                <div class="slider-text-1 position-absolute">Welcome</div>
             </div>
            
-          <div class="carousel-caption">
-            <h5 class="text-white mb-4"><a href=""> Keep reading -></a></h5>
-            <p>“Reading is dreaming with open eyes.”</p>
-          </div>
+              <div class="carousel-caption">
+                <p class="carousel-quote">“Reading is dreaming with open eyes.”</p>
+                <h5 class="text-white mb-4"><a href=""> Keep reading -></a></h5>
+                
+              </div>
         </div>
         <div class="carousel-item" style="background-image: url('/images/homepage/slider-02.jpg')">
             <div class="">
-                <div class="slider-text-2 position-absolute">TO</div>
+                <div class="slider-text-2 position-absolute">Keep learning</div>
             </div>
           <div class="carousel-caption">
-            <h5 class="text-white mb-4"><a href="">Visit our library -></a></h5>
             <p>“In principle and reality, libraries are life-enhancing palaces of wonder.”</p>
+            <h5 class="text-white mb-4"><a href="" class="">Visit our library -></a></h5>
           </div>
         </div>
         <div class="carousel-item" style="background-image: url('/images/homepage/slider-03.jpg')">
             <div class="">
-                <div class="slider-text-3 position-absolute">WONDERLAND</div>
+                <div class="slider-text-3 position-absolute">Meet our authors</div>
             </div>
           <div class="carousel-caption">
-            <h5 class="text-white mb-4"><a href="">Take a journey within yourselves -></a></h5>
             <p>“Books are wisest of counselors, and the most patient of teachers.”</p>
+            <h5 class="text-white mb-4"><a href="">New arrivals -></a></h5>
           </div>
         </div>
       </div>
@@ -324,7 +338,7 @@
             <div class="col-sm-6 col-md-3">
 					<div class="form-group">
 						<input type="hidden" name="post_type" value="product">
-						<button type="submit" class="btn btn-block">
+						<button type="submit" class="btn btn-block btn-primary">
 							<i class="fa fa-search"></i> &nbsp; 
 							Find Book						
                         </button>
@@ -341,7 +355,7 @@
     <div class="container">
        <div class="row d-flex justify-content-center align-items-center mb-3">  
             <div class="col-xxl-12 justify-content-center text-center">
-                <h3 class="title mt-5 mb-5 mt-3" id="titles1">Bestsellers</h3>    
+                <h3 class="title mt-5 mb-2 mt-3" id="titles1">Bestsellers</h3>    
             </div>
             <div id="productsTable" class="row pb-5 mb-5">
             @foreach (var product in Model.Bestsellers)
@@ -381,7 +395,7 @@
                            
                                 </div>
                                  <div class="text-center">
-                                <a asp-action="Details" asp-route-productId="@product.Id" class="btn mt-2 mb-1 border bestseller-details form-control">Details</a>
+                                <a asp-action="Details" asp-route-productId="@product.Id" class="btn mt-2 mb-1 border btn-primary form-control">Details</a>
                             </div>
                             </div>
                            
@@ -566,7 +580,7 @@
                            
                                 </div>
                                 <div>
-                                <a asp-action="Details" asp-route-productId="@product.Id" class="btn more form-control">Details</a>
+                                <a asp-action="Details" asp-route-productId="@product.Id" class="btn btn-primary form-control">Details</a>
                             </div>
                             </div>
                             

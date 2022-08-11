@@ -197,5 +197,13 @@ namespace BulkyBook.DataAccess.Repository
 
             return bestsellers;
         }
+
+        public List<Product> GetNewBooks()
+        {
+            var allProducts = _db.Products.OrderByDescending(x=>x.Id).Take(4).ToList();
+
+            //var reversed = allProducts.Reverse().ToList();
+            return allProducts;
+        }
     }
 }

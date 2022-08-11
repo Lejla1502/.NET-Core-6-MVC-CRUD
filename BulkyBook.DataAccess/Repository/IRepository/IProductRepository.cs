@@ -14,5 +14,7 @@ namespace BulkyBook.DataAccess.Repository.IRepository
         Product[] GetRecommended(string appUserId, int productId);
 
         List<Product> GetBestsellers();
+
+        List<Product> GetNewBooks();
     }
 }
