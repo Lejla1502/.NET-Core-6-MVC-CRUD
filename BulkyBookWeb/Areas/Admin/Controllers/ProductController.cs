@@ -28,6 +28,7 @@ namespace BulkyBookWeb.Areas.Admin.Controllers
 
         public IActionResult Upsert(int? id)
         {
+            var autorSelectList = _unitOfWork.Author.GetAll().Select(s => new {  s.Id, Naziv = s.FirstName + " " + s.LastName }).ToList();
             //this here will populate both Edit and Create in proper way
             ProductVM productVM = new ProductVM
             {
@@ -44,12 +45,13 @@ namespace BulkyBookWeb.Areas.Admin.Controllers
                    Text = u.Name,
                    Value = u.Id.ToString()
                }),
-                AuthorList=_unitOfWork.Author.GetAll().Select(
-                    u=> new SelectListItem
-                    {
-                       Text = u.FirstName + ' ' + u.LastName,
-                       Value = u.Id.ToString()
-                    }),
+                AuthorList = new SelectList(autorSelectList, "Id", "Naziv"),
+                //AuthorList=_unitOfWork.Author.GetAll().Select(
+                //    u=> new SelectListItem
+                //    {
+                //       Text = u.FirstName + ' ' + u.LastName,
+                //       Value = u.Id.ToString()
+                //    }),
                 Author2List = _unitOfWork.Author.GetAll().Select(
                     u => new SelectListItem
                     {

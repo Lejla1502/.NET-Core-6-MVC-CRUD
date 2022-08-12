@@ -34,15 +34,19 @@
           <span asp-validation-for="Product.Description" class="text-danger"></span>
         </div>
          <div class="mb-3 col-6">
-           <label asp-for="@Model.AuthorId" class="form-label mt-4">Author</label>
-            <select  id="selectAuthor" class="form-control border" asp-for="@Model.AuthorId" asp-items="@Model.AuthorList">
+          @* <label asp-for="@Model.AuthorId" class="form-label mt-4">Author</label>
+            <select  class="form-control border" asp-for="@Model.AuthorId" asp-items="@Model.AuthorList">
                 <option >--Select Author--</option>
             </select>
-          <span asp-validation-for="@Model.AuthorId" class="text-danger"></span>
+          <span asp-validation-for="@Model.AuthorId" class="text-danger"></span>*@
+
+          <label asp-for="@Model.AuthorId" class="form-label mt-4">Author</label>
+       @Html.DropDownListFor(x => x.AuthorId, Model.AuthorList, "--Select Author--", new { @class = "form-control" })
+                <span class="text-danger">@Html.ValidationMessageFor(m => m.AuthorId)</span>
         </div>
         <div class="mb-3 col-6">
            <label asp-for="@Model.Author2Id" class="form-label mt-4">Author</label>
-            <select  id="selectAuthor2" class="form-control border" asp-for="@Model.Author2Id" asp-items="@Model.Author2List">
+            <select   class="form-control border" asp-for="@Model.Author2Id" asp-items="@Model.Author2List">
                 <option >--Select Author--</option>
             </select>
           <span asp-validation-for="@Model.Author2Id" class="text-danger"></span>
