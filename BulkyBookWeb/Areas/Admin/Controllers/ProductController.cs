@@ -318,6 +318,15 @@ namespace BulkyBookWeb.Areas.Admin.Controllers
         [HttpDelete]
         public IActionResult Delete(int? id)
         {
+            var apObjFromDb = _unitOfWork.AuthorProduct.GetAll(x => x.ProductId == id);
+            if (apObjFromDb == null)
+                return Json(new { success = false, message = "Error while deleting" });
+
+            foreach (var ap in apObjFromDb)
+            {
+                _unitOfWork.AuthorProduct.Remove(ap);
+                _unitOfWork.Save();
+            }
 
             var objFromDb = _unitOfWork.Product.GetFirstOrDefault(x => x.Id == id);
             if (objFromDb == null)
