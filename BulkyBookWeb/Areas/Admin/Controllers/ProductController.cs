@@ -79,6 +79,12 @@ namespace BulkyBookWeb.Areas.Admin.Controllers
                 if (productVM.Product == null)
                     return NotFound();
 
+                var apList = _unitOfWork.AuthorProduct.GetAll(x => x.ProductId == id);
+                productVM.AuthorId = apList.First().AuthorId;
+
+                if (apList.Count() > 1)
+                    productVM.Author2Id = apList.Last().AuthorId;
+
                 return View(productVM);
             }
         }
@@ -90,7 +96,7 @@ namespace BulkyBookWeb.Areas.Admin.Controllers
            
             Console.WriteLine(ModelState.Values);
             //if (ModelState.IsValid)
-            //{
+            //{ 
                 //getting wwwroot path
                 string wwwRootPath = _hostEnvironment.WebRootPath;
                 if (file != null)
@@ -127,39 +133,39 @@ namespace BulkyBookWeb.Areas.Admin.Controllers
                     obj.Product.ImageUrl = @"\images\products\" + fileName + extension;
                 }
 
-            obj.Product.Author = "";
+                obj.Product.Author = "";
 
                 if (obj.Product.Id == 0)
                 {
                     obj.Product.Author = _unitOfWork.Author.GetFirstOrDefault(x => x.Id == obj.AuthorId).FirstName + " " + _unitOfWork.Author.GetFirstOrDefault(x => x.Id == obj.AuthorId).LastName;
 
                     if(obj.Author2Id!=0 && obj.Author2Id != null)
-                {
-                    obj.Product.Author += ", " + _unitOfWork.Author.GetFirstOrDefault(x => x.Id == obj.AuthorId).FirstName + " " + _unitOfWork.Author.GetFirstOrDefault(x => x.Id == obj.AuthorId).LastName;
-                }
-                    obj.Product.CreatedAt=DateTime.Now;
-                    _unitOfWork.Product.Add(obj.Product);
-                    _unitOfWork.Save();
+                    {
+                        obj.Product.Author += ", " + _unitOfWork.Author.GetFirstOrDefault(x => x.Id == obj.AuthorId).FirstName + " " + _unitOfWork.Author.GetFirstOrDefault(x => x.Id == obj.AuthorId).LastName;
+                    }
+                        obj.Product.CreatedAt=DateTime.Now;
+                        _unitOfWork.Product.Add(obj.Product);
+                        _unitOfWork.Save();
 
-                var productAuthor = new AuthorProduct
-                {
-                    Product = obj.Product,
-                    AuthorId = obj.AuthorId
-                };
+                    var productAuthor = new AuthorProduct
+                    {
+                        Product = obj.Product,
+                        AuthorId = obj.AuthorId
+                    };
 
                     _unitOfWork.AuthorProduct.Add(productAuthor);
-                _unitOfWork.Save();
+                    _unitOfWork.Save();
 
-                if (obj.Author2Id!=null && obj.Author2Id!=0)
+                    if (obj.Author2Id!=null && obj.Author2Id!=0)
                     {
                     var productAuthor2 = new AuthorProduct
                     {
                         Product = obj.Product,
                         AuthorId = obj.Author2Id
                     };
-                        _unitOfWork.AuthorProduct.Add(productAuthor2);
-                    _unitOfWork.Save();
-                }
+                       _unitOfWork.AuthorProduct.Add(productAuthor2);
+                       _unitOfWork.Save();
+                    }
                     
 
                     TempData["success"] = "Product created successfully";
@@ -167,6 +173,118 @@ namespace BulkyBookWeb.Areas.Admin.Controllers
                 }
                 else
                 {
+                    var author2Name = "";
+
+                    var apList = _unitOfWork.AuthorProduct.GetAll(x => x.ProductId == obj.Product.Id, includeProperties: "Author");
+
+
+
+                    _unitOfWork.AuthorProduct.Remove(apList.First());
+                    _unitOfWork.Save();
+
+                    var newAP1 = new AuthorProduct
+                    {
+                        ProductId = obj.Product.Id,
+                        AuthorId = obj.AuthorId
+                    };
+                    _unitOfWork.AuthorProduct.Add(newAP1);
+                    _unitOfWork.Save();
+
+                    var firstAuthor = _unitOfWork.AuthorProduct.GetAll(x => x.AuthorId == newAP1.AuthorId && x.ProductId == newAP1.ProductId, includeProperties: "Author").First();
+
+                    obj.Product.Author = firstAuthor.Author.FirstName + " " + firstAuthor.Author.LastName;
+
+                //update authors for product
+                //set second author to null if none was chosen
+                if (obj.Author2Id==0 || obj.Author2Id==null)
+                    {
+
+                        var o = _unitOfWork.AuthorProduct.GetAll(x => x.ProductId == obj.Product.Id);
+                        if(o.Count()>1)
+                        {
+                            _unitOfWork.AuthorProduct.Remove(o.Last());
+                            _unitOfWork.Save();
+                        }
+                    }
+                    else
+                    {
+                        var ap2 = _unitOfWork.AuthorProduct.GetAll(x => x.ProductId == obj.Product.Id, includeProperties: "Author");
+                        if (ap2.Count() > 1)
+                        {
+                            
+                            _unitOfWork.AuthorProduct.Remove(ap2.Last());
+                            _unitOfWork.Save();
+
+                            var newAP2 = new AuthorProduct
+                            {
+                                ProductId = obj.Product.Id,
+                                AuthorId = obj.Author2Id
+                            };
+                            _unitOfWork.AuthorProduct.Add(newAP2);
+                            _unitOfWork.Save();
+
+                            var secondAuthor = _unitOfWork.AuthorProduct.GetAll(x => x.AuthorId == newAP2.AuthorId && x.ProductId == newAP2.ProductId, includeProperties: "Author").First();
+
+                            author2Name = secondAuthor.Author.FirstName + " " + secondAuthor.Author.LastName;
+                        }
+                        else
+                        {
+                            var newAp = new AuthorProduct
+                            {
+                                AuthorId = obj.Author2Id,
+                                ProductId = obj.Product.Id
+                            };
+
+                            _unitOfWork.AuthorProduct.Add(newAp);
+                            _unitOfWork.Save();
+
+                            var secondAuthor = _unitOfWork.AuthorProduct.GetAll(x => x.AuthorId == obj.Author2Id && x.ProductId == obj.Product.Id, includeProperties: "Author").First();
+                            author2Name = secondAuthor.Author.FirstName + " " + secondAuthor .Author.LastName;
+
+                        }
+                    }      
+
+
+
+                    //var apList = _unitOfWork.AuthorProduct.GetAll(x => x.ProductId == obj.Product.Id, includeProperties: "Author");
+
+       
+                    
+                    //_unitOfWork.AuthorProduct.Remove(apList.First());
+                    //_unitOfWork.Save();
+
+                    //var newAP1 = new AuthorProduct
+                    //{
+                    //    ProductId= obj.Product.Id,
+                    //    AuthorId=obj.AuthorId
+                    //};
+                    //_unitOfWork.AuthorProduct.Add(newAP1);
+                    //_unitOfWork.Save();
+
+                //}
+                //else
+                //{
+                //    var temp = apList.First();
+                //    _unitOfWork.AuthorProduct.Remove(apList.First());
+                //    _unitOfWork.Save();
+
+                //    _unitOfWork.AuthorProduct.Add(temp);
+                //    _unitOfWork.Save();
+
+                //    var firstAuthor = _unitOfWork.AuthorProduct.GetAll(x => x.AuthorId == temp.AuthorId && x.ProductId == temp.ProductId, includeProperties: "Author").First();
+                //    firstAuthorName = firstAuthor.Author.FirstName + " " + firstAuthor.Author.LastName;
+                //}
+                //ap.AuthorId = obj.AuthorId;
+                //    _unitOfWork.AuthorProduct.Update(ap);
+
+
+                //update product
+               
+                    
+                    if (!string.IsNullOrEmpty(author2Name))
+                        obj.Product.Author += ", "+ author2Name;
+
+
                     _unitOfWork.Product.Update(obj.Product);
                     _unitOfWork.Save();
                     TempData["success"] = "Product edited successfully";
