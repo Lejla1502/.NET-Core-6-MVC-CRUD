@@ -38,29 +38,47 @@ placing the order.
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 
-### Screens
+# Screens
+### Home page
 ![scr1](https://user-images.githubusercontent.com/22219433/183261040-9d36c922-9890-4602-8455-a233dccc5577.png)
 
+### Product details
 ![scr2](https://user-images.githubusercontent.com/22219433/183261047-643b4ee7-1b76-4774-82f1-91ec9c2def7a.png)
 
+### Recommended products
+![src2_a](https://user-images.githubusercontent.com/22219433/184528878-1db10ee0-7aca-4f2a-820a-424c26df7d37.png)
+
+### Review
+![src2_b](https://user-images.githubusercontent.com/22219433/184528880-1592d3e4-c739-492f-92c3-e006a892ffcb.png)
+
+### Shipping details
 ![scr3](https://user-images.githubusercontent.com/22219433/183261050-509d81a2-f5ca-42be-828b-23a00b305ce6.png)
 
+### Stripe payment
 ![scr4](https://user-images.githubusercontent.com/22219433/183261055-e195a555-e6a6-4eae-b183-81fc32d17b96.png)
 
+### List of orders
 ![scr5](https://user-images.githubusercontent.com/22219433/183261060-4a4e2fe6-1729-4fe4-85b4-bb7a5aef03ee.png)
 
+### Profile edit
 ![scr6](https://user-images.githubusercontent.com/22219433/183261063-1b03187c-70f0-4296-ada7-256170bfa43b.png)
 
+### List of products
 ![scr7](https://user-images.githubusercontent.com/22219433/183261067-84fe81c8-a492-4288-a597-1ea8f605dbae.png)
 
+### Updating product
 ![scr8_a](https://user-images.githubusercontent.com/22219433/183261405-c726d7dd-f939-4f04-b8aa-082fe124c07a.png)
 
 ![scr8_b](https://user-images.githubusercontent.com/22219433/183261406-97d91127-fa04-4ad4-91a7-13c68c1f1a62.png)
 
+### Updating company
+
 ![scr9](https://user-images.githubusercontent.com/22219433/183261082-0160bd39-eebb-42da-afca-629e530dc01b.png)
 
+### Order summary
 ![scr10](https://user-images.githubusercontent.com/22219433/183261086-e47d8e28-b34a-4318-b1ac-7aa072ff9a1a.png)
 
+### Notifications
 ![scr11](https://user-images.githubusercontent.com/22219433/183261091-673b696d-8e4c-44d0-a42c-4cd218f141da.png)
 
 
