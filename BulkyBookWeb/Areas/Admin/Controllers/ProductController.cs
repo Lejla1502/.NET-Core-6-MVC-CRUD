@@ -318,6 +318,7 @@ namespace BulkyBookWeb.Areas.Admin.Controllers
         [HttpDelete]
         public IActionResult Delete(int? id)
         {
+            //first we delete every row in joint table AuthorProduct with containing product
             var apObjFromDb = _unitOfWork.AuthorProduct.GetAll(x => x.ProductId == id);
             if (apObjFromDb == null)
                 return Json(new { success = false, message = "Error while deleting" });
@@ -328,6 +329,16 @@ namespace BulkyBookWeb.Areas.Admin.Controllers
                 _unitOfWork.Save();
             }
 
+            //then we delete every row in Review table with containing product we aim to delete
+            var reviewsWithProducts = _unitOfWork.Review.GetAll(x => x.ProductId == id);
+
+            foreach(var review in reviewsWithProducts)
+            {
+                _unitOfWork.Review.Remove(review);
+                _unitOfWork.Save();
+            }
+
+            //when we've removed products from linked tables, now we can delete actual Product object
             var objFromDb = _unitOfWork.Product.GetFirstOrDefault(x => x.Id == id);
             if (objFromDb == null)
                 return Json(new { success = false, message = "Error while deleting" });
