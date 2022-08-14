@@ -76,16 +76,16 @@ namespace BulkyBook.DataAccess.Repository
 
                 var testData = new List<ProductRating>()
             {
-                new ProductRating { userId = "1", productId = 1, Label=4 },
-                new ProductRating { userId = "1", productId = 2, Label=5 },
-                new ProductRating { userId = "1", productId = 3, Label=3 },
-                new ProductRating { userId = "2", productId = 1, Label=4 },
-                new ProductRating { userId = "3", productId = 3, Label=2 },
-                new ProductRating { userId = "2", productId = 4, Label=1 },
-                new ProductRating { userId = "3", productId = 1, Label=3 },
-                new ProductRating { userId = "3", productId = 3, Label=1 },
-                new ProductRating { userId = "4", productId = 1, Label=3 },
-                new ProductRating { userId = "5", productId = 2, Label=4 }
+                new ProductRating { userId = "51dac7b7-3b0e-4db9-aff8-f68ba76dcdaa", productId = 1, Label=4 },
+                new ProductRating { userId = "51dac7b7-3b0e-4db9-aff8-f68ba76dcdaa", productId = 2, Label=5 },
+                new ProductRating { userId = "51dac7b7-3b0e-4db9-aff8-f68ba76dcdaa", productId = 3, Label=3 },
+                new ProductRating { userId = "82e063ef-5930-4b85-8d8e-d8a16a93b2ae", productId = 1, Label=4 },
+                new ProductRating { userId = "e590f2e0-b14a-471f-8c1d-f4e90975fe95", productId = 3, Label=2 },
+                new ProductRating { userId = "82e063ef-5930-4b85-8d8e-d8a16a93b2ae", productId = 4, Label=1 },
+                new ProductRating { userId = "e590f2e0-b14a-471f-8c1d-f4e90975fe95", productId = 1, Label=3 },
+                new ProductRating { userId = "e590f2e0-b14a-471f-8c1d-f4e90975fe95", productId = 3, Label=1 },
+                new ProductRating { userId = "0416d672-5a89-453b-93d9-00779845eacd", productId = 1, Label=3 },
+                new ProductRating { userId = "4900efa5-2b52-4e88-bb9e-68debece1a61", productId = 2, Label=4 }
 
             };
 
@@ -114,6 +114,10 @@ namespace BulkyBook.DataAccess.Repository
             //   |
             //  \|/
 
+
+            //all products that are not the selected product and if the product hasn't already been reviewed by
+            //the current user?
+            //var listOfProductIdsNotToBeShown=_db.Reviews.Where(x=>x.ApplicationUserId==)
             var allItems = _db.Products.Where(p => p.Id != productId).ToList();
 
             var listRecommendedProducts = new List<Tuple<Product, float>>();
