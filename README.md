@@ -43,6 +43,10 @@ placing the order.
 
 ![scr2](https://user-images.githubusercontent.com/22219433/183261047-643b4ee7-1b76-4774-82f1-91ec9c2def7a.png)
 
+![src2_a](https://user-images.githubusercontent.com/22219433/184528878-1db10ee0-7aca-4f2a-820a-424c26df7d37.png)
+
+![src2_b](https://user-images.githubusercontent.com/22219433/184528880-1592d3e4-c739-492f-92c3-e006a892ffcb.png)
+
 ![scr3](https://user-images.githubusercontent.com/22219433/183261050-509d81a2-f5ca-42be-828b-23a00b305ce6.png)
 
 ![scr4](https://user-images.githubusercontent.com/22219433/183261055-e195a555-e6a6-4eae-b183-81fc32d17b96.png)
