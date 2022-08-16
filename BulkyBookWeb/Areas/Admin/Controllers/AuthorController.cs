@@ -40,7 +40,7 @@ namespace BulkyBookWeb.Areas.Admin.Controllers
                 if (obj == null)
                     return NotFound();
 
-                return View(obj);
+                return PartialView(obj);
             }
         }
 

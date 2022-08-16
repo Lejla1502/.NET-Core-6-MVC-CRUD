@@ -1,11 +1,47 @@
 ﻿@model BulkyBook.Models.ViewModels.ProductVM
+@using BulkyBook.Models
 @{
-    
+
     ViewData["Title"] = "Create";
+    
+   Author author = new Author();
 }
- 
+
+<style>
+
+
+        #wrapper{
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 110vw;
+            height: 100vh;
+            background-color:rgba(100, 100, 100, 0.7);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            visibility: hidden;
+       
+        }
+  
+        #popup{
+            width: 60%;
+            height: auto;
+            background-color: white;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border-radius: 10px;
+                 z-index=100;
+        }
+      
+        .prod-descr{
+            z-index:-1;
+        }
+</style>
+
 <div class="container">
-<form method="post" asp-controller="Product" asp-action="Upsert" enctype="multipart/form-data">
+<form ajax-poziv="ne" id="addNewProduct" method="post" asp-controller="Product" asp-action="Upsert" enctype="multipart/form-data">
     <input asp-for="Product.Id" type="hidden" />
         <input asp-for="Product.ImageUrl" type="hidden" />
 
@@ -28,7 +64,7 @@
           <input asp-for="Product.ISBN" type="text" class="form-control" placeholder="Enter ISBN">
           <span asp-validation-for="Product.ISBN" class="text-danger"></span>
         </div>
-        <div class="mb-3">
+        <div class="mb-3 prod-descr">
           <label asp-for="Product.Description" class="form-label mt-4">Product Description</label>
           <textarea asp-for="Product.Description" type="text" rows="3" class="form-control" placeholder="Enter Description"></textarea>
           <span asp-validation-for="Product.Description" class="text-danger"></span>
@@ -51,6 +87,62 @@
             </select>
           <span asp-validation-for="@Model.Author2Id" class="text-danger"></span>
         </div>
+        <div >
+            <button type="button" id="addAuthorBtn" ajax-rezultat="addAuthorDiv" ajax-url="/Admin/Author/Upsert" class="btn btn-primary">Add author</button>
+        </div>
+        <div id="wrapper">
+        <div id="popup">
+            <div>
+                <h2>Add author</h2>
+                <form ajax-poziv='da' ajax-url="/Admin/Author/Upsert"  data-ajax="true"  id="addNewAuthor" method="post" enctype="multipart/form-data">
+                    <input asp-for="@author.Id" type="hidden" />
+        
+
+                    <div class="row">
+                        <div class="col-10">
+			                <div class=" p-3 mt-4 row">
+		          
+    
+                        @*<div asp-validation-summary="All"></div>*@
+                        <div class="mb-3">
+                          <label asp-for="@author.FirstName" class="form-label mt-4">Authors First Name</label>
+                          <input asp-for="@author.FirstName" type="text" class="form-control" placeholder="Enter First Name">
+                          <span asp-validation-for="@author.FirstName" class="text-danger"></span>
+                        </div>
+                         <div class="mb-3">
+                          <label asp-for="@author.LastName" class="form-label mt-4">Authors Last Name</label>
+                          <input asp-for="@author.LastName" type="text" class="form-control" placeholder="Enter Last Name">
+                          <span asp-validation-for="@author.LastName" class="text-danger"></span>
+                        </div>
+                         <div class="mb-3">
+                          <label asp-for="@author.Bio" class="form-label mt-4">Short Bio</label>
+                          <textarea asp-for="@author.Bio" type="text" rows="3" class="form-control" placeholder="Enter Bio"></textarea>
+                          <span asp-validation-for="@author.Bio" class="text-danger"></span>
+                        </div>
+                           <br />
+                        <div class="col-12">
+                            @*@if(author.Id!=0)
+                            {
+                                 <button type="submit" class="btn btn-primary" style="width:150px">Update</button>
+                            }
+                            else
+                            {
+                                 <button type="submit"  class="btn btn-primary" style="width:150px">Create</button>
+                            }*@
+
+                        </div>
+                        </div>
+		                </div>
+		
+	                </div>
+                    <button type="button"  class="btn" id = "close-btn" onclick="sendAjax();">
+                    Close
+                </button>
+                </form>
+                
+            </div>
+        </div>
+    </div>
         @*<div class="mb-3 col-6">
           <label asp-for="Product.CoverTypeId" class="form-label mt-4">Author</label>
           <select asp-for="Product.CoverTypeId" asp-items="@Model.CoverTypeList"
@@ -124,10 +216,15 @@
 </form>
 </div>
 
+
+<div id="addAuthorDiv"></div>
+
+
+
 @section Scripts
 {
     @{
-       <partial name="_ValidationScriptsPartial"></partial>
+                                <partial name="_ValidationScriptsPartial"></partial>
      }
      <script>
          function showFile(input) {
@@ -173,5 +270,158 @@
             }
             return true;
         }
+            $(function () {
+        
+            jQuery.validator.unobtrusive.parse();
+            jQuery.validator.unobtrusive.parse("#addNewAuthor");
+        });
+
+        document.getElementById('addAuthorBtn').addEventListener('click', (e) => {
+            document.getElementById('wrapper').style.visibility = "visible";
+        });
+
+          //document.getElementById('close-btn').addEventListener('click', (e) => {
+          //     $('#addNewAuthor').validate();
+          //      $(this).attr("ajax-poziv", "dodan");
+          //      event.preventDefault();
+          //      if (!$("#addNewAuthor").valid()) {
+          //          return false;
+          //      }
+          //      else 
+          //      {
+          //          document.getElementById('wrapper').style.visibility = "hidden";
+          //          var divZaRezultat = $(this).attr("ajax-rezultat");
+          //          /*if (kol >= 1 && x<=100) {//$("#ocjenaSpan").html("Ocjena je neophodna");
+ 
+          //              if (!$("#dodajNovuNormativStavku").valid()) {
+          //                  return false;
+          //              }
+          //              else {*/
+          //          var urlZaPoziv1 = $(this).attr("ajax-url");
+          //          var form = $(this);
+          //          $.ajax({
+          //              type: "POST",
+          //              url: urlZaPoziv1,
+          //              data: form.serialize()
+          //          });
+          //      }
+          //})
+            
+
+     //$('#addNewAuthor').validate();
+     //           $(this).attr("ajax-poziv", "dodan");
+     //           event.preventDefault();
+     //           if (!$("#addNewAuthor").valid()) {
+     //               return false;
+     //           }
+     //           else {
+     //               document.getElementById('wrapper').style.visibility = "hidden";
+     //               var divZaRezultat = $(this).attr("ajax-rezultat");
+     //               /*if (kol >= 1 && x<=100) {//$("#ocjenaSpan").html("Ocjena je neophodna");
+    
+     //                   if (!$("#dodajNovuNormativStavku").valid()) {
+     //                       return false;
+     //                   }
+     //                   else {*/
+     //               var urlZaPoziv1 = $(this).attr("ajax-url");
+     //               var form = $(this);
+     //               $.ajax({
+     //                   type: "POST",
+     //                   url: urlZaPoziv1,
+     //                   data: form.serialize(),
+     //               });
+     //       window.location.reload();
+     //   });
+
+        //  $(function () {
+        
+        //    jQuery.validator.unobtrusive.parse();
+        //    jQuery.validator.unobtrusive.parse("#addNewAuthor");
+        //});
+
+//$("#addNewAuthor").submit(function(event) {
+
+//    //$('#addNewAuthor').validate();
+//    $(this).attr("ajax-poziv", "dodan");
+//    event.preventDefault();
+//    if (!$("#addNewAuthor").valid()) {
+//        alert("not valid")
+//        return false;
+//    }
+//    else {
+        
+//        var divZaRezultat = $(this).attr("ajax-rezultat");
+//        /*if (kol >= 1 && x<=100) {//$("#ocjenaSpan").html("Ocjena je neophodna");
+ 
+//            if (!$("#dodajNovuNormativStavku").valid()) {
+//                return false;
+//            }
+//            else {*/
+//        var urlZaPoziv1 = $(this).attr("ajax-url");
+//        var form = $(this);
+//        $.ajax({
+//            type: "POST",
+//            url: urlZaPoziv1,
+//            data: form.serialize(),
+//            success:document.getElementById('wrapper').style.visibility = "hidden"
+//        });
+//        }
+//   // }
+//});
+
+ $(function () {
+        //allow the validation framework to re-prase the DOM
+        jQuery.validator.unobtrusive.parse();
+        //or to give the parser some context, supply it with a selector
+        //jQuery validator will parse all child elements (deep) starting
+        //from the selector element supplied
+            jQuery.validator.unobtrusive.parse("#addNewAuthor");
+        });
+
+function sendAjax() {
+    
+    let form = $("#addNewAuthor").serialize();
+    alert(form.value)
+     var urlZaPoziv1 = $(this).attr("ajax-url");
+
+    event.preventDefault();
+    //if (!$("#addNewAuthor").valid()) {
+    //    alert("not valid")
+    //    return false;
+    //}
+    //else {
+        //var row2Append = $('table tbody tr:last');
+        //var nameAr = $('#nameAr').val();
+        //var nameEn = $('#nameEn').val();
+
+        $.ajax({
+            url: "/Admin/Author/Upsert/",
+                type: 'post',
+            data: form,
+            headers: { "RequestVerificationToken": $('input[name="__RequestVerificationToken"]').val() },
+          
+            success: document.getElementById('wrapper').style.visibility = "hidden"
+
+        });
+    //}
+}
+
+        //$("#addAuthorBtn").click(function (event) {
+        //    $(this).attr("ajax-poziv", "dodan");
+        //    event.preventDefault();
+        //    var urlZaPoziv1 = $(this).attr("ajax-url");
+        //    alert(urlZaPoziv1);
+        //    //var urlZaPoziv2 = $(this).attr("href");
+        //    //var divZaRezultat = $(this).attr("ajax-rezultat");
+        //    //var urlZaPoziv;
+        //    //if (urlZaPoziv1 instanceof String)
+        //    //    urlZaPoziv = urlZaPoziv1;
+        //    //else
+        //    //    urlZaPoziv = urlZaPoziv2;
+        //    //alert(urlZaPoziv);
+        //    $.get(urlZaPoziv1, function (data, status) {
+        //        $("#" + divZaRezultat).html(data);
+        //    });
+        //});
      </script>
 }

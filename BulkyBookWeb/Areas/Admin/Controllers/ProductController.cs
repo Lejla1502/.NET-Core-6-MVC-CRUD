@@ -85,6 +85,16 @@ namespace BulkyBookWeb.Areas.Admin.Controllers
                 if (apList.Count() > 1)
                     productVM.Author2Id = apList.Last().AuthorId;
 
+                var author = new Author()
+                {
+                    Id=0,
+                    FirstName="",
+                    LastName="",
+                    Bio=""
+                };
+
+                ViewBag.Author=author;
+
                 return View(productVM);
             }
         }
