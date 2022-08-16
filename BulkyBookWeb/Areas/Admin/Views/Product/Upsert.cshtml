@@ -1,10 +1,14 @@
 ﻿@model BulkyBook.Models.ViewModels.ProductVM
 @using BulkyBook.Models
+@using Microsoft.AspNetCore.Antiforgery
+@inject IAntiforgery antiforgery 
 @{
 
     ViewData["Title"] = "Create";
     
    Author author = new Author();
+
+    var tokenSet = antiforgery.GetAndStoreTokens(Context);
 }
 
 <style>
@@ -21,6 +25,7 @@
             justify-content: center;
             align-items: center;
             visibility: hidden;
+             z-index: 100;
        
         }
   
@@ -93,7 +98,7 @@
         <div id="wrapper">
         <div id="popup">
             <div>
-                <h2>Add author</h2>
+            <h2>Add author</h2>
                 <form ajax-poziv='da' ajax-url="/Admin/Author/Upsert"  data-ajax="true"  id="addNewAuthor" method="post" enctype="multipart/form-data">
                     <input asp-for="@author.Id" type="hidden" />
         
@@ -135,14 +140,15 @@
 		                </div>
 		
 	                </div>
-                    <button type="button"  class="btn" id = "close-btn" onclick="sendAjax();">
+                    <button type="button"  class="btn" id = "close-btn" data-save="modal">
                     Close
                 </button>
                 </form>
-                
             </div>
         </div>
     </div>
+    <button type="button" class="btn btn-primary" data-toggle="ajax-modal" data-target="#addAuthor" 
+    data-url="/Admin/Author/Upsert">Create</button>
         @*<div class="mb-3 col-6">
           <label asp-for="Product.CoverTypeId" class="form-label mt-4">Author</label>
           <select asp-for="Product.CoverTypeId" asp-items="@Model.CoverTypeList"
@@ -224,7 +230,7 @@
 @section Scripts
 {
     @{
-                                <partial name="_ValidationScriptsPartial"></partial>
+                                                                                                    <partial name="_ValidationScriptsPartial"></partial>
      }
      <script>
          function showFile(input) {
@@ -275,6 +281,64 @@
             jQuery.validator.unobtrusive.parse();
             jQuery.validator.unobtrusive.parse("#addNewAuthor");
         });
+
+$(function() {
+    //var popup = $('#wrapper');
+    //$('button[data-toggle="ajax-modal"]').click(function(event) {
+    //    var url = $(this).data('url');
+    //    alert(url);
+    //    var edcodedUrl = decodeURIComponent(url);
+    //    $.get(url).done(function(data){
+    //        popup.html(data);
+    //        $("#addNewProduct :input").prop("disabled", true);
+    //        document.getElementById('wrapper').style.visibility = "visible";
+    //    })
+    //})
+
+    var popup = $('#popup');
+
+    popup.on('click', '[data-save="modal"]', function(event){
+        var form = $('#addNewAuthor');
+        var url="/Admin/Author/Upsert";
+        var sendData=form.serialize();
+        var fName = $('#author_FirstName').val();
+        var lName = $('#author_LastName').val();
+        var bio = tinyMCE.get('author_Bio').getContent(); //$('#author_Bio').Editor("getText");
+
+        var author = {
+            FirstName : fName,
+            LastName : lName,
+            Bio: bio
+        };
+        
+
+        alert(author.Bio);
+
+        
+        $.ajax({
+          type: "POST",
+          url: "/Admin/Author/Upsert",
+          headers: { 
+            '@tokenSet.HeaderName' : '@tokenSet.RequestToken' 
+          },
+          data: author,
+          success: function() { document.getElementById('wrapper').style.visibility = "hidden"; }
+        });
+
+        //$.post(url, author).done(function(data){
+        //    document.getElementById('wrapper').style.visibility = "hidden";
+        //})
+
+         //var x = $("form").serializeArray();
+         //       $.each(x, function(i, field) {
+         //           $("#output").append(field.name + ":"
+         //                   + field.value + " ");
+         //       });
+
+
+    })
+})
+
 
         document.getElementById('addAuthorBtn').addEventListener('click', (e) => {
             document.getElementById('wrapper').style.visibility = "visible";
@@ -369,14 +433,14 @@
 //   // }
 //});
 
- $(function () {
-        //allow the validation framework to re-prase the DOM
-        jQuery.validator.unobtrusive.parse();
-        //or to give the parser some context, supply it with a selector
-        //jQuery validator will parse all child elements (deep) starting
-        //from the selector element supplied
-            jQuery.validator.unobtrusive.parse("#addNewAuthor");
-        });
+ //$(function () {
+ //       //allow the validation framework to re-prase the DOM
+ //       jQuery.validator.unobtrusive.parse();
+ //       //or to give the parser some context, supply it with a selector
+ //       //jQuery validator will parse all child elements (deep) starting
+ //       //from the selector element supplied
+ //           jQuery.validator.unobtrusive.parse("#addNewAuthor");
+ //       });
 
 function sendAjax() {
     

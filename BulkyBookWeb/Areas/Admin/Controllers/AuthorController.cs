@@ -32,7 +32,7 @@ namespace BulkyBookWeb.Areas.Admin.Controllers
                 ////same thing as above, just different approach
                 //ViewData["CoverTypeList"] = CoverTypeList;
 
-                return View(obj);
+                return PartialView(obj);
             }
             else
             {
