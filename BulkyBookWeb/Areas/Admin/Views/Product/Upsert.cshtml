@@ -202,11 +202,11 @@
         <div class="col-12">
             @if(Model.Product.Id!=0)
             {
-                 <button id="btnUpdate" type="submit" class="btn btn-primary" style="width:150px">Update</button>
+                 <button id="btnUpdate" btn-type="update" type="submit" class="btn btn-primary" style="width:150px">Update</button>
             }
             else
             {
-                 <button id="btnCreate" type="submit" onclick="return ValidateInput()" class="btn btn-primary" style="width:150px">Create</button>
+                 <button id="btnCreate" btn-type="create" type="submit" onclick="return ValidateInput()" class="btn btn-primary" style="width:150px">Create</button>
             }
 
             <a asp-controller="Product" asp-action="Index" class="btn btn-secondary" style="width:150px">Back to List</a>
@@ -229,7 +229,7 @@
 @section Scripts
 {
     @{
-                                                                                                                                                                                        <partial name="_ValidationScriptsPartial"></partial>
+                                                                                                                                                                                                                            <partial name="_ValidationScriptsPartial"></partial>
      }
      <script>
         
@@ -239,6 +239,12 @@
         //if (sessionStorage.getItem('name') == "name") {
         //    return;
         //}
+
+              var submitted = localStorage.getItem("submitted");
+              //alert(title);
+
+              if (submitted ==="yes")
+                  return;
 
         // If values are not blank, restore them to the fields
         var title = localStorage.getItem('title');
@@ -261,14 +267,14 @@
         localStorage.setItem("description", tinyMCE.get('Product_Description').getContent());
         //sessionStorage.setItem("message", $('#inputMessage').val());
 
-        alert(localStorage.getItem("title"));
+        //alert(localStorage.getItem("title"));
     }
 
-       $('#btnCreate').click(function(event) {
-          localStorage.setItem("title", "");
-        localStorage.setItem("ISBN", "");
-        localStorage.setItem("description","");
-       })
+       //$('#btnCreate').click(function(event) {
+       //   localStorage.setItem("title", "");
+       // localStorage.setItem("ISBN", "");
+       // localStorage.setItem("description","");
+       //})
 
 //$("#addNewProduct").submit(function() { 
 //    $('#Product_Title').val("");
@@ -318,7 +324,21 @@
 
                 return false;
             }
-            return true;
+          
+                $('#addNewProduct').validate();
+                //event.preventDefault();
+                if (!$("#addNewProduct").valid()) {
+                    alert("not valid");
+                    return false;
+                }
+                else {
+                    alert("valid");
+                   // $('#Product_Title').val("");
+                    localStorage.setItem("submitted", "yes");
+                    return true;
+                }
+            
+           
         }
             $(function () {
         
@@ -338,6 +358,39 @@ $(function() {
     //        document.getElementById('wrapper').style.visibility = "visible";
     //    })
     //})
+
+    //$('button[btn-type="create"]').click(function(event) {
+
+    //    var product = {
+    //                Id:0,
+    //              Title: $('#Product_Title').val(),
+    //              Description: tinyMCE.get('Product_Description').getContent(),
+    //              ISBN: $("#Product_ISBN").val(),
+    //              ListPrice: $("#Product_ListPrice").val(),
+    //              Price: $("#Product_Price").val(),
+    //              Price50: $("#Product_Price50").val(),
+    //              Price100: $("#Product_Price100").val(),
+    //              ImageUrl: $("#Product_ImageUrl").val(),
+    //              CategoryId: $("#Product_CategoryId").val(),
+    //              CoverTypeId: $("#Product_CoverTypeId").val()
+    //          };
+
+    //    var data=product;
+
+    //    $.ajax({
+    //        url: "/Admin/Product/Upsert/",
+    //        type: 'post',
+    //        data: product,
+    //        headers: { "RequestVerificationToken": $('input[name="__RequestVerificationToken"]').val() },
+
+    //        success: function() {
+    //            windows.localStorage.setItem("title", "");
+    //            windows.localStorage.setItem("ISBN", "");
+    //            windows.localStorage.setItem("description", "");
+    //        }
+
+    //    });
+    //});
 
     var popup = $('#popup');
 
@@ -527,7 +580,7 @@ const product = {
 function sendAjax() {
     
     let form = $("#addNewAuthor").serialize();
-    alert(form.value)
+   // alert(form.value)
      var urlZaPoziv1 = $(this).attr("ajax-url");
 
     event.preventDefault();
