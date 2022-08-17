@@ -44,56 +44,7 @@
 </style>
 
 <div class="container">
-<form ajax-poziv="ne" id="addNewProduct" method="post" asp-controller="Product" asp-action="Upsert" enctype="multipart/form-data">
-    <input asp-for="Product.Id" type="hidden" />
-        <input asp-for="Product.ImageUrl" type="hidden" />
-
-    <div class="row">
-        <div class="col-10">
-			<div class="border p-3 mt-4 row">
-		<div class="col-12 pb-2">
-			<h2 class="text-primary">@(Model.Product.Id!=0?"Update": "Create")  Product</h2>
-			<hr />
-		</div>
-    
-        @*<div asp-validation-summary="All"></div>*@
-        <div class="mb-3 col-6">
-          <label asp-for="Product.Title" class="form-label mt-4">Product Title</label>
-          <input asp-for="Product.Title" type="text" class="form-control" placeholder="Enter Title">
-          <span asp-validation-for="Product.Title" class="text-danger"></span>
-        </div>
-        <div class="mb-3 col-6"> 
-          <label asp-for="Product.ISBN" class="form-label mt-4">Product ISBN</label>
-          <input asp-for="Product.ISBN" type="text" class="form-control" placeholder="Enter ISBN">
-          <span asp-validation-for="Product.ISBN" class="text-danger"></span>
-        </div>
-        <div class="mb-3 prod-descr">
-          <label asp-for="Product.Description" class="form-label mt-4">Product Description</label>
-          <textarea asp-for="Product.Description" type="text" rows="3" class="form-control" placeholder="Enter Description"></textarea>
-          <span asp-validation-for="Product.Description" class="text-danger"></span>
-        </div>
-         <div class="mb-3 col-6">
-          @* <label asp-for="@Model.AuthorId" class="form-label mt-4">Author</label>
-            <select  class="form-control border" asp-for="@Model.AuthorId" asp-items="@Model.AuthorList">
-                <option >--Select Author--</option>
-            </select>
-          <span asp-validation-for="@Model.AuthorId" class="text-danger"></span>*@
-
-          <label asp-for="@Model.AuthorId" class="form-label mt-4">Author 1 (required)</label>
-       @Html.DropDownListFor(x => x.AuthorId, Model.AuthorList, "--Select Author--", new { @class = "form-control" })
-                <span class="text-danger">@Html.ValidationMessageFor(m => m.AuthorId)</span>
-        </div>
-        <div class="mb-3 col-6">
-           <label asp-for="@Model.Author2Id" class="form-label mt-4">Author 2 (optional)</label>
-            <select   class="form-control border" asp-for="@Model.Author2Id" asp-items="@Model.Author2List">
-                <option >--Select Author--</option>
-            </select>
-          <span asp-validation-for="@Model.Author2Id" class="text-danger"></span>
-        </div>
-        <div >
-            <button type="button" id="addAuthorBtn" ajax-rezultat="addAuthorDiv" ajax-url="/Admin/Author/Upsert" class="btn btn-primary">Add author</button>
-        </div>
-        <div id="wrapper">
+    <div id="wrapper">
         <div id="popup">
             <div>
             <h2>Add author</h2>
@@ -138,15 +89,65 @@
 		                </div>
 		
 	                </div>
-                    <button type="button"  class="btn" id = "close-btn" data-save="modal">
+                    <button type="button"  class="btn btn-primary" id = "close-btn" data-save="modal">
                     Close
                 </button>
                 </form>
             </div>
         </div>
     </div>
-    <button type="button" class="btn btn-primary" data-toggle="ajax-modal" data-target="#addAuthor" 
-    data-url="/Admin/Author/Upsert">Create</button>
+<form ajax-poziv="ne" id="addNewProduct" method="post" asp-controller="Product" asp-action="Upsert" enctype="multipart/form-data">
+    <input asp-for="Product.Id" type="hidden" />
+        <input asp-for="Product.ImageUrl" type="hidden" />
+
+    <div class="row" >
+        <div class="col-10">
+			<div class="border p-3 mt-4 row">
+		<div class="col-12 pb-2">
+			<h2 class="text-primary">@(Model.Product.Id!=0?"Update": "Create")  Product</h2>
+			<hr />
+		</div>
+    
+        @*<div asp-validation-summary="All"></div>*@
+        <div class="mb-3 col-6">
+          <label asp-for="Product.Title" class="form-label mt-4">Product Title</label>
+          <input asp-for="Product.Title" type="text" class="form-control" placeholder="Enter Title">
+          <span asp-validation-for="Product.Title" class="text-danger"></span>
+        </div>
+        <div class="mb-3 col-6"> 
+          <label asp-for="Product.ISBN" class="form-label mt-4">Product ISBN</label>
+          <input asp-for="Product.ISBN" type="text" class="form-control" placeholder="Enter ISBN">
+          <span asp-validation-for="Product.ISBN" class="text-danger"></span>
+        </div>
+        <div class="mb-3 prod-descr">
+          <label asp-for="Product.Description" class="form-label mt-4">Product Description</label>
+          <textarea asp-for="Product.Description" type="text" rows="3" class="form-control" placeholder="Enter Description"></textarea>
+          <span asp-validation-for="Product.Description" class="text-danger"></span>
+        </div>
+         <div class="mb-3 col-6">
+          @* <label asp-for="@Model.AuthorId" class="form-label mt-4">Author</label>
+            <select  class="form-control border" asp-for="@Model.AuthorId" asp-items="@Model.AuthorList">
+                <option >--Select Author--</option>
+            </select>
+          <span asp-validation-for="@Model.AuthorId" class="text-danger"></span>*@
+
+          <label asp-for="@Model.AuthorId" class="form-label mt-4">Author 1 (required)</label>
+       @Html.DropDownListFor(x => x.AuthorId, Model.AuthorList, "--Select Author--", new { @class = "form-control" })
+                <span class="text-danger">@Html.ValidationMessageFor(m => m.AuthorId)</span>
+        </div>
+        <div class="mb-3 col-6">
+           <label asp-for="@Model.Author2Id" class="form-label mt-4">Author 2 (optional)</label>
+            <select   class="form-control border" asp-for="@Model.Author2Id" asp-items="@Model.Author2List">
+                <option >--Select Author--</option>
+            </select>
+          <span asp-validation-for="@Model.Author2Id" class="text-danger"></span>
+        </div>
+        <div>
+            <button type="button" id="addAuthorBtn" ajax-rezultat="addAuthorDiv" ajax-url="/Admin/Author/Upsert" class="btn btn-primary">Add author</button>
+        </div>
+        
+   @* <button type="button" class="btn btn-primary" data-toggle="ajax-modal" data-target="#addAuthor" 
+    data-url="/Admin/Author/Upsert">Create</button>*@
         @*<div class="mb-3 col-6">
           <label asp-for="Product.CoverTypeId" class="form-label mt-4">Author</label>
           <select asp-for="Product.CoverTypeId" asp-items="@Model.CoverTypeList"
@@ -201,11 +202,11 @@
         <div class="col-12">
             @if(Model.Product.Id!=0)
             {
-                 <button type="submit" class="btn btn-primary" style="width:150px">Update</button>
+                 <button id="btnUpdate" type="submit" class="btn btn-primary" style="width:150px">Update</button>
             }
             else
             {
-                 <button type="submit" onclick="return ValidateInput()" class="btn btn-primary" style="width:150px">Create</button>
+                 <button id="btnCreate" type="submit" onclick="return ValidateInput()" class="btn btn-primary" style="width:150px">Create</button>
             }
 
             <a asp-controller="Product" asp-action="Index" class="btn btn-secondary" style="width:150px">Back to List</a>
@@ -228,9 +229,10 @@
 @section Scripts
 {
     @{
-                                                                                                                                                                            <partial name="_ValidationScriptsPartial"></partial>
+                                                                                                                                                                                        <partial name="_ValidationScriptsPartial"></partial>
      }
      <script>
+        
           window.onload = function() {
 
         // If sessionStorage is storing default values (ex. name), exit the function and do not restore data
@@ -239,13 +241,13 @@
         //}
 
         // If values are not blank, restore them to the fields
-        var title = sessionStorage.getItem('title');
-        if (title !== null) $('#Product_Title').val(title);
+        var title = localStorage.getItem('title');
+              if (title !== null) $('#Product_Title').val(title); //$('#Product_Title').val(title);
 
-        var ISBN = sessionStorage.getItem('ISBN');
+        var ISBN = localStorage.getItem('ISBN');
         if (ISBN !== null) $('#Product_ISBN').val(ISBN);
 
-        var description= sessionStorage.getItem('description');
+        var description= localStorage.getItem('description');
         if (description!== null)  tinyMCE.get('Product_Description').setContent(description);
 
         //var message= sessionStorage.getItem('message');
@@ -254,13 +256,23 @@
 
     // Before refreshing the page, save the form data to sessionStorage
     window.onbeforeunload = function() {
-        sessionStorage.setItem("title", $('#Product_Title').val());
-        sessionStorage.setItem("ISBN", $('#Product_ISBN').val());
-        sessionStorage.setItem("description", tinyMCE.get('Product_Description').getContent());
+        localStorage.setItem("title", $('#Product_Title').val());
+        localStorage.setItem("ISBN", $('#Product_ISBN').val());
+        localStorage.setItem("description", tinyMCE.get('Product_Description').getContent());
         //sessionStorage.setItem("message", $('#inputMessage').val());
 
-        alert(title);
+        alert(localStorage.getItem("title"));
     }
+
+//       //$('button[data-toggle="ajax-modal"]').click(function(event) {
+       
+//       //}
+
+//$("#addNewProduct").submit(function() { 
+//    $('#Product_Title').val("");
+//    $('#Product_ISBN').val("");
+//    tinyMCE.get('Product_Description').setContent("");
+//})
 
 
          function showFile(input) {
@@ -351,8 +363,18 @@ $(function() {
             return false;
         }
 
-
-        var product = {};
+const product = {
+                  Title: $('#Product_Title').val(),
+                  Description: "",
+                  ISBN: $("#Product_ISBN").val(),
+                  ListPrice: 0,
+                  Price: 0,
+                  Price50: 0,
+                  Price100: 0,
+                  ImageUrl: null,
+                  CategoryId: null,
+                  CoverTypeId: null
+              };
         $.ajax({
           type: "POST",
           url: "/Admin/Author/Upsert",
@@ -366,26 +388,16 @@ $(function() {
                 
                var url = "/Admin/Product/Upsert";
 
-               
-
-              product = {
-                  Title: $('#Product_Title').val(),
-                  Description: "",
-                  ISBN: $("#Product_ISBN").val(),
-                  ListPrice: 0,
-                  Price: 0,
-                  Price50: 0,
-                  Price100: 0,
-                  ImageUrl: null,
-                  CategoryId: null,
-                  CoverTypeId: null
-              };
-
-            window.location.reload();
-       
+                 alert(product.Title);
+           window.location.reload();
+      //     window.location = '/Admin/Product/Upsert' + @Model.Product;
+          alert(product.Title);
           }
         });
-
+        alert(product.Title);
+         $.get(url).done(function(product){
+                //alert("done");
+            })
         // var data = product;
         // $.get(url).done(function(data){
         //    //alert("done");
