@@ -66,6 +66,14 @@ placing the order.
 ### List of products
 ![scr7](https://user-images.githubusercontent.com/22219433/183261067-84fe81c8-a492-4288-a597-1ea8f605dbae.png)
 
+### Adding new product
+![scr7_a](https://user-images.githubusercontent.com/22219433/185207563-f1c528a1-0c94-419e-8ca9-0c9abab4d35a.png)
+
+![scr7_b](https://user-images.githubusercontent.com/22219433/185207566-ee2cd510-9d48-4305-9d04-26ee2b6dff45.png)
+
+### Adding new author for product (popup)
+![scr7_c](https://user-images.githubusercontent.com/22219433/185207568-ab207b24-c7d3-4f88-b1d0-24c16f41e1bc.png)
+
 ### Updating product
 ![scr8_a](https://user-images.githubusercontent.com/22219433/183261405-c726d7dd-f939-4f04-b8aa-082fe124c07a.png)
 
