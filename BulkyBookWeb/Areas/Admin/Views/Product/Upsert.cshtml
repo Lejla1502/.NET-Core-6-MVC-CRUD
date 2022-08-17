@@ -264,9 +264,11 @@
         alert(localStorage.getItem("title"));
     }
 
-//       //$('button[data-toggle="ajax-modal"]').click(function(event) {
-       
-//       //}
+       $('#btnCreate').click(function(event) {
+          localStorage.setItem("title", "");
+        localStorage.setItem("ISBN", "");
+        localStorage.setItem("description","");
+       })
 
 //$("#addNewProduct").submit(function() { 
 //    $('#Product_Title').val("");
@@ -415,12 +417,11 @@ const product = {
          //                   + field.value + " ");
          //       });
 
-
     })
 })
 
 
-        document.getElementById('addAuthorBtn').addEventListener('click', (e) => {
+            document.getElementById('addAuthorBtn').addEventListener('click', (e) => {
             document.getElementById('wrapper').style.visibility = "visible";
             document.getElementById('Product_Description').style.zIndex = -1;
         });

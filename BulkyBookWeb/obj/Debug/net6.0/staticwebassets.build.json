@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "m8OGjO92S0pQ6ieZbvwVLaaiS70k2DvpcqojqCeXSJA=",
+  "Hash": "nfNXzf2jtDULtJrHI13neu2vLamK6PQITcg9aSx026U=",
   "Source": "BulkyBookWeb",
   "BasePath": "_content/BulkyBookWeb",
   "Mode": "Default",
@@ -1649,6 +1649,23 @@
       "OriginalItemSpec": "wwwroot\\images\\products\\6ed5013e-7747-4114-bf7b-898145337b93.jpg"
     },
     {
+      "Identity": "C:\\Users\\Administrator\\source\\repos\\BulkyBook\\BulkyBookWeb\\wwwroot\\images\\products\\716b6490-cac0-4b8f-a746-f055ec0244f0.jpg",
+      "SourceId": "BulkyBookWeb",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\Administrator\\source\\repos\\BulkyBook\\BulkyBookWeb\\wwwroot\\",
+      "BasePath": "_content/BulkyBookWeb",
+      "RelativePath": "images/products/716b6490-cac0-4b8f-a746-f055ec0244f0.jpg",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\images\\products\\716b6490-cac0-4b8f-a746-f055ec0244f0.jpg"
+    },
+    {
       "Identity": "C:\\Users\\Administrator\\source\\repos\\BulkyBook\\BulkyBookWeb\\wwwroot\\images\\products\\741dbf95-666c-4c66-aaea-b1bbcf1124ef.jpg",
       "SourceId": "BulkyBookWeb",
       "SourceType": "Discovered",
@@ -1700,6 +1717,23 @@
       "OriginalItemSpec": "wwwroot\\images\\products\\85ac9882-1bd4-4574-a446-83b34287b7c9.jpg"
     },
     {
+      "Identity": "C:\\Users\\Administrator\\source\\repos\\BulkyBook\\BulkyBookWeb\\wwwroot\\images\\products\\95b1e0f6-f720-4701-a19e-a546cee45da3.jpg",
+      "SourceId": "BulkyBookWeb",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\Administrator\\source\\repos\\BulkyBook\\BulkyBookWeb\\wwwroot\\",
+      "BasePath": "_content/BulkyBookWeb",
+      "RelativePath": "images/products/95b1e0f6-f720-4701-a19e-a546cee45da3.jpg",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\images\\products\\95b1e0f6-f720-4701-a19e-a546cee45da3.jpg"
+    },
+    {
       "Identity": "C:\\Users\\Administrator\\source\\repos\\BulkyBook\\BulkyBookWeb\\wwwroot\\images\\products\\9b6d9146-9452-4d69-83fe-aac141182de1.jpg",
       "SourceId": "BulkyBookWeb",
       "SourceType": "Discovered",
@@ -1732,6 +1766,23 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\images\\products\\a73bf212-9d9a-4d41-9206-4861ce02ea01.jpg"
+    },
+    {
+      "Identity": "C:\\Users\\Administrator\\source\\repos\\BulkyBook\\BulkyBookWeb\\wwwroot\\images\\products\\a7b14799-5fcc-4192-be92-c7010251d1c4.jpg",
+      "SourceId": "BulkyBookWeb",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\Administrator\\source\\repos\\BulkyBook\\BulkyBookWeb\\wwwroot\\",
+      "BasePath": "_content/BulkyBookWeb",
+      "RelativePath": "images/products/a7b14799-5fcc-4192-be92-c7010251d1c4.jpg",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\images\\products\\a7b14799-5fcc-4192-be92-c7010251d1c4.jpg"
     },
     {
       "Identity": "C:\\Users\\Administrator\\source\\repos\\BulkyBook\\BulkyBookWeb\\wwwroot\\images\\products\\acdcc83f-c97f-4aa0-918e-af64900cedf8.jpg",
