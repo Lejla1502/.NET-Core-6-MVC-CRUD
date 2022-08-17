@@ -40,9 +40,7 @@
                  z-index=100;
         }
       
-        .prod-descr{
-            z-index:-1;
-        }
+       
 </style>
 
 <div class="container">
@@ -230,9 +228,41 @@
 @section Scripts
 {
     @{
-                                                                                                    <partial name="_ValidationScriptsPartial"></partial>
+                                                                                                                                                                            <partial name="_ValidationScriptsPartial"></partial>
      }
      <script>
+          window.onload = function() {
+
+        // If sessionStorage is storing default values (ex. name), exit the function and do not restore data
+        //if (sessionStorage.getItem('name') == "name") {
+        //    return;
+        //}
+
+        // If values are not blank, restore them to the fields
+        var title = sessionStorage.getItem('title');
+        if (title !== null) $('#Product_Title').val(title);
+
+        var ISBN = sessionStorage.getItem('ISBN');
+        if (ISBN !== null) $('#Product_ISBN').val(ISBN);
+
+        var description= sessionStorage.getItem('description');
+        if (description!== null)  tinyMCE.get('Product_Description').setContent(description);
+
+        //var message= sessionStorage.getItem('message');
+        //if (message!== null) $('#inputMessage').val(message);
+    }
+
+    // Before refreshing the page, save the form data to sessionStorage
+    window.onbeforeunload = function() {
+        sessionStorage.setItem("title", $('#Product_Title').val());
+        sessionStorage.setItem("ISBN", $('#Product_ISBN').val());
+        sessionStorage.setItem("description", tinyMCE.get('Product_Description').getContent());
+        //sessionStorage.setItem("message", $('#inputMessage').val());
+
+        alert(title);
+    }
+
+
          function showFile(input) {
           let file = input.files[0];
           let reader = new FileReader();
@@ -314,7 +344,15 @@ $(function() {
 
         alert(author.Bio);
 
-        
+        if((author.FirstName==null || author.FirstName=="") || (author.LastName==null || author.LastName=="") || (author.Bio==null || author.Bio==""))
+        {
+            
+            alert("all fields need to be fulfilled");
+            return false;
+        }
+
+
+        var product = {};
         $.ajax({
           type: "POST",
           url: "/Admin/Author/Upsert",
@@ -322,8 +360,38 @@ $(function() {
             '@tokenSet.HeaderName' : '@tokenSet.RequestToken' 
           },
           data: author,
-          success: function() { document.getElementById('wrapper').style.visibility = "hidden"; }
+          success: function() { 
+              document.getElementById('wrapper').style.visibility = "hidden"; 
+              document.getElementById('Product_Description').style.zIndex = 1;
+                
+               var url = "/Admin/Product/Upsert";
+
+               
+
+              product = {
+                  Title: $('#Product_Title').val(),
+                  Description: "",
+                  ISBN: $("#Product_ISBN").val(),
+                  ListPrice: 0,
+                  Price: 0,
+                  Price50: 0,
+                  Price100: 0,
+                  ImageUrl: null,
+                  CategoryId: null,
+                  CoverTypeId: null
+              };
+
+            window.location.reload();
+       
+          }
         });
+
+        // var data = product;
+        // $.get(url).done(function(data){
+        //    //alert("done");
+        //})
+
+       
 
         //$.post(url, author).done(function(data){
         //    document.getElementById('wrapper').style.visibility = "hidden";
@@ -342,6 +410,7 @@ $(function() {
 
         document.getElementById('addAuthorBtn').addEventListener('click', (e) => {
             document.getElementById('wrapper').style.visibility = "visible";
+            document.getElementById('Product_Description').style.zIndex = -1;
         });
 
           //document.getElementById('close-btn').addEventListener('click', (e) => {
