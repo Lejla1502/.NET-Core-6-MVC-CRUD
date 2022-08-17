@@ -54,23 +54,23 @@
 
                     <div class="row">
                         <div class="col-10">
-			                <div class=" p-3 mt-4 row">
+			                <div class=" p-3 mt-1 row">
 		          
     
                         @*<div asp-validation-summary="All"></div>*@
-                        <div class="mb-3">
+                        <div class="mb-2">
                           <label asp-for="@author.FirstName" class="form-label mt-4">Authors First Name</label>
                           <input asp-for="@author.FirstName" type="text" class="form-control" placeholder="Enter First Name">
                           <span asp-validation-for="@author.FirstName" class="text-danger"></span>
                         </div>
-                         <div class="mb-3">
+                         <div class="mb-2">
                           <label asp-for="@author.LastName" class="form-label mt-4">Authors Last Name</label>
                           <input asp-for="@author.LastName" type="text" class="form-control" placeholder="Enter Last Name">
                           <span asp-validation-for="@author.LastName" class="text-danger"></span>
                         </div>
-                         <div class="mb-3">
+                         <div class="mb-2">
                           <label asp-for="@author.Bio" class="form-label mt-4">Short Bio</label>
-                          <textarea asp-for="@author.Bio" type="text" rows="3" class="form-control" placeholder="Enter Bio"></textarea>
+                          <textarea asp-for="@author.Bio" type="text" rows="2" class="form-control" placeholder="Enter Bio"></textarea>
                           <span asp-validation-for="@author.Bio" class="text-danger"></span>
                         </div>
                            <br />
