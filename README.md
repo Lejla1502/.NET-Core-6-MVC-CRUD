@@ -39,7 +39,11 @@ placing the order.
 <p align="right">(<a href="#top">back to top</a>)</p>
 
 # Screens
+
 ### Home page
+![](https://github.com/Lejla1502/.NET-Core-6-MVC-CRUD/blob/master/BulkyBookWeb/wwwroot/gif/Animation-2.gif)
+
+### Library
 ![scr1](https://user-images.githubusercontent.com/22219433/183261040-9d36c922-9890-4602-8455-a233dccc5577.png)
 
 ### Product details
