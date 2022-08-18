@@ -24,6 +24,7 @@ namespace BulkyBook.DataAccess.Repository
         public void UpdateStatus(int id, string orderStatus, string? paymentStatus = null)
         {
             var orderFromDb = _db.OrderHeaders.FirstOrDefault(x=>x.Id==id);
+
             orderFromDb.PaymentDate= DateTime.Now;
             if (orderFromDb != null)
             {
@@ -37,6 +38,7 @@ namespace BulkyBook.DataAccess.Repository
         public void UpdateStripePaymentID(int id, string sessionId, string paymentIntentId)
         {
             var orderFromDb = _db.OrderHeaders.FirstOrDefault(x => x.Id == id);
+
             if (orderFromDb != null)
             {
                 orderFromDb.SessionId= sessionId;

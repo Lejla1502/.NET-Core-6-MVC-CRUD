@@ -19,6 +19,8 @@ namespace BulkyBook.Models.ViewModels
         public List<Category> PopularCategories { get; set; }
         public List<Product> NewBooks { get; set; }
 
+        public Product FeaturedProduct { get; set; }
+
         public class ProductInfo
         {
             public int Id { get; set; }

@@ -1,7 +1,43 @@
 ﻿@model IEnumerable<Product>
 @{
     ViewData["Title"] = "Index";
+
+    var featured = ViewBag.Featured;
 }
+
+
+
+<style>
+
+
+        #wrapper{
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 100vw;
+            height: 100vh;
+            background-color:rgba(100, 100, 100, 0.7);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            visibility: hidden;
+             z-index: 100;
+       
+        }
+  
+        #popup{
+            width: 50%;
+            height: auto;
+            background-color: white;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border-radius: 10px;
+            z-index:100;
+        }
+      
+       
+</style>
 
 <partial name="_Notification" />
 <div class="container p-3">
@@ -10,14 +46,35 @@
             <h2 class="text-secondary">Product List</h2>
         </div>
          <div class="col-6 text-end">
-            <a asp-controller="Product" asp-action="Upsert" class="btn btn-primary">
+            <a id="btnCreate" onclick="emptyLocalStorage()" asp-controller="Product" asp-action="Upsert" class="btn btn-primary">
               <i class="bi bi-plus-lg"></i> &nbsp; Create New Product
 			</a>
 		</div>
     </div>
     <br /><br />
-
-    <table id="myTable" class="table table-bordered table-striped" style="width:100%">
+    <div class="row d-flex flex-row justify-content-between mt-2 mb-5">
+         <div class=" d-flex flex-row align-items-center">
+             <div class="me-3"><h5>FEATURED PRODUCT : </h5> </div>
+             <div class="me-3">@featured</div>
+             <div><button id="btnChange" onclick="openPopup()" class="btn btn-primary" >CHANGE</button></div>
+         </div>
+       @* <div clasS="d-flex justify-content-between">
+            <div>Select book to be featured on homepage:</div>
+            <div>
+                <select   class="form-control border" asp-for="@categoryId" asp-items="@categories">
+                <option >--Select Author--</option>
+            </select>
+            </div>
+            <div>
+                <button class="btn btn-primary">Save</button>
+            </div>
+        </div>*@
+    </div>
+    <div id="wrapper">
+        <div id="popup">
+        </div>
+    </div>
+    <table id="myTable" class="table table-bordered table-striped mt-5" style="width:100%">
         <thead>
             <tr>
                 <th>Title</th>
@@ -34,4 +91,28 @@
 
 @section Scripts{
     <script src="~/js/product.js"></script>
+
+    <script>
+        function emptyLocalStorage()
+        {
+            localStorage.setItem("title", "");
+            localStorage.setItem("ISBN", "");
+            localStorage.setItem("description", "");
+        }
+
+        function openPopup(){
+         var popup = $('#popup');
+    
+        var url = "/Admin/Product/UpdateFeaturedProduct";
+        //alert(url);
+        var edcodedUrl = decodeURIComponent(url);
+        $.get(url).done(function(data){
+            popup.html(data);
+            //$("#addNewProduct :input").prop("disabled", true);
+            document.getElementById('wrapper').style.visibility = "visible";
+        })
+  
+        }
+
+    </script>
 }

@@ -20,6 +20,9 @@ namespace BulkyBook.Models
         public string ISBN { get; set; }
         
         public string Author { get; set; }
+
+        public bool Featured { get; set; }
+
         [Required]
         [Range(1, 10000)]
         [Display(Name = "List Price")]

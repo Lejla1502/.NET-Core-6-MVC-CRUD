@@ -22,6 +22,8 @@ namespace BulkyBookWeb.Areas.Admin.Controllers
         }
         public IActionResult Index()
         {
+            ViewBag.Featured = _unitOfWork.Product.GetAll(x => x.Featured == true).First().Title;
+
             return View();
         }
 
@@ -306,7 +308,31 @@ namespace BulkyBookWeb.Areas.Admin.Controllers
             //return View(obj);
         }
 
-        
+        public IActionResult UpdateFeaturedProduct()
+        {
+            var productVM = new ProductFeaturedVM
+            {
+                Products = _unitOfWork.Product.GetAll().Select(
+                u => new SelectListItem
+                {
+                    Text = u.Title,
+                    Value = u.Id.ToString()
+                }),
+            };
+
+            return PartialView("_UpdateFeaturedProduct", productVM);
+        }
+
+        [HttpPost]
+        public IActionResult UpdateFeaturedProduct(ProductFeaturedVM obj)
+        {
+            _unitOfWork.Product.UpdateStatusFeaturedProduct(obj.ProductId);
+            _unitOfWork.Save();
+
+
+            return RedirectToAction("Index");
+        }
+
         //here we create API endpoints for datatable
         #region API CALLS
         [HttpGet]
@@ -321,6 +347,9 @@ namespace BulkyBookWeb.Areas.Admin.Controllers
                 Author= string.Join(", ", _unitOfWork.AuthorProduct.GetAll(ap => ap.ProductId == s.Id, includeProperties: "Product,Author").Select(sl => sl.Author.FirstName + ' ' + sl.Author.LastName).ToArray()),
                 Category=s.Category.Name
             });
+
+
+
             return Json(new { data = productList });
         }
 

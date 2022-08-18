@@ -44,7 +44,7 @@ namespace BulkyBookWeb.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Author", (string)null);
+                    b.ToTable("Author");
                 });
 
             modelBuilder.Entity("BulkyBook.Models.AuthorProduct", b =>
@@ -59,7 +59,7 @@ namespace BulkyBookWeb.Migrations
 
                     b.HasIndex("ProductId");
 
-                    b.ToTable("AuthorProducts", (string)null);
+                    b.ToTable("AuthorProducts");
                 });
 
             modelBuilder.Entity("BulkyBook.Models.Category", b =>
@@ -82,7 +82,7 @@ namespace BulkyBookWeb.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Categories", (string)null);
+                    b.ToTable("Categories");
                 });
 
             modelBuilder.Entity("BulkyBook.Models.Company", b =>
@@ -114,7 +114,7 @@ namespace BulkyBookWeb.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Companies", (string)null);
+                    b.ToTable("Companies");
                 });
 
             modelBuilder.Entity("BulkyBook.Models.CoverType", b =>
@@ -132,7 +132,7 @@ namespace BulkyBookWeb.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("CoverTypes", (string)null);
+                    b.ToTable("CoverTypes");
                 });
 
             modelBuilder.Entity("BulkyBook.Models.Notification", b =>
@@ -152,7 +152,7 @@ namespace BulkyBookWeb.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Notifications", (string)null);
+                    b.ToTable("Notifications");
                 });
 
             modelBuilder.Entity("BulkyBook.Models.NotificationApplicationUser", b =>
@@ -170,7 +170,7 @@ namespace BulkyBookWeb.Migrations
 
                     b.HasIndex("ApplicationUserId");
 
-                    b.ToTable("NotificationApplicationUsers", (string)null);
+                    b.ToTable("NotificationApplicationUsers");
                 });
 
             modelBuilder.Entity("BulkyBook.Models.OrderDetail", b =>
@@ -199,7 +199,7 @@ namespace BulkyBookWeb.Migrations
 
                     b.HasIndex("ProductId");
 
-                    b.ToTable("OrderDetails", (string)null);
+                    b.ToTable("OrderDetails");
                 });
 
             modelBuilder.Entity("BulkyBook.Models.OrderHeader", b =>
@@ -275,7 +275,7 @@ namespace BulkyBookWeb.Migrations
 
                     b.HasIndex("ApplicationUserId");
 
-                    b.ToTable("OrderHeaders", (string)null);
+                    b.ToTable("OrderHeaders");
                 });
 
             modelBuilder.Entity("BulkyBook.Models.Product", b =>
@@ -302,6 +302,9 @@ namespace BulkyBookWeb.Migrations
                     b.Property<string>("Description")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("Featured")
+                        .HasColumnType("bit");
 
                     b.Property<string>("ISBN")
                         .IsRequired()
@@ -336,7 +339,7 @@ namespace BulkyBookWeb.Migrations
 
                     b.HasIndex("CoverTypeId");
 
-                    b.ToTable("Products", (string)null);
+                    b.ToTable("Products");
                 });
 
             modelBuilder.Entity("BulkyBook.Models.Review", b =>
@@ -361,7 +364,7 @@ namespace BulkyBookWeb.Migrations
 
                     b.HasIndex("ApplicationUserId");
 
-                    b.ToTable("Reviews", (string)null);
+                    b.ToTable("Reviews");
                 });
 
             modelBuilder.Entity("BulkyBook.Models.ShoppingCart", b =>
@@ -388,7 +391,7 @@ namespace BulkyBookWeb.Migrations
 
                     b.HasIndex("ProductId");
 
-                    b.ToTable("ShoppingCarts", (string)null);
+                    b.ToTable("ShoppingCarts");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>

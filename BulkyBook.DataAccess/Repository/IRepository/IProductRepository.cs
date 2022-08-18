@@ -11,6 +11,8 @@ namespace BulkyBook.DataAccess.Repository.IRepository
     {
         void Update(Product product);
         void UpdateStatus(int id);
+
+        void UpdateStatusFeaturedProduct(int id);
         Product[] GetRecommended(string appUserId, int productId);
 
         List<Product> GetBestsellers();
