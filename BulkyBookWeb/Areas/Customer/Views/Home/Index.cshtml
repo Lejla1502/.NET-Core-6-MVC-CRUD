@@ -270,8 +270,7 @@ color:black;
            
               <div class="carousel-caption">
                 <p class="carousel-quote">“Reading is dreaming with open eyes.”</p>
-                <h5 class="text-white mb-4"><a href=""> Keep reading -></a></h5>
-                
+                <h5 class="text-white mb-4"><a asp-controller="Book" asp-action="Index"> Keep reading -></a></h5>
               </div>
         </div>
         <div class="carousel-item" style="background-image: url('/images/homepage/slider-02.jpg')">
@@ -280,7 +279,7 @@ color:black;
             </div>
           <div class="carousel-caption">
             <p>“In principle and reality, libraries are life-enhancing palaces of wonder.”</p>
-            <h5 class="text-white mb-4"><a href="" class="">Visit our library -></a></h5>
+            <h5 class="text-white mb-4"><a asp-controller="Book" asp-action="Index" class="">Visit our library -></a></h5>
           </div>
         </div>
         <div class="carousel-item" style="background-image: url('/images/homepage/slider-03.jpg')">
@@ -289,7 +288,7 @@ color:black;
             </div>
           <div class="carousel-caption">
             <p>“Books are wisest of counselors, and the most patient of teachers.”</p>
-            <h5 class="text-white mb-4"><a href="">New arrivals -></a></h5>
+            <h5 class="text-white mb-4"><a href="#new_arrivals">New arrivals -></a></h5>
           </div>
         </div>
       </div>
@@ -539,7 +538,7 @@ color:black;
 
 @*****************************************************NEW BOOKS***************@
 <div class="container-fluid">
-    <div class="container">
+    <div class="container" id="new_arrivals">
        <div class="row d-flex justify-content-center align-items-center mb-5">  
             <div class="col-xxl-12 justify-content-center text-center">
                 <h3 class="title mt-3 mb-5" id="titles1">New arrivals</h3>    
