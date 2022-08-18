@@ -236,6 +236,24 @@ color:black;
     width:100%;
 }
 
+.featured-category{
+    bottom:12%;
+    left:6%;
+}
+
+.round{
+    width:auto;
+    padding-left:.5rem;
+    padding-right:.5rem;
+    background-color:rgb(56, 188, 247);
+    border-radius:10px;
+    font-size:.9rem;
+}
+
+.normal{
+    font-size:1.4rem;
+}
+
 /*CATEGORIES*/
  .card.cat{
     height:300px !important;
@@ -437,10 +455,9 @@ color:black;
                                         </div>
                             
                                          <div>
-                                             From advanced selectors to generated content to web fonts, and from 
-                                             gradients, shadows, and rounded corners to elegant animations, CSS3 hold a 
-                                             universe of creative possibilities.
-                                             No one can better guide you through these galaxies than Dan Cederholm.
+                                             In this story of a diminished family, sharp and tender emotional truths hit home. 
+                                             Confident, deft and quietly powerful, 
+                                             The Promise is literary fiction at its finest.
                                          </div>
                                          <a asp-controller="Home" asp-action="Details" asp-route-productId="@Model.FeaturedProduct.Id" class="btn more mt-5">Get this book</a>
                                     </div>
@@ -452,10 +469,10 @@ color:black;
                     <div class="row p-2">
                         <div class="col-12 p-1" >
                             <div class="card card-featured" style="border:none;">
-                                    <div class="mx-auto">
+                                    <div class="mx-auto "  >
                                         <a>
                                             <img src="@Model.FeaturedProduct.ImageUrl" class="" 
-                                            style="border-radius:5px; object-fit:cover;"/>
+                                            style="border-radius:5px; "/>
                                         </a> 
                                 </div>
                        
@@ -466,14 +483,18 @@ color:black;
                 <div class="col-xxl-4 col-xl-3 col-lg-3 col-sm-6">
                     <div class="row p-2">
                         <div class="col-12 p-1" >
-                            <div class="card card-featured" style="border:none; background-image: url('/images/homepage/category_bg.jpg');">
+                            <div class="card card-featured position-relative" style="border:none; background-image: url('/images/homepage/category_bg.jpg');">
                                     <div class="mx-auto">
                                        @* <a>
                                             <img  src="~/images/homepage/category_bg.jpg" class="background-position:center;"
                                             style="border-radius:5px;"/>
                                         </a> *@
                                 </div>
-                       
+                            <div class="position-absolute featured-category">
+                                <p class="round text-white">FEATURE CATEGORY</p>
+                                <p class="text-white normal">@Model.FeaturedCategoryName</p>
+                                <hr style="width:40%; border:1px solid white" />
+                            </div>
                             </div>
                         </div>
                     </div>

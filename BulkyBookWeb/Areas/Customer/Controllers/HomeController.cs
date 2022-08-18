@@ -129,6 +129,12 @@ namespace BulkyBookWeb.Customer.Controllers
             productReviewVM.PopularCategories = _unitOfWork.Category.GetFourPopularCategories();
             productReviewVM.NewBooks = _unitOfWork.Product.GetNewBooks();
             productReviewVM.FeaturedProduct = _unitOfWork.Product.GetFirstOrDefault(x => x.Featured == true);
+
+            if (productReviewVM.FeaturedProduct == null)
+                productReviewVM.FeaturedProduct = _unitOfWork.Product.GetAll().First();
+
+            productReviewVM.FeaturedCategoryName = _unitOfWork.Category.GetFirstOrDefault(x => x.Id == productReviewVM.FeaturedProduct.CategoryId).Name;
+
             //productReviewVM.NewBooks = _unitOfWork.Product.GetAll().OrderByDescending(x => x.CreatedAt).Take(4).ToList();
             
            // ProductHomePageVM products= new ProductHomePageVM

@@ -22,7 +22,10 @@ namespace BulkyBookWeb.Areas.Admin.Controllers
         }
         public IActionResult Index()
         {
-            ViewBag.Featured = _unitOfWork.Product.GetAll(x => x.Featured == true).First().Title;
+            if (_unitOfWork.Product.GetAll(x => x.Featured == true).FirstOrDefault() == null)
+                ViewBag.Featured = null;
+            else
+                ViewBag.Featured = _unitOfWork.Product.GetAll(x => x.Featured == true).First().Title;
 
             return View();
         }
@@ -319,6 +322,9 @@ namespace BulkyBookWeb.Areas.Admin.Controllers
                     Value = u.Id.ToString()
                 }),
             };
+
+            if (_unitOfWork.Product.GetFirstOrDefault(x => x.Featured == true) != null)
+                productVM.ProductId = _unitOfWork.Product.GetFirstOrDefault(x => x.Featured == true).Id;
 
             return PartialView("_UpdateFeaturedProduct", productVM);
         }

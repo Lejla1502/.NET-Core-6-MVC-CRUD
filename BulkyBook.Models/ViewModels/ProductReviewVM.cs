@@ -20,6 +20,7 @@ namespace BulkyBook.Models.ViewModels
         public List<Product> NewBooks { get; set; }
 
         public Product FeaturedProduct { get; set; }
+        public string FeaturedCategoryName { get; set; }
 
         public class ProductInfo
         {

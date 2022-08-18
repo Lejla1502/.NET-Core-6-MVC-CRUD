@@ -191,11 +191,12 @@ namespace BulkyBook.DataAccess.Repository
         public void UpdateStatusFeaturedProduct(int id)
         {
             var current = _db.Products.FirstOrDefault(x => x.Featured == true);
-
-            current.Featured = false;
-            _db.Products.Update(current);
-            _db.SaveChanges();
-
+            if (current != null)
+            {
+                current.Featured = false;
+                _db.Products.Update(current);
+                _db.SaveChanges();
+            }
             var next = _db.Products.FirstOrDefault(x => x.Id == id);
             next.Featured = true;
 

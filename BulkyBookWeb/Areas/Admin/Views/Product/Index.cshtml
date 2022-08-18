@@ -52,24 +52,20 @@
 		</div>
     </div>
     <br /><br />
+   
     <div class="row d-flex flex-row justify-content-between mt-2 mb-5">
-         <div class=" d-flex flex-row align-items-center">
-             <div class="me-3"><h5>FEATURED PRODUCT : </h5> </div>
-             <div class="me-3">@featured</div>
-             <div><button id="btnChange" onclick="openPopup()" class="btn btn-primary" >CHANGE</button></div>
-         </div>
-       @* <div clasS="d-flex justify-content-between">
-            <div>Select book to be featured on homepage:</div>
-            <div>
-                <select   class="form-control border" asp-for="@categoryId" asp-items="@categories">
-                <option >--Select Author--</option>
-            </select>
-            </div>
-            <div>
-                <button class="btn btn-primary">Save</button>
-            </div>
-        </div>*@
+        <div class=" d-flex flex-row align-items-center">
+            <div class="me-3"><h5>FEATURED PRODUCT : </h5> </div>
+             @if(@featured!=null)
+            {
+                    <div class="me-3">@featured</div>
+            }
+            else
+            {<div class="me-3">None is chosen</div>}
+            <div><button id="btnChange" onclick="openPopup()" class="btn btn-primary" >CHANGE</button></div>
+        </div>
     </div>
+    
     <div id="wrapper">
         <div id="popup">
         </div>
