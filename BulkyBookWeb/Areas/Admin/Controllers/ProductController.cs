@@ -340,9 +340,9 @@ namespace BulkyBookWeb.Areas.Admin.Controllers
         }
 
         [AcceptVerbs("GET", "POST")]
-        public IActionResult VerifyISBN([Bind(Prefix = "Product.ISBN")] string ISBN)
+        public IActionResult VerifyISBN([Bind(Prefix = "Product.ISBN")] string ISBN, [Bind(Prefix = "Product.Id")] int Id)
             {
-            List<Product> products = _unitOfWork.Product.GetAll().ToList();
+            List<Product> products = _unitOfWork.Product.GetAll(x=>x.Id!=Id).ToList();
             foreach (Product p in products)
             {
                 if (p.ISBN.Equals(ISBN))
