@@ -68,7 +68,10 @@ placing the order.
 ![scr6](https://user-images.githubusercontent.com/22219433/183261063-1b03187c-70f0-4296-ada7-256170bfa43b.png)
 
 ### List of products
-![scr7](https://user-images.githubusercontent.com/22219433/183261067-84fe81c8-a492-4288-a597-1ea8f605dbae.png)
+![scr7_2](https://user-images.githubusercontent.com/22219433/185786242-f6e9bb88-7158-46fc-9634-36523219271d.png)
+
+### Change featured product (on homepage)
+![scr7_3](https://user-images.githubusercontent.com/22219433/185786442-15fef71c-dd3d-4e20-a149-71f907ae4d9b.png)
 
 ### Adding new product
 ![scr7_a](https://user-images.githubusercontent.com/22219433/185207563-f1c528a1-0c94-419e-8ca9-0c9abab4d35a.png)
