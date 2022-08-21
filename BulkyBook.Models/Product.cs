@@ -17,6 +17,7 @@ namespace BulkyBook.Models
         [Required]
         public string Description { get; set; }
         [Required]
+        [RegularExpression(@"^(?:ISBN(?:-13)?:?\ )?(?=[0-9]{13}$|(?=(?:[0-9]+[-\ ]){4})[-\ 0-9]{17}$)97[89][-\ ]?[0-9]{1,5}[-\ ]?[0-9]+[-\ ]?[0-9]+[-\ ]?[0-9]$", ErrorMessage = "Acceptable format: 978-0-306-40615-6 or 978 0 306 40615 6")]
         public string ISBN { get; set; }
         
         public string Author { get; set; }

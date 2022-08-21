@@ -328,12 +328,12 @@ color:black;
 
 
   <div class="container books-search my-3">
-     <form asp-action="Index">
+     <form asp-action="Index" asp-controller="Book">
         <div class="row d-flex flex-row justify-content-between">
             <div class=" d-flex flex-row ">
             <div class="col-sm-6 col-md-3 me-4">
 			    <div class="form-group">
-				    <input name="s" value="" type="text" class="form-control" id="keyword" placeholder="Book Title">
+				    <input asp-for="BookTitle" type="text" class="form-control" id="keyword" placeholder="Book Title">
 			    </div>
 		    </div>        
             <div class="col-sm-6 col-md-3 me-4">
@@ -347,7 +347,7 @@ color:black;
 		    </div>
              <div class="col-sm-6 col-md-3 me-4">
 			    <div class="form-group">
-                    <select  id="selectAuthor" class="form-control" asp-for="@Model.CategoryId" asp-items="@Model.CategoryList"
+                    <select  id="selectAuthor" class="form-control" asp-for="@Model.AuthorId" asp-items="@Model.AuthorList"
                   >
                         <option >--Book Author--</option>
                     </select>

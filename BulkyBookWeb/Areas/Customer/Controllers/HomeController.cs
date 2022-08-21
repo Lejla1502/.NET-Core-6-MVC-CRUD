@@ -116,6 +116,14 @@ namespace BulkyBookWeb.Customer.Controllers
                 }
             );
 
+            productReviewVM.AuthorList = _unitOfWork.Author.GetAll().Select(
+                u => new SelectListItem
+                {
+                    Text = u.FirstName + " " + u.LastName,
+                    Value = u.Id.ToString()
+                }
+            );
+
             //var something = _unitOfWork.OrderDetail.GetAll().GroupBy(x => x.ProductId).Select(s => new { Bestseller_PrdouctID = s.Key, Count = s.Count() }).OrderByDescending(y => y.Count).Take(4);
 
             //productReviewVM.Bestsellers = new();
