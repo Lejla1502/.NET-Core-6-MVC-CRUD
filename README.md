@@ -68,7 +68,7 @@ placing the order.
 ![scr6](https://user-images.githubusercontent.com/22219433/183261063-1b03187c-70f0-4296-ada7-256170bfa43b.png)
 
 ### List of products
-![scr7](https://user-images.githubusercontent.com/22219433/185791481-7b43d3c0-8a40-4a8b-937f-88b0c16957ef.png)
+![scr7](https://user-images.githubusercontent.com/22219433/185792103-a3dd3a64-43c8-49c6-a86c-de217f62bb5b.png)
 
 ### Change featured product (on homepage)
 ![scr7_3](https://user-images.githubusercontent.com/22219433/185786442-15fef71c-dd3d-4e20-a149-71f907ae4d9b.png)
@@ -89,6 +89,9 @@ placing the order.
 ### Updating company
 
 ![scr9](https://user-images.githubusercontent.com/22219433/183261082-0160bd39-eebb-42da-afca-629e530dc01b.png)
+
+### List of authors
+![scr13](https://user-images.githubusercontent.com/22219433/185792221-9d4882a0-abd2-4357-97e9-f19ce1ccf39a.png)
 
 ### Order summary
 ![scr10](https://user-images.githubusercontent.com/22219433/183261086-e47d8e28-b34a-4318-b1ac-7aa072ff9a1a.png)
