@@ -82,7 +82,7 @@ namespace BulkyBookWeb.Areas.Admin.Controllers
                     Id=x.Id,
                     FirstName = x.FirstName,
                     LastName = x.LastName,
-                    NumOfBooks =2
+                    NumOfBooks =_unitOfWork.AuthorProduct.GetAll(y=>y.AuthorId==x.Id).Count()
                 }).ToList()
             };
 
