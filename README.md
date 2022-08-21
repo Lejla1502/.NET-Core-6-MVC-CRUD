@@ -90,6 +90,9 @@ placing the order.
 
 ![scr9](https://user-images.githubusercontent.com/22219433/183261082-0160bd39-eebb-42da-afca-629e530dc01b.png)
 
+### List of authors
+![scr13](https://user-images.githubusercontent.com/22219433/185792221-9d4882a0-abd2-4357-97e9-f19ce1ccf39a.png)
+
 ### Order summary
 ![scr10](https://user-images.githubusercontent.com/22219433/183261086-e47d8e28-b34a-4318-b1ac-7aa072ff9a1a.png)
 
