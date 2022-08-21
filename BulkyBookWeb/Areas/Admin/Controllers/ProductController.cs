@@ -339,6 +339,19 @@ namespace BulkyBookWeb.Areas.Admin.Controllers
             return RedirectToAction("Index");
         }
 
+        [AcceptVerbs("GET", "POST")]
+        public IActionResult VerifyISBN([Bind(Prefix = "Product.ISBN")] string ISBN)
+            {
+            List<Product> products = _unitOfWork.Product.GetAll().ToList();
+            foreach (Product p in products)
+            {
+                if (p.ISBN.Equals(ISBN))
+                    return Json($"ISBN {ISBN} already exists in database.");
+            }
+
+            return Json(true);
+        }
+
         //here we create API endpoints for datatable
         #region API CALLS
         [HttpGet]
