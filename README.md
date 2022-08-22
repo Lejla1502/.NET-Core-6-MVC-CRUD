@@ -79,7 +79,7 @@ placing the order.
 ![scr7_b](https://user-images.githubusercontent.com/22219433/185207566-ee2cd510-9d48-4305-9d04-26ee2b6dff45.png)
 
 ### Adding new author for product (popup)
-![scr7_c](https://user-images.githubusercontent.com/22219433/185207568-ab207b24-c7d3-4f88-b1d0-24c16f41e1bc.png)
+![scr7_c](https://user-images.githubusercontent.com/22219433/185980100-ddbf5001-7590-4ce0-bff1-cf3d28057141.png)
 
 ### Updating product
 ![scr8_a](https://user-images.githubusercontent.com/22219433/183261405-c726d7dd-f939-4f04-b8aa-082fe124c07a.png)
