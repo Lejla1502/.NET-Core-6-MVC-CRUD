@@ -90,8 +90,11 @@
 		
 	                </div>
                     <button type="button"  class="btn btn-primary" id = "close-btn" data-save="modal">
-                    Close
-                </button>
+                        Close
+                    </button>
+                    <button onclick="closePopup()" id="discard-author" type="button" style="float-right" class="btn btn-secondary">
+                        Discard
+                    </button>
                 </form>
             </div>
         </div>
@@ -347,50 +350,7 @@
         });
 
 $(function() {
-    //var popup = $('#wrapper');
-    //$('button[data-toggle="ajax-modal"]').click(function(event) {
-    //    var url = $(this).data('url');
-    //    alert(url);
-    //    var edcodedUrl = decodeURIComponent(url);
-    //    $.get(url).done(function(data){
-    //        popup.html(data);
-    //        $("#addNewProduct :input").prop("disabled", true);
-    //        document.getElementById('wrapper').style.visibility = "visible";
-    //    })
-    //})
-
-    //$('button[btn-type="create"]').click(function(event) {
-
-    //    var product = {
-    //                Id:0,
-    //              Title: $('#Product_Title').val(),
-    //              Description: tinyMCE.get('Product_Description').getContent(),
-    //              ISBN: $("#Product_ISBN").val(),
-    //              ListPrice: $("#Product_ListPrice").val(),
-    //              Price: $("#Product_Price").val(),
-    //              Price50: $("#Product_Price50").val(),
-    //              Price100: $("#Product_Price100").val(),
-    //              ImageUrl: $("#Product_ImageUrl").val(),
-    //              CategoryId: $("#Product_CategoryId").val(),
-    //              CoverTypeId: $("#Product_CoverTypeId").val()
-    //          };
-
-    //    var data=product;
-
-    //    $.ajax({
-    //        url: "/Admin/Product/Upsert/",
-    //        type: 'post',
-    //        data: product,
-    //        headers: { "RequestVerificationToken": $('input[name="__RequestVerificationToken"]').val() },
-
-    //        success: function() {
-    //            windows.localStorage.setItem("title", "");
-    //            windows.localStorage.setItem("ISBN", "");
-    //            windows.localStorage.setItem("description", "");
-    //        }
-
-    //    });
-    //});
+   
 
     var popup = $('#popup');
 
@@ -478,6 +438,11 @@ const product = {
             document.getElementById('wrapper').style.visibility = "visible";
             document.getElementById('Product_Description').style.zIndex = -1;
         });
+
+        function closePopup(){
+            document.getElementById('wrapper').style.visibility = "hidden"; 
+        }
+        
 
           //document.getElementById('close-btn').addEventListener('click', (e) => {
           //     $('#addNewAuthor').validate();

@@ -21,7 +21,7 @@ namespace BulkyBookWeb.Areas.Customer.Controllers
         public IActionResult Index( int? CategoryId, int? AuthorId, string BookTitle, int pg = 1)
         {
             //IEnumerable<Product> listOfProducts = _unitOfWork.Product.GetAll(includeProperties:"Category,CoverType");
-
+            
             ProductReviewVM productReviewVM = new ProductReviewVM();
 
             //if (CategoryId == null && String.IsNullOrEmpty(BookTitle) && AuthorId==null)
