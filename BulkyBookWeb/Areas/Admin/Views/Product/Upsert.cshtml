@@ -331,11 +331,11 @@
                 $('#addNewProduct').validate();
                 //event.preventDefault();
                 if (!$("#addNewProduct").valid()) {
-                    alert("not valid");
+                   // alert("not valid");
                     return false;
                 }
                 else {
-                    alert("valid");
+                   // alert("valid");
                    // $('#Product_Title').val("");
                     localStorage.setItem("submitted", "yes");
                     return true;
@@ -403,13 +403,13 @@ const product = {
                 
                var url = "/Admin/Product/Upsert";
 
-                 alert(product.Title);
+                 //alert(product.Title);
            window.location.reload();
       //     window.location = '/Admin/Product/Upsert' + @Model.Product;
-          alert(product.Title);
+          //alert(product.Title);
           }
         });
-        alert(product.Title);
+       // alert(product.Title);
          $.get(url).done(function(product){
                 //alert("done");
             })
@@ -418,7 +418,9 @@ const product = {
         //    //alert("done");
         //})
 
-       
+       //check if in this place we can inport the certain function to make suer
+       //everzthing is posted in the right 
+
 
         //$.post(url, author).done(function(data){
         //    document.getElementById('wrapper').style.visibility = "hidden";
