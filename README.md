@@ -43,6 +43,9 @@ placing the order.
 ### Home page
 ![](https://github.com/Lejla1502/.NET-Core-6-MVC-CRUD/blob/master/BulkyBookWeb/wwwroot/gif/Animation-2.gif)
 
+### Register
+![scr_register](https://user-images.githubusercontent.com/22219433/187072709-0f359a77-e677-41bc-bcbb-0e2c722a3b18.png)
+
 ### Library
 ![scr1](https://user-images.githubusercontent.com/22219433/183261040-9d36c922-9890-4602-8455-a233dccc5577.png)
 
